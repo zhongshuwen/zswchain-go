@@ -1292,7 +1292,7 @@ func (i *Uint128) FromHexStringBigEndian(hexString string) error {
 	return nil
 }
 func (i *Uint128) FromUuidString(uuidString string) error {
-	return i.FromHexString(strings.Replace(uuidString, "-", "", -1));
+	return i.FromHexStringBigEndian(strings.Replace(uuidString, "-", "", -1));
 }
 func NewUint128FromUint64(i uint64) Uint128 {
 	return Uint128{

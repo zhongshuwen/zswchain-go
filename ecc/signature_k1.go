@@ -47,7 +47,7 @@ func (s *innerK1Signature) publicKey(content []byte, hash []byte) (out PublicKey
 func (s innerK1Signature) string(content []byte) string {
 	checksum := ripemd160checksumHashCurve(content, CurveK1)
 	buf := append(content[:], checksum...)
-	return PublicKeyPrefixCompat + base58.Encode(buf)
+	return "SIG_K1_" + base58.Encode(buf)
 }
 
 func (s innerK1Signature) signatureMaterialSize() *int {

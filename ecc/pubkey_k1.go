@@ -23,7 +23,7 @@ func (p *innerK1PublicKey) key(content []byte) (*btcec.PublicKey, error) {
 }
 
 func (p *innerK1PublicKey) prefix() string {
-	return PublicKeyK1Prefix
+	return PublicKeyPrefixCompat
 }
 
 func (p *innerK1PublicKey) keyMaterialSize() *int {

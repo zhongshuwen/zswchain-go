@@ -20,7 +20,7 @@ changelog:
     - '^test:'
 
 builds:
-- skip: false
+- skip: true
 
 archives:
 - files:

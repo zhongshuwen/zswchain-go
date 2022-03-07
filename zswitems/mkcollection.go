@@ -8,8 +8,8 @@ func NewMakeCollection(authorizer zsw.AccountName, creator zsw.AccountName, issu
 		Account: AN("zsw.items"),
 		Name:    ActN("mkcollection"),
 		Authorization: []zsw.PermissionLevel{
-			{Actor: authorizer, Permission: PN("active")},
 			{Actor: creator, Permission: PN("active")},
+			{Actor: authorizer, Permission: PN("active")},
 		},
 		ActionData: zsw.NewActionData(MakeCollection{
 			Authorizer: authorizer,

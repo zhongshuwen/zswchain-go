@@ -14,7 +14,7 @@ func NewBuyRAM(payer, receiver zsw.AccountName, eosQuantity uint64) *zsw.Action 
 		ActionData: zsw.NewActionData(BuyRAM{
 			Payer:    payer,
 			Receiver: receiver,
-			Quantity: zsw.NewEOSAsset(int64(eosQuantity)),
+			Quantity: zsw.NewZSWAsset(int64(eosQuantity)),
 		}),
 	}
 	return a

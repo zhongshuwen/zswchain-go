@@ -502,7 +502,7 @@ var REXSymbol = Symbol{Precision: 4, Symbol: "REX"}
 // It's here just to speed up things.
 var TNTSymbol = Symbol{Precision: 4, Symbol: "TNT"}
 
-func NewEOSAsset(amount int64) Asset {
+func NewZSWAsset(amount int64) Asset {
 	return Asset{Amount: Int64(amount), Symbol: ZSWCCSymbol}
 }
 

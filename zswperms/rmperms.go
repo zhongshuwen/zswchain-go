@@ -4,7 +4,7 @@ import (
 	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewRemoveZswPerms(sender, user zsw.AccountName, permissions zsw.Uint128) *zsw.Action {
+func NewRemoveZswPerms(sender, user, scope zsw.AccountName, permissions zsw.Uint128) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.perms"),
 		Name:    ActN("rmperms"),
@@ -13,6 +13,7 @@ func NewRemoveZswPerms(sender, user zsw.AccountName, permissions zsw.Uint128) *z
 		},
 		ActionData: zsw.NewActionData(RemoveZswPerms{
 			Sender: sender,
+			Scope: scope,
 			User: user,
 			Permissions: permissions,
 		}),
@@ -22,6 +23,7 @@ func NewRemoveZswPerms(sender, user zsw.AccountName, permissions zsw.Uint128) *z
 
 type RemoveZswPerms struct {
   Sender zsw.AccountName `json:"sender"`
+  Scope zsw.AccountName `json:"scope"`
   User zsw.AccountName `json:"user"`
-  Permissions zsw.Uint128 `json:"permissions"`
+  Permissions zsw.Uint128 `json:"perm_bits"`
 }

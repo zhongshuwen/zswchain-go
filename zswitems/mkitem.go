@@ -9,6 +9,7 @@ func NewMakeItem(authorizer zsw.AccountName, creator zsw.AccountName, authorized
 		Name:    ActN("mkitem"),
 		Authorization: []zsw.PermissionLevel{
 			{Actor: authorizer, Permission: PN("active")},
+			{Actor: creator, Permission: PN("active")},
 		},
 		ActionData: zsw.NewActionData(MakeItem{
 			Authorizer: authorizer,

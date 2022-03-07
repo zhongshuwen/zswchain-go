@@ -22,6 +22,7 @@ type Signer interface {
 	Sign(ctx context.Context, tx *SignedTransaction, chainID []byte, requiredKeys ...ecc.PublicKey) (*SignedTransaction, error)
 
 	ImportPrivateKey(ctx context.Context, wifPrivKey string) error
+	ImportPrivateKeyFromEnv(ctx context.Context, envVarName string) error
 }
 
 // `zhongshuwenwd` wallet-based signer
@@ -39,6 +40,18 @@ func NewWalletSigner(api *API, walletName string) *WalletSigner {
 
 func (s *WalletSigner) ImportPrivateKey(ctx context.Context, wifKey string) (err error) {
 	return s.api.WalletImportKey(ctx, s.walletName, wifKey)
+}
+
+func (s *WalletSigner) ImportPrivateKeyFromEnv(ctx context.Context, envVarName string) error {
+	var envValue = os.Getenv(envVarName)
+	if len(envValue) == 0 {
+		return fmt.Errorf("missing required private key (密钥) environmental variable: '%s'", envVarName)
+	}
+	var err = s.api.WalletImportKey(ctx, s.walletName, envValue)
+	if err != nil {
+		return fmt.Errorf("invalid private key (密钥) environmental variable: '%s' (Error: %s)", envVarName, err)
+	}
+	return err
 }
 
 func (s *WalletSigner) AvailableKeys(ctx context.Context) (out []ecc.PublicKey, err error) {

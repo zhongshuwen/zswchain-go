@@ -14,7 +14,7 @@ var PublicKeyPrefix = "PUB_"
 var PublicKeyK1Prefix = "PUB_K1_"
 var PublicKeyR1Prefix = "PUB_R1_"
 var PublicKeyWAPrefix = "PUB_WA_"
-var PublicKeyPrefixCompat = "ZSWCC"
+var PublicKeyPrefixCompat = "EOS"
 
 var publicKeyDataSize = new(int)
 

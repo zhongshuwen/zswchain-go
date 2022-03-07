@@ -1264,8 +1264,35 @@ func (i *Uint128) FromHexString(hexString string) error {
 
 	return nil
 }
+
+func (i *Uint128) FromHexStringBigEndian(hexString string) error {
+	if len(hexString) != 32 {
+		return fmt.Errorf("Uint128 hex string must be 32 characters long")
+	}
+
+	loHex := hexString[:16]
+	hiHex := hexString[16:]
+
+	lo, err := hex.DecodeString(loHex)
+	if err != nil {
+		return err
+	}
+
+	hi, err := hex.DecodeString(hiHex)
+	if err != nil {
+		return err
+	}
+
+	loUint := binary.BigEndian.Uint64(lo)
+	hiUint := binary.BigEndian.Uint64(hi)
+
+	i.Lo = loUint
+	i.Hi = hiUint
+
+	return nil
+}
 func (i *Uint128) FromUuidString(uuidString string) error {
-	return i.FromHexString(strings.Replace(uuidString, "-", "", -1));
+	return i.FromHexStringBigEndian(strings.Replace(uuidString, "-", "", -1));
 }
 func NewUint128FromUint64(i uint64) Uint128 {
 	return Uint128{

@@ -5,13 +5,13 @@ import (
 )
 
 func init() {
-	eos.RegisterAction(AN("eosio.msig"), ActN("propose"), &Propose{})
-	eos.RegisterAction(AN("eosio.msig"), ActN("approve"), &Approve{})
-	eos.RegisterAction(AN("eosio.msig"), ActN("unapprove"), &Unapprove{})
-	eos.RegisterAction(AN("eosio.msig"), ActN("cancel"), &Cancel{})
-	eos.RegisterAction(AN("eosio.msig"), ActN("exec"), &Exec{})
+	zsw.RegisterAction(AN("zswhq.msig"), ActN("propose"), &Propose{})
+	zsw.RegisterAction(AN("zswhq.msig"), ActN("approve"), &Approve{})
+	zsw.RegisterAction(AN("zswhq.msig"), ActN("unapprove"), &Unapprove{})
+	zsw.RegisterAction(AN("zswhq.msig"), ActN("cancel"), &Cancel{})
+	zsw.RegisterAction(AN("zswhq.msig"), ActN("exec"), &Exec{})
 }
 
-var AN = eos.AN
-var PN = eos.PN
-var ActN = eos.ActN
+var AN = zsw.AN
+var PN = zsw.PN
+var ActN = zsw.ActN

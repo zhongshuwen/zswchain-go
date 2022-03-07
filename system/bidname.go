@@ -1,17 +1,17 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewBidname(bidder, newname eos.AccountName, bid eos.Asset) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewBidname(bidder, newname zsw.AccountName, bid zsw.Asset) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("bidname"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{Actor: bidder, Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(Bidname{
+		ActionData: zsw.NewActionData(Bidname{
 			Bidder:  bidder,
 			Newname: newname,
 			Bid:     bid,
@@ -22,7 +22,7 @@ func NewBidname(bidder, newname eos.AccountName, bid eos.Asset) *eos.Action {
 
 // Bidname represents the `eosio.system_contract::bidname` action.
 type Bidname struct {
-	Bidder  eos.AccountName `json:"bidder"`
-	Newname eos.AccountName `json:"newname"`
-	Bid     eos.Asset       `json:"bid"` // specified in EOS
+	Bidder  zsw.AccountName `json:"bidder"`
+	Newname zsw.AccountName `json:"newname"`
+	Bid     zsw.Asset       `json:"bid"` // specified in EOS
 }

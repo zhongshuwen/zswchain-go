@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"fmt"
@@ -72,7 +72,7 @@ func (e APIError) Error() string {
 //  		"what": "unspecified",
 //  		"details": [
 //		 		{
-//		 			"message": "unknown key (<... redacted ...>): (0 eos.rex)",
+//		 			"message": "unknown key (<... redacted ...>): (0 zsw.rex)",
 //		 			"file": "http_plugin.cpp",
 //		 			"line_number": 589,
 //		 			"method": "handle_exception"

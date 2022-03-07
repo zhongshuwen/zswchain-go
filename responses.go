@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"encoding/hex"
@@ -18,7 +18,7 @@ import (
   "last_irreversible_block_id": "00000008f98f0580d7efe7abc60abaaf8a865c9428a4267df30ff7d1937a1084",
   "head_block_id": "00000009ecd0e9fb5719431f4b86f5c9ca1887f6b6f73e5a301aaff740fd6bd3",
   "head_block_time": "2018-05-19T07:47:31",
-  "head_block_producer": "eosio",
+  "head_block_producer": "zswhq",
   "virtual_block_cpu_limit": 100800,
   "virtual_block_net_limit": 1056996,
   "block_cpu_limit": 99900,

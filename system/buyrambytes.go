@@ -1,19 +1,19 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewBuyRAMBytes will buy at current market price a given number of
 // bytes of RAM, and grant them to the `receiver` account.
-func NewBuyRAMBytes(payer, receiver eos.AccountName, bytes uint32) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewBuyRAMBytes(payer, receiver zsw.AccountName, bytes uint32) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("buyrambytes"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: payer, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: payer, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(BuyRAMBytes{
+		ActionData: zsw.NewActionData(BuyRAMBytes{
 			Payer:    payer,
 			Receiver: receiver,
 			Bytes:    bytes,
@@ -24,7 +24,7 @@ func NewBuyRAMBytes(payer, receiver eos.AccountName, bytes uint32) *eos.Action {
 
 // BuyRAMBytes represents the `eosio.system::buyrambytes` action.
 type BuyRAMBytes struct {
-	Payer    eos.AccountName `json:"payer"`
-	Receiver eos.AccountName `json:"receiver"`
+	Payer    zsw.AccountName `json:"payer"`
+	Receiver zsw.AccountName `json:"receiver"`
 	Bytes    uint32          `json:"bytes"`
 }

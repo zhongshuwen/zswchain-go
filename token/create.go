@@ -1,15 +1,15 @@
 package token
 
-import eos "github.com/zhongshuwen/zswchain-go"
+import zsw "github.com/zhongshuwen/zswchain-go"
 
-func NewCreate(issuer eos.AccountName, maxSupply eos.Asset) *eos.Action {
-	return &eos.Action{
-		Account: AN("eosio.token"),
+func NewCreate(issuer zsw.AccountName, maxSupply zsw.Asset) *zsw.Action {
+	return &zsw.Action{
+		Account: AN("zswhq.token"),
 		Name:    ActN("create"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: AN("eosio.token"), Permission: PN("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: AN("zswhq.token"), Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(Create{
+		ActionData: zsw.NewActionData(Create{
 			Issuer:        issuer,
 			MaximumSupply: maxSupply,
 		}),
@@ -18,6 +18,6 @@ func NewCreate(issuer eos.AccountName, maxSupply eos.Asset) *eos.Action {
 
 // Create represents the `create` struct on the `eosio.token` contract.
 type Create struct {
-	Issuer        eos.AccountName `json:"issuer"`
-	MaximumSupply eos.Asset       `json:"maximum_supply"`
+	Issuer        zsw.AccountName `json:"issuer"`
+	MaximumSupply zsw.Asset       `json:"maximum_supply"`
 }

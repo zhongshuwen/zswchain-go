@@ -8,9 +8,9 @@
 它还明白端口9876上的P2P协议。
 
 截至6月的发布之前，这个库不断的在变化。 先不要期望稳定性，
-因为我们要追着主网 `eosio` 代码库的脚步，而它的变化又那么快。
+因为我们要追着主网 `zswhq` 代码库的脚步，而它的变化又那么快。
 
-该库主网启动编排工具是 `eosio` 的基础，网址：
+该库主网启动编排工具是 `zswhq` 的基础，网址：
 https://github.com/eoscanada/eos-bios
 
 ### 基本用法
@@ -23,12 +23,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 	cli "github.com/streamingfast/cli"
 )
 
 func main() {
-	api := eos.New("https://api.eosn.io")
+	api := zsw.New("https://api.eosn.io")
 	ctx := context.Background()
 
 	infoResp, err := api.GetInfo(ctx)
@@ -36,7 +36,7 @@ func main() {
 
 	fmt.Println("Chain Info", toJson(infoResp))
 
-	accountResp, _ := api.GetAccount(ctx, "eosio")
+	accountResp, _ := api.GetAccount(ctx, "zswhq")
 	fmt.Println("Account Info", toJson(accountResp))
 }
 

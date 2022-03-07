@@ -1,4 +1,4 @@
-package eos_test
+package zsw_test
 
 import "os"
 

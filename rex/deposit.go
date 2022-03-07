@@ -1,17 +1,17 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewDeposit(owner eos.AccountName, amount eos.Asset) *eos.Action {
-	return &eos.Action{
+func NewDeposit(owner zsw.AccountName, amount zsw.Asset) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("deposit"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: owner, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: owner, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(Deposit{
+		ActionData: zsw.NewActionData(Deposit{
 			Owner:  owner,
 			Amount: amount,
 		}),
@@ -19,6 +19,6 @@ func NewDeposit(owner eos.AccountName, amount eos.Asset) *eos.Action {
 }
 
 type Deposit struct {
-	Owner  eos.AccountName
-	Amount eos.Asset
+	Owner  zsw.AccountName
+	Amount zsw.Asset
 }

@@ -6,14 +6,14 @@ import "github.com/zhongshuwen/zswchain-go"
 // `eosio.bios` contract. It should exist only when booting a new
 // network, as it is replaced using the `eos-bios` boot process by the
 // `eosio.system` contract.
-func NewNonce(nonce string) *eos.Action {
-	a := &eos.Action{
-		Account:       AN("eosio"),
+func NewNonce(nonce string) *zsw.Action {
+	a := &zsw.Action{
+		Account:       AN("zswhq"),
 		Name:          ActN("nonce"),
-		Authorization: []eos.PermissionLevel{
-			//{Actor: AN("eosio"), Permission: PN("active")},
+		Authorization: []zsw.PermissionLevel{
+			//{Actor: AN("zswhq"), Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(Nonce{
+		ActionData: zsw.NewActionData(Nonce{
 			Value: nonce,
 		}),
 	}

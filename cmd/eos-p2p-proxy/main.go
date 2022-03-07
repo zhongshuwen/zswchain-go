@@ -31,20 +31,20 @@ func main() {
 	}
 
 	proxy := p2p.NewProxy(
-		p2p.NewOutgoingPeer(*peer1, "eos-proxy", nil),
-		p2p.NewOutgoingPeer(*peer2, "eos-proxy", &p2p.HandshakeInfo{
+		p2p.NewOutgoingPeer(*peer1, "zsw-proxy", nil),
+		p2p.NewOutgoingPeer(*peer2, "zsw-proxy", &p2p.HandshakeInfo{
 			ChainID: cID,
 		}),
 	)
 
 	//proxy := p2p.NewProxy(
-	//	p2p.NewOutgoingPeer("localhost:9876", chainID, "eos-proxy", false),
-	//	p2p.NewIncommingPeer("localhost:1111", chainID, "eos-proxy"),
+	//	p2p.NewOutgoingPeer("localhost:9876", chainID, "zsw-proxy", false),
+	//	p2p.NewIncommingPeer("localhost:1111", chainID, "zsw-proxy"),
 	//)
 
 	//proxy := p2p.NewProxy(
-	//	p2p.NewIncommingPeer("localhost:2222", "eos-proxy"),
-	//	p2p.NewIncommingPeer("localhost:1111", "eos-proxy"),
+	//	p2p.NewIncommingPeer("localhost:2222", "zsw-proxy"),
+	//	p2p.NewIncommingPeer("localhost:1111", "zsw-proxy"),
 	//)
 
 	proxy.RegisterHandler(p2p.StringLoggerHandler)

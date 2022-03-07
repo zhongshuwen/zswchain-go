@@ -1,17 +1,17 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewMoveFromSavings(owner eos.AccountName, rex eos.Asset) *eos.Action {
-	return &eos.Action{
+func NewMoveFromSavings(owner zsw.AccountName, rex zsw.Asset) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("mvfrsavings"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: owner, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: owner, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(MoveFromSavings{
+		ActionData: zsw.NewActionData(MoveFromSavings{
 			Owner: owner,
 			REX:   rex,
 		}),
@@ -19,6 +19,6 @@ func NewMoveFromSavings(owner eos.AccountName, rex eos.Asset) *eos.Action {
 }
 
 type MoveFromSavings struct {
-	Owner eos.AccountName
-	REX   eos.Asset
+	Owner zsw.AccountName
+	REX   zsw.Asset
 }

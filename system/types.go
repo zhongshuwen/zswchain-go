@@ -1,10 +1,10 @@
 package system
 
-import eos "github.com/zhongshuwen/zswchain-go"
+import zsw "github.com/zhongshuwen/zswchain-go"
 
 // BlockchainParameters are all the params we can set through `setparams`.
 type BlockchainParameters struct {
-	MaxBlockNetUsage               eos.Uint64 `json:"max_block_net_usage"`
+	MaxBlockNetUsage               zsw.Uint64 `json:"max_block_net_usage"`
 	TargetBlockNetUsagePct         uint32     `json:"target_block_net_usage_pct"`
 	MaxTransactionNetUsage         uint32     `json:"max_transaction_net_usage"`
 	BasePerTransactionNetUsage     uint32     `json:"base_per_transaction_net_usage"`
@@ -29,9 +29,9 @@ type BlockchainParameters struct {
 
 type EOSIOGlobalState struct {
 	BlockchainParameters
-	TotalStorageBytesReserved eos.Uint64 `json:"total_storage_bytes_reserved"`
-	TotalStorageStake         eos.Uint64 `json:"total_storage_stake"`
-	PaymentPerBlock           eos.Uint64 `json:"payment_per_block"`
+	TotalStorageBytesReserved zsw.Uint64 `json:"total_storage_bytes_reserved"`
+	TotalStorageStake         zsw.Uint64 `json:"total_storage_stake"`
+	PaymentPerBlock           zsw.Uint64 `json:"payment_per_block"`
 }
 
 // Nonce represents the `eosio.system::nonce` action. It is used to

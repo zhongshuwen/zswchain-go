@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"strings"
@@ -80,8 +80,8 @@ var base32Alphabet = []byte(".12345abcdefghijklmnopqrstuvwxyz")
 var eosioNameUint64 = uint64(6138663577826885632)
 var eosioTokenNameUint64 = uint64(6138663591592764928)
 var cachedNames = map[uint64]string{
-	6138663577826885632: "eosio",
-	6138663591592764928: "eosio.token",
+	6138663577826885632: "zswhq",
+	6138663591592764928: "zswhq.token",
 }
 
 func NameToString(in uint64) string {

@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"bytes"
@@ -73,7 +73,7 @@ var abiString = `
 
 var abiData = []byte(`{
 	"struct_2_field_1": "struct_2_field_1_value",
-	"struct_1_field_1": Name("eoscanadacom"),
+	"struct_1_field_1": Name("zhongshuwen1"),
 	"struct_1_field_2": M{
 		"struct_3_field_1": "struct_3_field_1_value",
 	},
@@ -269,7 +269,7 @@ func TestABI_Write(t *testing.T) {
 		{"caseName": "time_point_sec err", "typeName": "time_point_sec", "expectedValue": "01000000g", "json": "{\"testField\":\"bad date\"", "expectedError": fmt.Errorf("writing field: time_point_sec: parsing time \"bad date\" as \"2006-01-02T15:04:05\": cannot parse \"bad date\" as \"2006\"")},
 		{"caseName": "block_timestamp_type", "typeName": "block_timestamp_type", "expectedValue": "ec8a4546", "json": "{\"testField\":\"2018-09-05T12:48:54-04:00\"}", "expectedError": nil},
 		{"caseName": "block_timestamp_type err", "typeName": "block_timestamp_type", "expectedValue": "ec8a4546", "json": "{\"testField\":\"this is not a date\"}", "expectedError": fmt.Errorf("writing field: block_timestamp_type: parsing time \"this is not a date\" as \"2006-01-02T15:04:05.999999-07:00\": cannot parse \"this is not a date\" as \"2006\"")},
-		{"caseName": "Name", "typeName": "name", "expectedValue": "0000000000ea3055", "json": "{\"testField\":\"eosio\"}", "expectedError": nil},
+		{"caseName": "Name", "typeName": "name", "expectedValue": "0000000000ea3055", "json": "{\"testField\":\"zswhq\"}", "expectedError": nil},
 		{"caseName": "Name", "typeName": "name", "expectedValue": "", "json": "{\"testField\":\"waytolongnametomakethetestcrash\"}", "expectedError": fmt.Errorf("writing field: name: waytolongnametomakethetestcrash is to long. expected length of max 12 characters")},
 		{"caseName": "bytes", "typeName": "bytes", "expectedValue": "0e746869732e69732e612e74657374", "json": "{\"testField\":\"746869732e69732e612e74657374\"}", "expectedError": nil},
 		{"caseName": "bytes err", "typeName": "bytes", "expectedValue": "0e746869732e69732e612e74657374", "json": "{\"testField\":\"those are not bytes\"}", "expectedError": fmt.Errorf("writing field: bytes: encoding/hex: invalid byte: U+0074 't'")},
@@ -292,8 +292,8 @@ func TestABI_Write(t *testing.T) {
 		{"caseName": "symbol_code", "typeName": "symbol_code", "expectedValue": "ffffffffffffffff", "json": "{\"testField\":18446744073709551615}", "expectedError": nil},
 		{"caseName": "asset", "typeName": "asset", "expectedValue": "a08601000000000004454f5300000000", "json": "{\"testField\":\"10.0000 EOS\"}", "expectedError": nil},
 		{"caseName": "asset err", "typeName": "asset", "expectedValue": "", "json": "{\"testField\":\"AA.0000 EOS\"}", "expectedError": fmt.Errorf("writing field: asset: strconv.ParseInt: parsing \"AA0000\": invalid syntax")},
-		{"caseName": "extended_asset", "typeName": "extended_asset", "expectedValue": "0a0000000000000004454f5300000000202932c94c833055", "json": "{\"testField\":{\"quantity\":\"0.0010 EOS\",\"contract\":\"eoscanadacom\"}}", "expectedError": nil},
-		{"caseName": "extended_asset err", "typeName": "extended_asset", "expectedValue": "", "json": "{\"testField\":{\"quantity\":\"abc.0010 EOS\",\"contract\":\"eoscanadacom\"}}", "expectedError": fmt.Errorf("writing field: extended_asset: strconv.ParseInt: parsing \"abc0010\": invalid syntax")},
+		{"caseName": "extended_asset", "typeName": "extended_asset", "expectedValue": "0a0000000000000004454f5300000000202932c94c833055", "json": "{\"testField\":{\"quantity\":\"0.0010 EOS\",\"contract\":\"zhongshuwen1\"}}", "expectedError": nil},
+		{"caseName": "extended_asset err", "typeName": "extended_asset", "expectedValue": "", "json": "{\"testField\":{\"quantity\":\"abc.0010 EOS\",\"contract\":\"zhongshuwen1\"}}", "expectedError": fmt.Errorf("writing field: extended_asset: strconv.ParseInt: parsing \"abc0010\": invalid syntax")},
 		{"caseName": "bad type", "typeName": "bad.type.1", "expectedValue": nil, "json": "{\"testField\":0}", "expectedError": fmt.Errorf("writing field of type [bad.type.1]: unknown type")},
 		{"caseName": "optional present", "typeName": "string", "expectedValue": "0776616c75652e31", "json": "{\"testField\":\"value.1\"}", "expectedError": nil},
 		{"caseName": "struct", "typeName": "struct_name_1", "expectedValue": "0e746869732e69732e612e74657374", "json": "{\"testField\": {\"field_name_1\":\"this.is.a.test\"}}", "expectedError": nil},

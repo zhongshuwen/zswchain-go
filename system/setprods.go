@@ -1,7 +1,7 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
@@ -9,14 +9,14 @@ import (
 // `eosio.bios` contract. It should exist only when booting a new
 // network, as it is replaced using the `eos-bios` boot process by the
 // `eosio.system` contract.
-func NewSetProds(producers []ProducerKey) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewSetProds(producers []ProducerKey) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("setprods"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: AN("eosio"), Permission: PN("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: AN("zswhq"), Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(SetProds{
+		ActionData: zsw.NewActionData(SetProds{
 			Schedule: producers,
 		}),
 	}
@@ -29,6 +29,6 @@ type SetProds struct {
 }
 
 type ProducerKey struct {
-	ProducerName    eos.AccountName `json:"producer_name"`
+	ProducerName    zsw.AccountName `json:"producer_name"`
 	BlockSigningKey ecc.PublicKey   `json:"block_signing_key"`
 }

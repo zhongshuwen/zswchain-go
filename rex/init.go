@@ -1,30 +1,30 @@
 package rex
 
-import eos "github.com/zhongshuwen/zswchain-go"
+import zsw "github.com/zhongshuwen/zswchain-go"
 
 func init() {
-	eos.RegisterAction(REXAN, ActN("buyrex"), BuyREX{})
-	eos.RegisterAction(REXAN, ActN("closerex"), CloseREX{})
-	eos.RegisterAction(REXAN, ActN("cnclrexorder"), CancelREXOrder{})
-	eos.RegisterAction(REXAN, ActN("consolidate"), Consolidate{})
-	eos.RegisterAction(REXAN, ActN("defcpuloan"), DefundCPULoan{})
-	eos.RegisterAction(REXAN, ActN("defnetloan"), DefundNetLoan{})
-	eos.RegisterAction(REXAN, ActN("deposit"), Deposit{})
-	eos.RegisterAction(REXAN, ActN("fundcpuloan"), FundCPULoan{})
-	eos.RegisterAction(REXAN, ActN("fundnetloan"), FundNetLoan{})
-	eos.RegisterAction(REXAN, ActN("mvfrsavings"), MoveFromSavings{})
-	eos.RegisterAction(REXAN, ActN("mvtosavings"), MoveToSavings{})
-	eos.RegisterAction(REXAN, ActN("rentcpu"), RentCPU{})
-	eos.RegisterAction(REXAN, ActN("rentnet"), RentNet{})
-	eos.RegisterAction(REXAN, ActN("rexexec"), REXExec{})
-	eos.RegisterAction(REXAN, ActN("sellrex"), SellREX{})
-	eos.RegisterAction(REXAN, ActN("unstaketorex"), UnstakeToREX{})
-	eos.RegisterAction(REXAN, ActN("updaterex"), UpdateREX{})
-	eos.RegisterAction(REXAN, ActN("withdraw"), Withdraw{})
+	zsw.RegisterAction(REXAN, ActN("buyrex"), BuyREX{})
+	zsw.RegisterAction(REXAN, ActN("closerex"), CloseREX{})
+	zsw.RegisterAction(REXAN, ActN("cnclrexorder"), CancelREXOrder{})
+	zsw.RegisterAction(REXAN, ActN("consolidate"), Consolidate{})
+	zsw.RegisterAction(REXAN, ActN("defcpuloan"), DefundCPULoan{})
+	zsw.RegisterAction(REXAN, ActN("defnetloan"), DefundNetLoan{})
+	zsw.RegisterAction(REXAN, ActN("deposit"), Deposit{})
+	zsw.RegisterAction(REXAN, ActN("fundcpuloan"), FundCPULoan{})
+	zsw.RegisterAction(REXAN, ActN("fundnetloan"), FundNetLoan{})
+	zsw.RegisterAction(REXAN, ActN("mvfrsavings"), MoveFromSavings{})
+	zsw.RegisterAction(REXAN, ActN("mvtosavings"), MoveToSavings{})
+	zsw.RegisterAction(REXAN, ActN("rentcpu"), RentCPU{})
+	zsw.RegisterAction(REXAN, ActN("rentnet"), RentNet{})
+	zsw.RegisterAction(REXAN, ActN("rexexec"), REXExec{})
+	zsw.RegisterAction(REXAN, ActN("sellrex"), SellREX{})
+	zsw.RegisterAction(REXAN, ActN("unstaketorex"), UnstakeToREX{})
+	zsw.RegisterAction(REXAN, ActN("updaterex"), UpdateREX{})
+	zsw.RegisterAction(REXAN, ActN("withdraw"), Withdraw{})
 }
 
-var AN = eos.AN
-var PN = eos.PN
-var ActN = eos.ActN
+var AN = zsw.AN
+var PN = zsw.PN
+var ActN = zsw.ActN
 
-var REXAN = AN("eosio")
+var REXAN = AN("zswhq")

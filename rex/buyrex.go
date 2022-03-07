@@ -1,17 +1,17 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewBuyREX(from eos.AccountName, amount eos.Asset) *eos.Action {
-	return &eos.Action{
+func NewBuyREX(from zsw.AccountName, amount zsw.Asset) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("buyrex"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: from, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: from, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(BuyREX{
+		ActionData: zsw.NewActionData(BuyREX{
 			From:   from,
 			Amount: amount,
 		}),
@@ -19,6 +19,6 @@ func NewBuyREX(from eos.AccountName, amount eos.Asset) *eos.Action {
 }
 
 type BuyREX struct {
-	From   eos.AccountName
-	Amount eos.Asset
+	From   zsw.AccountName
+	Amount zsw.Asset
 }

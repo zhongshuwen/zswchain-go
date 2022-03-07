@@ -7,17 +7,17 @@ import "github.com/zhongshuwen/zswchain-go"
 //
 // usingPermission needs to be `owner` if you want to modify the
 // `owner` authorization, otherwise `active` will do for the rest.
-func NewUpdateAuth(account eos.AccountName, permission, parent eos.PermissionName, authority eos.Authority, usingPermission eos.PermissionName) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewUpdateAuth(account zsw.AccountName, permission, parent zsw.PermissionName, authority zsw.Authority, usingPermission zsw.PermissionName) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("updateauth"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{
 				Actor:      account,
 				Permission: usingPermission,
 			},
 		},
-		ActionData: eos.NewActionData(UpdateAuth{
+		ActionData: zsw.NewActionData(UpdateAuth{
 			Account:    account,
 			Permission: permission,
 			Parent:     parent,
@@ -34,8 +34,8 @@ func NewUpdateAuth(account eos.AccountName, permission, parent eos.PermissionNam
 //
 // If you change the `owner` permission, there should be no parent.
 type UpdateAuth struct {
-	Account    eos.AccountName    `json:"account"`
-	Permission eos.PermissionName `json:"permission"`
-	Parent     eos.PermissionName `json:"parent"`
-	Auth       eos.Authority      `json:"auth"`
+	Account    zsw.AccountName    `json:"account"`
+	Permission zsw.PermissionName `json:"permission"`
+	Parent     zsw.PermissionName `json:"parent"`
+	Auth       zsw.Authority      `json:"auth"`
 }

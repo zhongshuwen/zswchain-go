@@ -7,17 +7,17 @@ import "github.com/zhongshuwen/zswchain-go"
 //
 // `unlinkauth` detaches a previously set permission from a
 // `code::actionName`. See `linkauth`.
-func NewUnlinkAuth(account, code eos.AccountName, actionName eos.ActionName) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewUnlinkAuth(account, code zsw.AccountName, actionName zsw.ActionName) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("unlinkauth"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{
 				Actor:      account,
-				Permission: eos.PermissionName("active"),
+				Permission: zsw.PermissionName("active"),
 			},
 		},
-		ActionData: eos.NewActionData(UnlinkAuth{
+		ActionData: zsw.NewActionData(UnlinkAuth{
 			Account: account,
 			Code:    code,
 			Type:    actionName,
@@ -30,7 +30,7 @@ func NewUnlinkAuth(account, code eos.AccountName, actionName eos.ActionName) *eo
 // UnlinkAuth represents the native `unlinkauth` action, through the
 // system contract.
 type UnlinkAuth struct {
-	Account eos.AccountName `json:"account"`
-	Code    eos.AccountName `json:"code"`
-	Type    eos.ActionName  `json:"type"`
+	Account zsw.AccountName `json:"account"`
+	Code    zsw.AccountName `json:"code"`
+	Type    zsw.ActionName  `json:"type"`
 }

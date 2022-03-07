@@ -1,22 +1,22 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 func NewRentCPU(
-	from eos.AccountName,
-	receiver eos.AccountName,
-	loanPayment eos.Asset,
-	loanFund eos.Asset,
-) *eos.Action {
-	return &eos.Action{
+	from zsw.AccountName,
+	receiver zsw.AccountName,
+	loanPayment zsw.Asset,
+	loanFund zsw.Asset,
+) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("rentcpu"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: from, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: from, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(RentCPU{
+		ActionData: zsw.NewActionData(RentCPU{
 			From:        from,
 			Receiver:    receiver,
 			LoanPayment: loanPayment,
@@ -26,8 +26,8 @@ func NewRentCPU(
 }
 
 type RentCPU struct {
-	From        eos.AccountName
-	Receiver    eos.AccountName
-	LoanPayment eos.Asset
-	LoanFund    eos.Asset
+	From        zsw.AccountName
+	Receiver    zsw.AccountName
+	LoanPayment zsw.Asset
+	LoanFund    zsw.Asset
 }

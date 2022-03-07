@@ -24,32 +24,32 @@ type ContractRow struct {
 
 type KeyValueObject struct {
 	ContractRow
-	Value eos.HexBytes
+	Value zsw.HexBytes
 }
 
 type Index64Object struct {
 	ContractRow
-	SecondaryKey eos.Name
+	SecondaryKey zsw.Name
 }
 
 type Index128Object struct {
 	ContractRow
-	SecondaryKey eos.Uint128
+	SecondaryKey zsw.Uint128
 }
 
 type Index256Object struct {
 	ContractRow
-	SecondaryKey eos.Checksum256
+	SecondaryKey zsw.Checksum256
 }
 
 type IndexDoubleObject struct {
 	ContractRow
-	SecondaryKey eos.Float64
+	SecondaryKey zsw.Float64
 }
 
 type IndexLongDoubleObject struct {
 	ContractRow
-	SecondaryKey eos.Float128
+	SecondaryKey zsw.Float128
 }
 
 func readContractTables(section *Section, f sectionCallbackFunc) error {
@@ -86,10 +86,10 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 		}
 
 		t := &TableIDObject{
-			Code:      eos.NameToString(binary.LittleEndian.Uint64(head[0:8])),
-			Scope:     eos.NameToString(binary.LittleEndian.Uint64(head[8:16])),
-			TableName: eos.NameToString(binary.LittleEndian.Uint64(head[16:24])),
-			Payer:     eos.NameToString(binary.LittleEndian.Uint64(head[24:32])),
+			Code:      zsw.NameToString(binary.LittleEndian.Uint64(head[0:8])),
+			Scope:     zsw.NameToString(binary.LittleEndian.Uint64(head[8:16])),
+			TableName: zsw.NameToString(binary.LittleEndian.Uint64(head[16:24])),
+			Payer:     zsw.NameToString(binary.LittleEndian.Uint64(head[24:32])),
 			Count:     binary.LittleEndian.Uint32(head[32:36]),
 		}
 
@@ -114,8 +114,8 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 				}
 
 				contractRow := ContractRow{
-					PrimKey: eos.NameToString(binary.LittleEndian.Uint64(head[0:8])),
-					Payer:   eos.NameToString(binary.LittleEndian.Uint64(head[8:16])),
+					PrimKey: zsw.NameToString(binary.LittleEndian.Uint64(head[0:8])),
+					Payer:   zsw.NameToString(binary.LittleEndian.Uint64(head[8:16])),
 				}
 
 				var row interface{}
@@ -150,7 +150,7 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 					if readz != 8 {
 						return fmt.Errorf("incomplete read index64_object: %d out of 8", readz)
 					}
-					if err := eos.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
+					if err := zsw.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
 						return err
 					}
 					row = obj
@@ -161,7 +161,7 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 					if _, err = buf.Read(val); err != nil {
 						return err
 					}
-					if err := eos.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
+					if err := zsw.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
 						return err
 					}
 					row = obj
@@ -171,7 +171,7 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 					if _, err = buf.Read(val); err != nil {
 						return err
 					}
-					if err := eos.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
+					if err := zsw.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
 						return err
 					}
 					row = obj
@@ -181,7 +181,7 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 					if _, err = buf.Read(val); err != nil {
 						return err
 					}
-					if err := eos.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
+					if err := zsw.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
 						return err
 					}
 					row = obj
@@ -191,7 +191,7 @@ func readContractTables(section *Section, f sectionCallbackFunc) error {
 					if _, err = buf.Read(val); err != nil {
 						return err
 					}
-					if err := eos.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
+					if err := zsw.UnmarshalBinary(val, &obj.SecondaryKey); err != nil {
 						return err
 					}
 					row = obj
@@ -212,24 +212,24 @@ type BlockState struct {
 	BlockNum                         uint32                         `json:"block_num"`
 	DposProposedIrreversibleBlocknum uint32                         `json:"dpos_proposed_irreversible_blocknum"`
 	DposIrreversibleBlocknum         uint32                         `json:"dpos_irreversible_blocknum"`
-	ActiveSchedule                   *eos.ProducerAuthoritySchedule `json:"active_schedule"`
-	BlockrootMerkle                  *eos.MerkleRoot                `json:"blockroot_merkle"`
-	ProducerToLastProduced           []eos.PairAccountNameBlockNum  `json:"producer_to_last_produced"`
-	ProducerToLastImpliedIrb         []eos.PairAccountNameBlockNum  `json:"producer_to_last_implied_irb"`
-	BlockSigningKey                  *eos.BlockSigningAuthority     `json:"block_signing_key"`
+	ActiveSchedule                   *zsw.ProducerAuthoritySchedule `json:"active_schedule"`
+	BlockrootMerkle                  *zsw.MerkleRoot                `json:"blockroot_merkle"`
+	ProducerToLastProduced           []zsw.PairAccountNameBlockNum  `json:"producer_to_last_produced"`
+	ProducerToLastImpliedIrb         []zsw.PairAccountNameBlockNum  `json:"producer_to_last_implied_irb"`
+	BlockSigningKey                  *zsw.BlockSigningAuthority     `json:"block_signing_key"`
 	ConfirmCount                     []uint8                        `json:"confirm_count"`
 
 	// from block_header_state
-	BlockID                   eos.Checksum256                   `json:"id"`
-	Header                    *eos.SignedBlockHeader            `json:"header"`
+	BlockID                   zsw.Checksum256                   `json:"id"`
+	Header                    *zsw.SignedBlockHeader            `json:"header"`
 	PendingSchedule           *ScheduleInfo                     `json:"pending_schedule"`
-	ActivatedProtocolFeatures *eos.ProtocolFeatureActivationSet `json:"activated_protocol_features"`
+	ActivatedProtocolFeatures *zsw.ProtocolFeatureActivationSet `json:"activated_protocol_features"`
 }
 
 type ScheduleInfo struct {
 	ScheduleLIBNum uint32                         `json:"schedule_lib_num"`
-	ScheduleHash   eos.Checksum256                `json:"schedule_hash"`
-	Schedule       *eos.ProducerAuthoritySchedule `json:"schedule"`
+	ScheduleHash   zsw.Checksum256                `json:"schedule_hash"`
+	Schedule       *zsw.ProducerAuthoritySchedule `json:"schedule"`
 }
 
 func readBlockState(section *Section, f sectionCallbackFunc) (err error) {
@@ -240,7 +240,7 @@ func readBlockState(section *Section, f sectionCallbackFunc) (err error) {
 	}
 
 	var state BlockState
-	err = eos.UnmarshalBinary(cnt, &state)
+	err = zsw.UnmarshalBinary(cnt, &state)
 	if err != nil {
 		return
 	}
@@ -255,8 +255,8 @@ func readBlockState(section *Section, f sectionCallbackFunc) (err error) {
 ////
 
 type AccountObject struct {
-	Name         eos.AccountName
-	CreationDate eos.BlockTimestamp
+	Name         zsw.AccountName
+	CreationDate zsw.BlockTimestamp
 	RawABI       []byte
 }
 
@@ -269,11 +269,11 @@ func readAccountObjects(section *Section, f sectionCallbackFunc) error {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt[:8], &a.Name); err != nil {
+		if err := zsw.UnmarshalBinary(cnt[:8], &a.Name); err != nil {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt[8:12], &a.CreationDate); err != nil {
+		if err := zsw.UnmarshalBinary(cnt[8:12], &a.CreationDate); err != nil {
 			return err
 		}
 
@@ -294,13 +294,13 @@ func readAccountObjects(section *Section, f sectionCallbackFunc) error {
 ////
 
 type AccountMetadataObject struct {
-	Name           eos.AccountName //< name should not be changed within a chainbase modifier lambda
-	RecvSequence   eos.Uint64
-	AuthSequence   eos.Uint64
-	CodeSequence   eos.Uint64
-	ABISequence    eos.Uint64
-	CodeHash       eos.Checksum256
-	LastCodeUpdate eos.TimePoint
+	Name           zsw.AccountName //< name should not be changed within a chainbase modifier lambda
+	RecvSequence   zsw.Uint64
+	AuthSequence   zsw.Uint64
+	CodeSequence   zsw.Uint64
+	ABISequence    zsw.Uint64
+	CodeHash       zsw.Checksum256
+	LastCodeUpdate zsw.TimePoint
 	Flags          uint32 // First flag means "privileged".
 	VMType         byte
 	VMVersion      byte
@@ -315,7 +315,7 @@ func readAccountMetadataObjects(section *Section, f sectionCallbackFunc) error {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 
@@ -340,7 +340,7 @@ func readChainSnapshotHeader(section *Section, f sectionCallbackFunc) error {
 	}
 
 	var header ChainSnapshotHeader
-	err = eos.UnmarshalBinary(cnt, &header)
+	err = zsw.UnmarshalBinary(cnt, &header)
 	if err != nil {
 		return err
 	}
@@ -354,9 +354,9 @@ func readChainSnapshotHeader(section *Section, f sectionCallbackFunc) error {
 
 type GlobalPropertyObject struct {
 	ProposedScheduleBlockNum uint32 `eos:"optional"`
-	ProposedSchedule         *eos.ProducerAuthoritySchedule
+	ProposedSchedule         *zsw.ProducerAuthoritySchedule
 	Configuration            ChainConfig
-	ChainID                  eos.Checksum256
+	ChainID                  zsw.Checksum256
 }
 
 func readGlobalPropertyObject(section *Section, f sectionCallbackFunc) error {
@@ -367,7 +367,7 @@ func readGlobalPropertyObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	var obj GlobalPropertyObject
-	err = eos.UnmarshalBinary(cnt, &obj)
+	err = zsw.UnmarshalBinary(cnt, &obj)
 	if err != nil {
 		return err
 	}
@@ -383,13 +383,13 @@ func readGlobalPropertyObject(section *Section, f sectionCallbackFunc) error {
 
 type ProtocolStateObject struct {
 	ActivatedProtocolFeatures    []*ActivatedProtocolFeature
-	PreactivatedProtocolFeatures []eos.Checksum256
+	PreactivatedProtocolFeatures []zsw.Checksum256
 	WhitelistedIntrinsics        []string
 	NumSupportedKeyTypes         uint32
 }
 
 type ActivatedProtocolFeature struct {
-	FeatureDigest      eos.Checksum256
+	FeatureDigest      zsw.Checksum256
 	ActivationBlockNum uint32
 }
 
@@ -401,7 +401,7 @@ func readProtocolStateObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	var obj ProtocolStateObject
-	err = eos.UnmarshalBinary(cnt, &obj)
+	err = zsw.UnmarshalBinary(cnt, &obj)
 	if err != nil {
 		return err
 	}
@@ -416,7 +416,7 @@ func readProtocolStateObject(section *Section, f sectionCallbackFunc) error {
 //
 
 type DynamicGlobalPropertyObject struct {
-	GlobalActionSequence eos.Uint64
+	GlobalActionSequence zsw.Uint64
 }
 
 func readDynamicGlobalPropertyObject(section *Section, f sectionCallbackFunc) error {
@@ -427,7 +427,7 @@ func readDynamicGlobalPropertyObject(section *Section, f sectionCallbackFunc) er
 	}
 
 	var obj DynamicGlobalPropertyObject
-	err = eos.UnmarshalBinary(cnt, &obj)
+	err = zsw.UnmarshalBinary(cnt, &obj)
 	if err != nil {
 		return err
 	}
@@ -442,8 +442,8 @@ func readDynamicGlobalPropertyObject(section *Section, f sectionCallbackFunc) er
 //
 
 type AccountRAMCorrectionObject struct {
-	Name          eos.AccountName
-	RAMCorrection eos.Uint64
+	Name          zsw.AccountName
+	RAMCorrection zsw.Uint64
 }
 
 func readAccountRAMCorrectionObject(section *Section, f sectionCallbackFunc) error {
@@ -455,7 +455,7 @@ func readAccountRAMCorrectionObject(section *Section, f sectionCallbackFunc) err
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 
@@ -469,7 +469,7 @@ func readAccountRAMCorrectionObject(section *Section, f sectionCallbackFunc) err
 //
 
 type BlockSummary struct {
-	BlockID eos.Checksum256
+	BlockID zsw.Checksum256
 }
 
 func readBlockSummary(section *Section, f sectionCallbackFunc) error {
@@ -481,7 +481,7 @@ func readBlockSummary(section *Section, f sectionCallbackFunc) error {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 
@@ -495,12 +495,12 @@ func readBlockSummary(section *Section, f sectionCallbackFunc) error {
 ///
 
 type PermissionObject struct { /* special snapshot version of the object */
-	Parent      eos.PermissionName ///< parent permission
-	Owner       eos.AccountName    ///< the account this permission belongs to
-	Name        eos.PermissionName ///< human-readable name for the permission
-	LastUpdated eos.TimePoint      ///< the last time this authority was updated
-	LastUsed    eos.TimePoint      ///< when this permission was last used
-	Auth        eos.Authority      ///< authority required to execute this permission
+	Parent      zsw.PermissionName ///< parent permission
+	Owner       zsw.AccountName    ///< the account this permission belongs to
+	Name        zsw.PermissionName ///< human-readable name for the permission
+	LastUpdated zsw.TimePoint      ///< the last time this authority was updated
+	LastUsed    zsw.TimePoint      ///< when this permission was last used
+	Auth        zsw.Authority      ///< authority required to execute this permission
 }
 
 func readPermissionObject(section *Section, f sectionCallbackFunc) error {
@@ -511,7 +511,7 @@ func readPermissionObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	for pos := 0; pos < int(section.BufferSize); {
-		d := eos.NewDecoder(cnt[pos:])
+		d := zsw.NewDecoder(cnt[pos:])
 		var po PermissionObject
 		err = d.Decode(&po)
 		if err != nil {
@@ -534,15 +534,15 @@ func readPermissionObject(section *Section, f sectionCallbackFunc) error {
 
 type PermissionLinkObject struct {
 	/// The account which is defining its permission requirements
-	Account eos.AccountName
+	Account zsw.AccountName
 	/// The contract which account requires @ref required_permission to invoke
-	Code eos.AccountName
+	Code zsw.AccountName
 	/// The message type which account requires @ref required_permission to invoke
 	/// May be empty; if so, it sets a default @ref required_permission for all messages to @ref code
-	MessageType eos.ActionName
+	MessageType zsw.ActionName
 	/// The permission level which @ref account requires for the specified message types
 	/// all of the above fields should not be changed within a chainbase modifier lambda
-	RequiredPermission eos.PermissionName
+	RequiredPermission zsw.PermissionName
 }
 
 func readPermissionLinkObject(section *Section, f sectionCallbackFunc) error {
@@ -553,7 +553,7 @@ func readPermissionLinkObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	for pos := 0; pos < int(section.BufferSize); {
-		d := eos.NewDecoder(cnt[pos:])
+		d := zsw.NewDecoder(cnt[pos:])
 		var po PermissionLinkObject
 		err = d.Decode(&po)
 		if err != nil {
@@ -573,11 +573,11 @@ func readPermissionLinkObject(section *Section, f sectionCallbackFunc) error {
 ////
 
 type ResourceLimitsObject struct {
-	Owner eos.AccountName //<  should not be changed within a chainbase modifier lambda
+	Owner zsw.AccountName //<  should not be changed within a chainbase modifier lambda
 
-	NetWeight eos.Int64
-	CPUWeight eos.Int64
-	RAMBytes  eos.Int64
+	NetWeight zsw.Int64
+	CPUWeight zsw.Int64
+	RAMBytes  zsw.Int64
 }
 
 func readResourceLimitsObject(section *Section, f sectionCallbackFunc) error {
@@ -589,7 +589,7 @@ func readResourceLimitsObject(section *Section, f sectionCallbackFunc) error {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 
@@ -603,12 +603,12 @@ func readResourceLimitsObject(section *Section, f sectionCallbackFunc) error {
 ////
 
 type ResourceUsageObject struct {
-	Owner eos.AccountName //< owner should not be changed within a chainbase modifier lambda
+	Owner zsw.AccountName //< owner should not be changed within a chainbase modifier lambda
 
 	NetUsage UsageAccumulator
 	CPUUsage UsageAccumulator
 
-	RAMUsage eos.Uint64
+	RAMUsage zsw.Uint64
 }
 
 func readResourceUsageObject(section *Section, f sectionCallbackFunc) error {
@@ -620,7 +620,7 @@ func readResourceUsageObject(section *Section, f sectionCallbackFunc) error {
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 
@@ -644,12 +644,12 @@ type ResourceLimitsStateObject struct {
 	 */
 	AverageBlockCPUUsage UsageAccumulator
 
-	PendingNetUsage eos.Uint64
-	PendingCPUUsage eos.Uint64
+	PendingNetUsage zsw.Uint64
+	PendingCPUUsage zsw.Uint64
 
-	TotalNetWeight eos.Uint64
-	TotalCPUWeight eos.Uint64
-	TotalRAMBytes  eos.Uint64
+	TotalNetWeight zsw.Uint64
+	TotalCPUWeight zsw.Uint64
+	TotalRAMBytes  zsw.Uint64
 
 	/**
 	 * The virtual number of bytes that would be consumed over blocksize_average_window_ms
@@ -666,18 +666,18 @@ type ResourceLimitsStateObject struct {
 	 * average_block_size > target_block_size, with a cap at 1000x max_block_size
 	 * and a floor at max_block_size;
 	 **/
-	VirtualNetLimit eos.Uint64
+	VirtualNetLimit zsw.Uint64
 
 	/**
 	 *  Increases when average_bloc
 	 */
-	VirtualCPULimit eos.Uint64
+	VirtualCPULimit zsw.Uint64
 }
 
 type UsageAccumulator struct {
 	LastOrdinal uint32     ///< The ordinal of the last period which has contributed to the average
-	ValueEx     eos.Uint64 ///< The current average pre-multiplied by Precision
-	Consumed    eos.Uint64 ///< The last periods average + the current periods contribution so far
+	ValueEx     zsw.Uint64 ///< The current average pre-multiplied by Precision
+	Consumed    zsw.Uint64 ///< The last periods average + the current periods contribution so far
 }
 
 func readResourceLimitsStateObject(section *Section, f sectionCallbackFunc) error {
@@ -688,7 +688,7 @@ func readResourceLimitsStateObject(section *Section, f sectionCallbackFunc) erro
 	}
 
 	var obj ResourceLimitsStateObject
-	if err = eos.UnmarshalBinary(cnt, &obj); err != nil {
+	if err = zsw.UnmarshalBinary(cnt, &obj); err != nil {
 		return fmt.Errorf("unmarshal binary: %w", err)
 	}
 
@@ -706,13 +706,13 @@ type ResourceLimitsConfigObject struct {
 }
 
 type ElasticLimitParameters struct {
-	Target  eos.Uint64 // the desired usage
-	Max     eos.Uint64 // the maximum usage
+	Target  zsw.Uint64 // the desired usage
+	Max     zsw.Uint64 // the maximum usage
 	Periods uint32     // the number of aggregation periods that contribute to the average usage
 
 	MaxMultiplier uint32     // the multiplier by which virtual space can oversell usage when uncongested
-	ContractRate  eos.Uint64 // the rate at which a congested resource contracts its limit
-	ExpandRate    eos.Uint64 // the rate at which an uncongested resource expands its limits
+	ContractRate  zsw.Uint64 // the rate at which a congested resource contracts its limit
+	ExpandRate    zsw.Uint64 // the rate at which an uncongested resource expands its limits
 }
 
 func readResourceLimitsConfigObject(section *Section, f sectionCallbackFunc) error {
@@ -723,7 +723,7 @@ func readResourceLimitsConfigObject(section *Section, f sectionCallbackFunc) err
 	}
 
 	var obj ResourceLimitsConfigObject
-	if err = eos.UnmarshalBinary(cnt, &obj); err != nil {
+	if err = zsw.UnmarshalBinary(cnt, &obj); err != nil {
 		return fmt.Errorf("unmarshal binary: %w", err)
 	}
 
@@ -733,9 +733,9 @@ func readResourceLimitsConfigObject(section *Section, f sectionCallbackFunc) err
 ////
 
 type CodeObject struct {
-	CodeHash       eos.Checksum256 //< code_hash should not be changed within a chainbase modifier lambda
-	Code           eos.HexBytes
-	CodeRefCount   eos.Uint64
+	CodeHash       zsw.Checksum256 //< code_hash should not be changed within a chainbase modifier lambda
+	Code           zsw.HexBytes
+	CodeRefCount   zsw.Uint64
 	FirstBlockUsed uint32
 	VMType         uint8 //< vm_type should not be changed within a chainbase modifier lambda
 	VMVersion      uint8 //< vm_version should not be changed within a chainbase modifier lambda
@@ -752,7 +752,7 @@ func readCodeObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	for pos := 0; pos < int(section.BufferSize); {
-		d := eos.NewDecoder(cnt[pos:])
+		d := zsw.NewDecoder(cnt[pos:])
 		var co CodeObject
 		err = d.Decode(&co)
 		if err != nil {
@@ -772,14 +772,14 @@ func readCodeObject(section *Section, f sectionCallbackFunc) error {
 ////
 
 type GeneratedTransactionObject struct {
-	TrxID      eos.Checksum256 //< trx_id should not be changed within a chainbase modifier lambda
-	Sender     eos.AccountName //< sender should not be changed within a chainbase modifier lambda
-	SenderID   eos.Uint128     /// ID given this transaction by the sender (should not be changed within a chainbase modifier lambda)
-	Payer      eos.AccountName
-	DelayUntil eos.TimePoint /// this generated transaction will not be applied until the specified time
-	Expiration eos.TimePoint /// this generated transaction will not be applied after  time
-	Published  eos.TimePoint
-	PackedTrx  eos.HexBytes
+	TrxID      zsw.Checksum256 //< trx_id should not be changed within a chainbase modifier lambda
+	Sender     zsw.AccountName //< sender should not be changed within a chainbase modifier lambda
+	SenderID   zsw.Uint128     /// ID given this transaction by the sender (should not be changed within a chainbase modifier lambda)
+	Payer      zsw.AccountName
+	DelayUntil zsw.TimePoint /// this generated transaction will not be applied until the specified time
+	Expiration zsw.TimePoint /// this generated transaction will not be applied after  time
+	Published  zsw.TimePoint
+	PackedTrx  zsw.HexBytes
 }
 
 func readGeneratedTransactionObject(section *Section, f sectionCallbackFunc) error {
@@ -793,7 +793,7 @@ func readGeneratedTransactionObject(section *Section, f sectionCallbackFunc) err
 	}
 
 	for pos := 0; pos < int(section.BufferSize); {
-		d := eos.NewDecoder(cnt[pos:])
+		d := zsw.NewDecoder(cnt[pos:])
 		var gto GeneratedTransactionObject
 		err = d.Decode(&gto)
 		if err != nil {
@@ -813,8 +813,8 @@ func readGeneratedTransactionObject(section *Section, f sectionCallbackFunc) err
 ////
 
 type TransactionObject struct {
-	Expiration eos.TimePointSec
-	TrxID      eos.Checksum256 //< trx_id shou
+	Expiration zsw.TimePointSec
+	TrxID      zsw.Checksum256 //< trx_id shou
 }
 
 func readTransactionObject(section *Section, f sectionCallbackFunc) error {
@@ -828,7 +828,7 @@ func readTransactionObject(section *Section, f sectionCallbackFunc) error {
 	}
 
 	for pos := 0; pos < int(section.BufferSize); {
-		d := eos.NewDecoder(cnt[pos:])
+		d := zsw.NewDecoder(cnt[pos:])
 		var to TransactionObject
 		err = d.Decode(&to)
 		if err != nil {
@@ -848,14 +848,14 @@ func readTransactionObject(section *Section, f sectionCallbackFunc) error {
 /// Ultra Specific
 
 type FreeObjectUsage struct {
-	UserSize   eos.Uint64
-	UserCount  eos.Uint64
-	UltraSize  eos.Uint64
-	UltraCount eos.Uint64
+	UserSize   zsw.Uint64
+	UserCount  zsw.Uint64
+	UltraSize  zsw.Uint64
+	UltraCount zsw.Uint64
 }
 
 type AccountFreeActionsObject struct {
-	Name                 eos.AccountName
+	Name                 zsw.AccountName
 	PermissionObject     FreeObjectUsage
 	SharedKey            FreeObjectUsage
 	PermissionLevel      FreeObjectUsage
@@ -872,7 +872,7 @@ func readAccountFreeActionsObject(section *Section, f sectionCallbackFunc) error
 			return err
 		}
 
-		if err := eos.UnmarshalBinary(cnt, &a); err != nil {
+		if err := zsw.UnmarshalBinary(cnt, &a); err != nil {
 			return err
 		}
 

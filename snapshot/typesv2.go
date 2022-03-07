@@ -6,13 +6,13 @@ import (
 )
 
 type GenesisState struct {
-	//InitialConfiguration ChainConfig //eos.ChainConfig
-	InitialTimestamp eos.TimePoint
+	//InitialConfiguration ChainConfig //zsw.ChainConfig
+	InitialTimestamp zsw.TimePoint
 	InitialKey       ecc.PublicKey
 }
 
 type ChainConfig struct {
-	MaxBlockNetUsage               eos.Uint64 ///< the maxiumum net usage in instructions for a block
+	MaxBlockNetUsage               zsw.Uint64 ///< the maxiumum net usage in instructions for a block
 	TargetBlockNetUsagePct         uint32     ///< the target percent (1% == 100, 100%= 10,000) of maximum net usage; exceeding this triggers congestion handling
 	MaxTransactionNetUsage         uint32     ///< the maximum objectively measured net usage that the chain will allow regardless of account limits
 	BasePerTransactionNetUsage     uint32     ///< the base amount of net usage billed for a transaction to cover incidentals
@@ -41,7 +41,7 @@ func readGenesisState(section *Section, f sectionCallbackFunc) error {
 	// require.NoError(t, err)
 
 	// var state GenesisState
-	// assert.NoError(t, eos.UnmarshalBinary(cnt, &state))
+	// assert.NoError(t, zsw.UnmarshalBinary(cnt, &state))
 	// cnt, _ = json.MarshalIndent(state, "  ", "  ")
 	// fmt.Println(string(cnt))
 	return nil

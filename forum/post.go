@@ -1,19 +1,19 @@
 package forum
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewPost is an action representing a simple message to be posted
 // through the chain network.
-func NewPost(poster eos.AccountName, postUUID, content string, replyToPoster eos.AccountName, replyToPostUUID string, certify bool, jsonMetadata string) *eos.Action {
-	a := &eos.Action{
+func NewPost(poster zsw.AccountName, postUUID, content string, replyToPoster zsw.AccountName, replyToPostUUID string, certify bool, jsonMetadata string) *zsw.Action {
+	a := &zsw.Action{
 		Account: ForumAN,
 		Name:    ActN("post"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: poster, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: poster, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(Post{
+		ActionData: zsw.NewActionData(Post{
 			Poster:          poster,
 			PostUUID:        postUUID,
 			Content:         content,
@@ -28,10 +28,10 @@ func NewPost(poster eos.AccountName, postUUID, content string, replyToPoster eos
 
 // Post represents the `eosio.forum::post` action.
 type Post struct {
-	Poster          eos.AccountName `json:"poster"`
+	Poster          zsw.AccountName `json:"poster"`
 	PostUUID        string          `json:"post_uuid"`
 	Content         string          `json:"content"`
-	ReplyToPoster   eos.AccountName `json:"reply_to_poster"`
+	ReplyToPoster   zsw.AccountName `json:"reply_to_poster"`
 	ReplyToPostUUID string          `json:"reply_to_post_uuid"`
 	Certify         bool            `json:"certify"`
 	JSONMetadata    string          `json:"json_metadata"`

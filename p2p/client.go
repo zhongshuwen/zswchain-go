@@ -58,10 +58,10 @@ func (c *Client) read(peer *Peer, errChannel chan error) {
 		}
 
 		switch m := packet.P2PMessage.(type) {
-		case *eos.GoAwayMessage:
+		case *zsw.GoAwayMessage:
 			errChannel <- fmt.Errorf("GoAwayMessage reason %s: %w", m.Reason, err)
 
-		case *eos.HandshakeMessage:
+		case *zsw.HandshakeMessage:
 			if c.catchup == nil {
 				m.NodeID = peer.NodeID
 				m.P2PAddress = peer.Name
@@ -81,7 +81,7 @@ func (c *Client) read(peer *Peer, errChannel chan error) {
 				}
 				c.catchup.IsCatchingUp = true
 			}
-		case *eos.NoticeMessage:
+		case *zsw.NoticeMessage:
 			if c.catchup != nil {
 				pendingNum := m.KnownBlocks.Pending
 				if pendingNum > 0 {
@@ -92,7 +92,7 @@ func (c *Client) read(peer *Peer, errChannel chan error) {
 					}
 				}
 			}
-		case *eos.SignedBlock:
+		case *zsw.SignedBlock:
 
 			if c.catchup != nil {
 

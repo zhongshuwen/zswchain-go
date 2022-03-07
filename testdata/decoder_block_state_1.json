@@ -6,7 +6,7 @@
     "version": 0,
     "producers": [
       {
-        "producer_name": "eosio",
+        "producer_name": "zswhq",
         "authority": [
           "block_signing_authority_v0",
           {
@@ -32,13 +32,13 @@
   },
   "producer_to_last_produced": [
     [
-      "eosio",
+      "zswhq",
       18
     ]
   ],
   "producer_to_last_implied_irb": [
     [
-      "eosio",
+      "zswhq",
       17
     ]
   ],
@@ -57,7 +57,7 @@
   "id": "00000012b518a7d08697f9b5a3899d549d0393331c83a91af5c3ab362254c174",
   "header": {
     "timestamp": "2020-01-28T11:14:54.500",
-    "producer": "eosio",
+    "producer": "zswhq",
     "confirmed": 0,
     "previous": "0000001104f2e04ac6caf545add296c46d6adfac2ac96190fe4b04f8bbec6a52",
     "transaction_mroot": "9070367f85cb9bf5144da126a59b13822df98aec0b8df5b41d9117d04f871dc5",
@@ -80,7 +80,7 @@
   "additional_signatures": [],
   "block": {
     "timestamp": "2020-01-28T11:14:54.500",
-    "producer": "eosio",
+    "producer": "zswhq",
     "confirmed": 0,
     "previous": "0000001104f2e04ac6caf545add296c46d6adfac2ac96190fe4b04f8bbec6a52",
     "transaction_mroot": "9070367f85cb9bf5144da126a59b13822df98aec0b8df5b41d9117d04f871dc5",

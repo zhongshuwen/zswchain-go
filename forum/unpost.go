@@ -1,18 +1,18 @@
 package forum
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewUnPost is an action undoing a post that is active
-func NewUnPost(poster eos.AccountName, postUUID string) *eos.Action {
-	a := &eos.Action{
+func NewUnPost(poster zsw.AccountName, postUUID string) *zsw.Action {
+	a := &zsw.Action{
 		Account: ForumAN,
 		Name:    ActN("unpost"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: poster, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: poster, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(UnPost{
+		ActionData: zsw.NewActionData(UnPost{
 			Poster:   poster,
 			PostUUID: postUUID,
 		}),
@@ -22,6 +22,6 @@ func NewUnPost(poster eos.AccountName, postUUID string) *eos.Action {
 
 // UnPost represents the `eosio.forum::unpost` action.
 type UnPost struct {
-	Poster   eos.AccountName `json:"poster"`
+	Poster   zsw.AccountName `json:"poster"`
 	PostUUID string          `json:"post_uuid"`
 }

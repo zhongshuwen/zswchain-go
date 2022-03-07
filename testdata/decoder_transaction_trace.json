@@ -19,7 +19,7 @@
       "receiver": "battlefield1",
       "account_ram_deltas": [],
       "act": {
-        "account": "eosio",
+        "account": "zswhq",
         "name": "onerror",
         "authorization": [
           {

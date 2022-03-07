@@ -1,22 +1,22 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewInitSystem returns a `init` action that lives on the
 // `eosio.system` contract.
-func NewInitSystem(version eos.Varuint32, core eos.Symbol) *eos.Action {
-	return &eos.Action{
-		Account: AN("eosio"),
+func NewInitSystem(version zsw.Varuint32, core zsw.Symbol) *zsw.Action {
+	return &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("init"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{
-				Actor:      AN("eosio"),
-				Permission: eos.PermissionName("active"),
+				Actor:      AN("zswhq"),
+				Permission: zsw.PermissionName("active"),
 			},
 		},
-		ActionData: eos.NewActionData(Init{
+		ActionData: zsw.NewActionData(Init{
 			Version: version,
 			Core:    core,
 		}),
@@ -25,6 +25,6 @@ func NewInitSystem(version eos.Varuint32, core eos.Symbol) *eos.Action {
 
 // Init represents the `eosio.system::init` action
 type Init struct {
-	Version eos.Varuint32 `json:"version"`
-	Core    eos.Symbol    `json:"core"`
+	Version zsw.Varuint32 `json:"version"`
+	Core    zsw.Symbol    `json:"core"`
 }

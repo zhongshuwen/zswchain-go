@@ -1,10 +1,10 @@
 package msig
 
-import eos "github.com/zhongshuwen/zswchain-go"
+import zsw "github.com/zhongshuwen/zswchain-go"
 
 type ProposalRow struct {
-	ProposalName       eos.Name              `json:"proposal_name"`
-	RequestedApprovals []eos.PermissionLevel `json:"requested_approvals"`
-	ProvidedApprovals  []eos.PermissionLevel `json:"provided_approvals"`
-	PackedTransaction  eos.HexBytes          `json:"packed_transaction"`
+	ProposalName       zsw.Name              `json:"proposal_name"`
+	RequestedApprovals []zsw.PermissionLevel `json:"requested_approvals"`
+	ProvidedApprovals  []zsw.PermissionLevel `json:"provided_approvals"`
+	PackedTransaction  zsw.HexBytes          `json:"packed_transaction"`
 }

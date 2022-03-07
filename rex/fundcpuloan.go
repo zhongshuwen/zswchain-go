@@ -1,17 +1,17 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewFundCPULoan(from eos.AccountName, loanNumber uint64, payment eos.Asset) *eos.Action {
-	return &eos.Action{
+func NewFundCPULoan(from zsw.AccountName, loanNumber uint64, payment zsw.Asset) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("fundcpuloan"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: from, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: from, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(FundCPULoan{
+		ActionData: zsw.NewActionData(FundCPULoan{
 			From:       from,
 			LoanNumber: loanNumber,
 			Payment:    payment,
@@ -20,7 +20,7 @@ func NewFundCPULoan(from eos.AccountName, loanNumber uint64, payment eos.Asset) 
 }
 
 type FundCPULoan struct {
-	From       eos.AccountName
+	From       zsw.AccountName
 	LoanNumber uint64
-	Payment    eos.Asset
+	Payment    zsw.Asset
 }

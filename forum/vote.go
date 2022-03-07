@@ -1,19 +1,19 @@
 package forum
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewVote is an action representing a simple vote to be broadcast
 // through the chain network.
-func NewVote(voter eos.AccountName, proposalName eos.Name, voteValue uint8, voteJSON string) *eos.Action {
-	a := &eos.Action{
+func NewVote(voter zsw.AccountName, proposalName zsw.Name, voteValue uint8, voteJSON string) *zsw.Action {
+	a := &zsw.Action{
 		Account: ForumAN,
 		Name:    ActN("vote"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: voter, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: voter, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(Vote{
+		ActionData: zsw.NewActionData(Vote{
 			Voter:        voter,
 			ProposalName: proposalName,
 			Vote:         voteValue,
@@ -25,8 +25,8 @@ func NewVote(voter eos.AccountName, proposalName eos.Name, voteValue uint8, vote
 
 // Vote represents the `eosio.forum::vote` action.
 type Vote struct {
-	Voter        eos.AccountName `json:"voter"`
-	ProposalName eos.Name        `json:"proposal_name"`
+	Voter        zsw.AccountName `json:"voter"`
+	ProposalName zsw.Name        `json:"proposal_name"`
 	Vote         uint8           `json:"vote"`
 	VoteJSON     string          `json:"vote_json"`
 }

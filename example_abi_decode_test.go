@@ -1,20 +1,20 @@
-package eos_test
+package zsw_test
 
 import (
 	"encoding/hex"
 	"fmt"
 	"strings"
 
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 func ExampleABI_DecodeTableRowTyped() {
-	abi, err := eos.NewABI(strings.NewReader(abiJSON()))
+	abi, err := zsw.NewABI(strings.NewReader(abiJSON()))
 	if err != nil {
 		panic(fmt.Errorf("get ABI: %w", err))
 	}
 
-	tableDef := abi.TableForName(eos.TableName("votes"))
+	tableDef := abi.TableForName(zsw.TableName("votes"))
 	if tableDef == nil {
 		panic(fmt.Errorf("table be should be present"))
 	}

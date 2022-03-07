@@ -1,22 +1,22 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewCancelREXOrder(owner eos.AccountName) *eos.Action {
-	return &eos.Action{
+func NewCancelREXOrder(owner zsw.AccountName) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("cnclrexorder"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: owner, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: owner, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(CancelREXOrder{
+		ActionData: zsw.NewActionData(CancelREXOrder{
 			Owner: owner,
 		}),
 	}
 }
 
 type CancelREXOrder struct {
-	Owner eos.AccountName
+	Owner zsw.AccountName
 }

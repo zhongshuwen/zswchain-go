@@ -48,7 +48,7 @@ type GetBlocksResultV0 struct {
 // State History Plugin version of EOS structs
 type BlockPosition struct {
 	BlockNum uint32
-	BlockID  eos.Checksum256
+	BlockID  zsw.Checksum256
 }
 
 type Row struct {
@@ -57,38 +57,38 @@ type Row struct {
 }
 
 type ActionTraceV0 struct {
-	ActionOrdinal        eos.Varuint32
-	CreatorActionOrdinal eos.Varuint32
+	ActionOrdinal        zsw.Varuint32
+	CreatorActionOrdinal zsw.Varuint32
 	Receipt              *ActionReceipt `eos:"optional"`
-	Receiver             eos.Name
+	Receiver             zsw.Name
 	Act                  *Action
 	ContextFree          bool
 	Elapsed              int64
-	Console              eos.SafeString
-	AccountRamDeltas     []*eos.AccountRAMDelta
+	Console              zsw.SafeString
+	AccountRamDeltas     []*zsw.AccountRAMDelta
 	Except               string `eos:"optional"`
 	ErrorCode            uint64 `eos:"optional"`
 }
 
 type Action struct {
-	Account       eos.AccountName
-	Name          eos.ActionName
-	Authorization []eos.PermissionLevel
+	Account       zsw.AccountName
+	Name          zsw.ActionName
+	Authorization []zsw.PermissionLevel
 	Data          []byte
 }
 
 type ActionReceiptV0 struct {
-	Receiver       eos.Name
-	ActDigest      eos.Checksum256
+	Receiver       zsw.Name
+	ActDigest      zsw.Checksum256
 	GlobalSequence uint64
 	RecvSequence   uint64
 	AuthSequence   []AccountAuthSequence
-	CodeSequence   eos.Varuint32
-	ABISequence    eos.Varuint32
+	CodeSequence   zsw.Varuint32
+	ABISequence    zsw.Varuint32
 }
 
 type AccountAuthSequence struct {
-	Account  eos.Name
+	Account  zsw.Name
 	Sequence uint64
 }
 
@@ -101,24 +101,24 @@ type PartialTransactionV0 struct {
 	Expiration            uint32
 	RefBlockNum           uint16
 	RefBlockPrefix        uint32
-	MaxNetUsageWords      eos.Varuint32
+	MaxNetUsageWords      zsw.Varuint32
 	MaxCpuUsageMs         uint8
-	DelaySec              eos.Varuint32
+	DelaySec              zsw.Varuint32
 	TransactionExtensions []*Extension
 	Signatures            []ecc.Signature
 	ContextFreeData       []byte
 }
 
 type TransactionTraceV0 struct {
-	ID              eos.Checksum256 `json:"id"`
-	Status          eos.TransactionStatus
+	ID              zsw.Checksum256 `json:"id"`
+	Status          zsw.TransactionStatus
 	CPUUsageUS      uint32               `json:"cpu_usage_us"`
-	NetUsageWords   eos.Varuint32        `json:"net_usage_words"`
-	Elapsed         eos.Int64            `json:"elapsed"`
+	NetUsageWords   zsw.Varuint32        `json:"net_usage_words"`
+	Elapsed         zsw.Int64            `json:"elapsed"`
 	NetUsage        uint64               `json:"net_usage"`
 	Scheduled       bool                 `json:"scheduled"`
 	ActionTraces    []*ActionTrace       `json:"action_traces"`
-	AccountDelta    *eos.AccountRAMDelta `json:"account_delta" eos:"optional"`
+	AccountDelta    *zsw.AccountRAMDelta `json:"account_delta" eos:"optional"`
 	Except          string               `json:"except" eos:"optional"`
 	ErrorCode       uint64               `json:"error_code" eos:"optional"`
 	FailedDtrxTrace *TransactionTrace    `json:"failed_dtrx_trace" eos:"optional"`
@@ -126,16 +126,16 @@ type TransactionTraceV0 struct {
 }
 
 type SignedBlockHeader struct {
-	eos.BlockHeader
+	zsw.BlockHeader
 	ProducerSignature ecc.Signature // no pointer!!
 }
 
 type TransactionReceipt struct {
-	eos.TransactionReceiptHeader
+	zsw.TransactionReceiptHeader
 	Trx *Transaction
 }
 
-//type TransactionID eos.Checksum256
+//type TransactionID zsw.Checksum256
 
 type SignedBlock struct {
 	SignedBlockHeader
@@ -153,12 +153,12 @@ func (s *SignedBlockBytes) AsSignedBlock() *SignedBlock {
 	return &ss
 }
 
-func (s *SignedBlockBytes) UnmarshalBinary(decoder *eos.Decoder) error {
+func (s *SignedBlockBytes) UnmarshalBinary(decoder *zsw.Decoder) error {
 	data, err := decoder.ReadByteArray()
 	if err != nil {
 		return err
 	}
-	return eos.UnmarshalBinary(data, (*SignedBlock)(s))
+	return zsw.UnmarshalBinary(data, (*SignedBlock)(s))
 }
 
 type Extension struct {

@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"bytes"
@@ -28,7 +28,7 @@ func TestABI_DecodeAction(t *testing.T) {
 		F5     []string
 	}{
 		BF1:    "value_struct_2_field_1",
-		F1:     Name("eoscanadacom"),
+		F1:     Name("zhongshuwen1"),
 		F2:     "value_struct_3_field_1",
 		F3FLAG: 1,
 		F3:     "value_struct_1_field_3",
@@ -47,7 +47,7 @@ func TestABI_DecodeAction(t *testing.T) {
 	json, err := abi.DecodeAction(buffer.Bytes(), "action_name_1")
 	require.NoError(t, err)
 
-	assert.Equal(t, "eoscanadacom", gjson.GetBytes(json, "struct_1_field_1").String())
+	assert.Equal(t, "zhongshuwen1", gjson.GetBytes(json, "struct_1_field_1").String())
 	assert.Equal(t, "value_struct_2_field_1", gjson.GetBytes(json, "struct_2_field_1").String())
 	assert.Equal(t, "value_struct_3_field_1", gjson.GetBytes(json, "struct_1_field_2.struct_3_field_1").String())
 	assert.Equal(t, "value_struct_1_field_3", gjson.GetBytes(json, "struct_1_field_3").String())
@@ -66,7 +66,7 @@ func TestABI_DecodeMissingData(t *testing.T) {
 		F1  Name
 	}{
 		BF1: "value_struct_2_field_1",
-		F1:  Name("eoscanadacom"),
+		F1:  Name("zhongshuwen1"),
 	}
 
 	var buffer bytes.Buffer
@@ -91,7 +91,7 @@ func TestABI_DecodeMissingAction(t *testing.T) {
 		F1  Name
 	}{
 		BF1: "value.base.field.1",
-		F1:  Name("eoscanadacom"),
+		F1:  Name("zhongshuwen1"),
 	}
 
 	var buffer bytes.Buffer
@@ -120,7 +120,7 @@ func TestABI_DecodeTable(t *testing.T) {
 		F5     []string
 	}{
 		BF1:    "value_struct_2_field_1",
-		F1:     Name("eoscanadacom"),
+		F1:     Name("zhongshuwen1"),
 		F2:     "value_struct_3_field_1",
 		F3FLAG: 1,
 		F3:     "value_struct_1_field_3",
@@ -139,7 +139,7 @@ func TestABI_DecodeTable(t *testing.T) {
 	json, err := abi.DecodeTableRow("table_name_1", buffer.Bytes())
 	require.NoError(t, err)
 
-	assert.Equal(t, "eoscanadacom", gjson.GetBytes(json, "struct_1_field_1").String())
+	assert.Equal(t, "zhongshuwen1", gjson.GetBytes(json, "struct_1_field_1").String())
 	assert.Equal(t, "value_struct_2_field_1", gjson.GetBytes(json, "struct_2_field_1").String())
 	assert.Equal(t, "value_struct_3_field_1", gjson.GetBytes(json, "struct_1_field_2.struct_3_field_1").String())
 	assert.Equal(t, "value_struct_1_field_3", gjson.GetBytes(json, "struct_1_field_3").String())
@@ -159,7 +159,7 @@ func TestABI_DecodeTableRowMissingTable(t *testing.T) {
 		F1  Name
 	}{
 		BF1: "value.base.field.1",
-		F1:  Name("eoscanadacom"),
+		F1:  Name("zhongshuwen1"),
 	}
 
 	var buffer bytes.Buffer
@@ -895,7 +895,7 @@ func TestABI_decodeFields(t *testing.T) {
 	json, err := abi.decodeFields(NewDecoder(buffer), fields, map[string]interface{}{})
 	require.NoError(t, err)
 
-	assert.JSONEq(t, `{"F1":"18446744073709551615", "F2":"eoscanadacom"}`, toJSON(t, json))
+	assert.JSONEq(t, `{"F1":"18446744073709551615", "F2":"zhongshuwen1"}`, toJSON(t, json))
 }
 
 func toJSON(t *testing.T, in interface{}) string {
@@ -1107,7 +1107,7 @@ func TestABI_Read(t *testing.T) {
 		{name: "time_point", typeName: "time_point", data: TimePoint(1541085187001001), expectedValue: s(`"2018-11-01T15:13:07.001"`)},
 		{name: "time_point_sec", typeName: "time_point_sec", data: TimePointSec(1681469753), expectedValue: s(`"2023-04-14T10:55:53"`)},
 		{name: "block_timestamp_type", typeName: "block_timestamp_type", data: bt, expectedValue: s(`"2018-09-05T12:48:54"`)},
-		{name: "Name", typeName: "name", data: Name("eoscanadacom"), expectedValue: s(`"eoscanadacom"`)},
+		{name: "Name", typeName: "name", data: Name("zhongshuwen1"), expectedValue: s(`"zhongshuwen1"`)},
 		{name: "bytes", typeName: "bytes", data: []byte("this.is.a.test"), expectedValue: s(`"746869732e69732e612e74657374"`)},
 		{name: "checksum160", typeName: "checksum160", data: Checksum160(make([]byte, TypeSize.Checksum160)), expectedValue: s(`"0000000000000000000000000000000000000000"`)},
 		{name: "checksum256", typeName: "checksum256", data: Checksum256(make([]byte, TypeSize.Checksum256)), expectedValue: s(`"0000000000000000000000000000000000000000000000000000000000000000"`)},
@@ -1120,7 +1120,7 @@ func TestABI_Read(t *testing.T) {
 		{name: "symbol", typeName: "symbol", data: EOSSymbol, expectedValue: s(`"4,EOS"`)},
 		{name: "symbol_code", typeName: "symbol_code", data: SymbolCode(22606239386324546), expectedValue: s(`"BNTDAPP"`)},
 		{name: "asset", typeName: "asset", data: Asset{Amount: 100000, Symbol: EOSSymbol}, expectedValue: s(`"10.0000 EOS"`)},
-		{name: "extended_asset", typeName: "extended_asset", data: ExtendedAsset{Asset: Asset{Amount: 10, Symbol: EOSSymbol}, Contract: "eoscanadacom"}, expectedValue: s("{\"quantity\":\"0.0010 EOS\",\"contract\":\"eoscanadacom\"}")},
+		{name: "extended_asset", typeName: "extended_asset", data: ExtendedAsset{Asset: Asset{Amount: 10, Symbol: EOSSymbol}, Contract: "zhongshuwen1"}, expectedValue: s("{\"quantity\":\"0.0010 EOS\",\"contract\":\"zhongshuwen1\"}")},
 		{name: "bad type", typeName: "bad.type.1", data: nil, expectedValue: nil, expectError: true},
 		{name: "min float64 fit nodeos", fitNodeos: true, typeName: "float64", data: math.SmallestNonzeroFloat64, expectedValue: s(`"0.00000000000000000"`)},
 		{name: "max float64 fit nodeos", fitNodeos: true, typeName: "float64", data: math.MaxFloat64, expectedValue: s(`"179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00000000000000000"`)},

@@ -229,7 +229,7 @@ func TestSignatureVerify_WA(t *testing.T) {
 	assert.Equal(t, true, sig.Verify(hash, pubKey))
 }
 
-//to do this here because of a import cycle when use eos.SigDigest
+//to do this here because of a import cycle when use zsw.SigDigest
 func sigDigest(chainID, payload, contextFreeData []byte) []byte {
 	h := sha256.New()
 	if len(chainID) == 0 {

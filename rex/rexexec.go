@@ -1,17 +1,17 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewREXExec(user eos.AccountName, max uint16) *eos.Action {
-	return &eos.Action{
+func NewREXExec(user zsw.AccountName, max uint16) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("rexexec"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: user, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: user, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(REXExec{
+		ActionData: zsw.NewActionData(REXExec{
 			User: user,
 			Max:  max,
 		}),
@@ -19,6 +19,6 @@ func NewREXExec(user eos.AccountName, max uint16) *eos.Action {
 }
 
 type REXExec struct {
-	User eos.AccountName
+	User zsw.AccountName
 	Max  uint16
 }

@@ -1,4 +1,4 @@
-package eos_test
+package zsw_test
 
 import (
 	"context"
@@ -7,36 +7,36 @@ import (
 	"fmt"
 	"os"
 
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 	"github.com/zhongshuwen/zswchain-go/token"
 )
 
 func ExampleAPI_PushTransaction_transfer_EOS() {
-	api := eos.New(getAPIURL())
+	api := zsw.New(getAPIURL())
 
-	keyBag := &eos.KeyBag{}
+	keyBag := &zsw.KeyBag{}
 	err := keyBag.ImportPrivateKey(context.Background(), readPrivateKey())
 	if err != nil {
 		panic(fmt.Errorf("import private key: %w", err))
 	}
 	api.SetSigner(keyBag)
 
-	from := eos.AccountName("eosuser1")
-	to := eos.AccountName("eosuser2")
-	quantity, err := eos.NewEOSAssetFromString("1.0000 EOS")
+	from := zsw.AccountName("eosuser1")
+	to := zsw.AccountName("eosuser2")
+	quantity, err := zsw.NewEOSAssetFromString("1.0000 EOS")
 	memo := ""
 
 	if err != nil {
 		panic(fmt.Errorf("invalid quantity: %w", err))
 	}
 
-	txOpts := &eos.TxOptions{}
+	txOpts := &zsw.TxOptions{}
 	if err := txOpts.FillFromChain(context.Background(), api); err != nil {
 		panic(fmt.Errorf("filling tx opts: %w", err))
 	}
 
-	tx := eos.NewTransaction([]*eos.Action{token.NewTransfer(from, to, quantity, memo)}, txOpts)
-	signedTx, packedTx, err := api.SignTransaction(context.Background(), tx, txOpts.ChainID, eos.CompressionNone)
+	tx := zsw.NewTransaction([]*zsw.Action{token.NewTransfer(from, to, quantity, memo)}, txOpts)
+	signedTx, packedTx, err := api.SignTransaction(context.Background(), tx, txOpts.ChainID, zsw.CompressionNone)
 	if err != nil {
 		panic(fmt.Errorf("sign transaction: %w", err))
 	}

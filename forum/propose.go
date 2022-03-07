@@ -1,18 +1,18 @@
 package forum
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewPropose is an action to submit a proposal for vote.
-func NewPropose(proposer eos.AccountName, proposalName eos.Name, title string, proposalJSON string, expiresAt eos.JSONTime) *eos.Action {
-	a := &eos.Action{
+func NewPropose(proposer zsw.AccountName, proposalName zsw.Name, title string, proposalJSON string, expiresAt zsw.JSONTime) *zsw.Action {
+	a := &zsw.Action{
 		Account: ForumAN,
 		Name:    ActN("propose"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: proposer, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: proposer, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(Propose{
+		ActionData: zsw.NewActionData(Propose{
 			Proposer:     proposer,
 			ProposalName: proposalName,
 			Title:        title,
@@ -25,9 +25,9 @@ func NewPropose(proposer eos.AccountName, proposalName eos.Name, title string, p
 
 // Propose represents the `eosio.forum::propose` action.
 type Propose struct {
-	Proposer     eos.AccountName `json:"proposer"`
-	ProposalName eos.Name        `json:"proposal_name"`
+	Proposer     zsw.AccountName `json:"proposer"`
+	ProposalName zsw.Name        `json:"proposal_name"`
 	Title        string          `json:"title"`
 	ProposalJSON string          `json:"proposal_json"`
-	ExpiresAt    eos.JSONTime    `json:"expires_at"`
+	ExpiresAt    zsw.JSONTime    `json:"expires_at"`
 }

@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"bufio"
@@ -24,7 +24,7 @@ type Signer interface {
 	ImportPrivateKey(ctx context.Context, wifPrivKey string) error
 }
 
-// `eosiowd` wallet-based signer
+// `zhongshuwenwd` wallet-based signer
 type WalletSigner struct {
 	api        *API
 	walletName string

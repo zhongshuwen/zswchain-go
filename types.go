@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"encoding/base64"
@@ -445,7 +445,7 @@ func NewAsset(in string) (out Asset, err error) {
 	return NewAssetFromString(in)
 }
 
-// NewAssetFromString reads a string an decode it to an eos.Asset
+// NewAssetFromString reads a string an decode it to an zsw.Asset
 // structure if possible. The input must contains an amount and
 // a symbol. The precision is inferred based on the actual number
 // of decimals present.
@@ -1368,13 +1368,13 @@ func (a *BaseVariant) UnmarshalJSON(data []byte, def *VariantDefinition) error {
 		// avoid an `new` memory allocation:
 		//
 		// ```
-		// name := eos.Name("")
+		// name := zsw.Name("")
 		// json.Unmarshal(data, &name)
 		// ```
 		//
 		// This would work without a problem. In reflection code however, I
 		// did not find how one can go from `reflect.Zero(typeGo)` (which is
-		// the equivalence of doing `name := eos.Name("")`) and take the
+		// the equivalence of doing `name := zsw.Name("")`) and take the
 		// pointer to it so it can be unmarshalled correctly.
 		//
 		// A played with various iteration, and nothing got it working. Maybe
@@ -1425,13 +1425,13 @@ func (a *BaseVariant) UnmarshalBinaryVariant(decoder *Decoder, def *VariantDefin
 		// avoid an `new` memory allocation:
 		//
 		// ```
-		// name := eos.Name("")
+		// name := zsw.Name("")
 		// json.Unmarshal(data, &name)
 		// ```
 		//
 		// This would work without a problem. In reflection code however, I
 		// did not find how one can go from `reflect.Zero(typeGo)` (which is
-		// the equivalence of doing `name := eos.Name("")`) and take the
+		// the equivalence of doing `name := zsw.Name("")`) and take the
 		// pointer to it so it can be unmarshalled correctly.
 		//
 		// A played with various iteration, and nothing got it working. Maybe
@@ -1513,7 +1513,7 @@ func (a fcVariant) IsNil() bool {
 // ToNative transform the actual implementation, walking each sub-element like array
 // and object, turning everything along the way in Go primitives types.
 //
-// **Note** For `Int64` and `Uint64`, we return `eos.Int64` and `eos.Uint64` types
+// **Note** For `Int64` and `Uint64`, we return `zsw.Int64` and `zsw.Uint64` types
 //          so that JSON marshalling is done correctly for large numbers
 func (a fcVariant) ToNative() interface{} {
 	if a.TypeID == fcVariantNullType ||

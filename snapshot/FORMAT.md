@@ -29,10 +29,10 @@
 00
 
 [ table_id_object:
-0000000000ea3055  "eosio"  (code)
-0000000000ea3055  "eosio"  (scope)
+0000000000ea3055  "zswhq"  (code)
+0000000000ea3055  "zswhq"  (scope)
 0000c80a5e23a5b9  "rammarket" name-encoded (table name)
-0000000000ea3055  "eosio" (payer)
+0000000000ea3055  "zswhq" (payer)
 01000000          count ? or size ? number of elements in table
 ]
 
@@ -42,7 +42,7 @@
 
 [ key value object:
 0452414d434f5245  "4,RAMCORE"  primary_key?
-0000000000ea3055  "eosio"  payer?
+0000000000ea3055  "zswhq"  payer?
 
 40                length=64 ? length of shared_blob
 
@@ -62,14 +62,14 @@
 
 00000000
 00
-0000000000ea3055  "eosio" (code)
-0000000000ea3055  "eosio" (scope)
+0000000000ea3055  "zswhq" (code)
+0000000000ea3055  "zswhq" (scope)
 0000000044736864  "global" (table name)
-0000000000ea3055  "eosio" (payer)
+0000000000ea3055  "zswhq" (payer)
 01000000          elements counts
 01
 0000000044736864  "global" (prim key)
-0000000000ea3055  "eosio" (payer)
+0000000000ea3055  "zswhq" (payer)
 9a01              blob_size: 282?
 0000100000000000
 e803000000000800

@@ -1,22 +1,22 @@
 package msig
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewUnapprove returns a `unapprove` action that lives on the
 // `eosio.msig` contract.
-func NewUnapprove(proposer eos.AccountName, proposalName eos.Name, level eos.PermissionLevel) *eos.Action {
-	return &eos.Action{
-		Account:       eos.AccountName("eosio.msig"),
-		Name:          eos.ActionName("unapprove"),
-		Authorization: []eos.PermissionLevel{level},
-		ActionData:    eos.NewActionData(Unapprove{proposer, proposalName, level}),
+func NewUnapprove(proposer zsw.AccountName, proposalName zsw.Name, level zsw.PermissionLevel) *zsw.Action {
+	return &zsw.Action{
+		Account:       zsw.AccountName("zswhq.msig"),
+		Name:          zsw.ActionName("unapprove"),
+		Authorization: []zsw.PermissionLevel{level},
+		ActionData:    zsw.NewActionData(Unapprove{proposer, proposalName, level}),
 	}
 }
 
 type Unapprove struct {
-	Proposer     eos.AccountName     `json:"proposer"`
-	ProposalName eos.Name            `json:"proposal_name"`
-	Level        eos.PermissionLevel `json:"level"`
+	Proposer     zsw.AccountName     `json:"proposer"`
+	ProposalName zsw.Name            `json:"proposal_name"`
+	Level        zsw.PermissionLevel `json:"level"`
 }

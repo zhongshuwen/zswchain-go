@@ -1,4 +1,4 @@
-package eoserr
+package zswerr
 
 import "fmt"
 
@@ -8,7 +8,7 @@ type Error struct {
 }
 
 func (e Error) Error() string {
-	return fmt.Sprintf("eos error: %q, code: %d", e.Name, e.Code)
+	return fmt.Sprintf("zsw error: %q, code: %d", e.Name, e.Code)
 }
 
 var ErrUnspecifiedException = Error{"unspecified_exception_code", 3990000}

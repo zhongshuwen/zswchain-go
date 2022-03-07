@@ -1,18 +1,18 @@
 package forum
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // CleanProposal is an action to flush proposal and allow RAM used by it.
-func NewCleanProposal(cleaner eos.AccountName, proposalName eos.Name, maxCount uint64) *eos.Action {
-	a := &eos.Action{
+func NewCleanProposal(cleaner zsw.AccountName, proposalName zsw.Name, maxCount uint64) *zsw.Action {
+	a := &zsw.Action{
 		Account: ForumAN,
 		Name:    ActN("clnproposal"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: cleaner, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: cleaner, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(CleanProposal{
+		ActionData: zsw.NewActionData(CleanProposal{
 			ProposalName: proposalName,
 			MaxCount:     maxCount,
 		}),
@@ -22,6 +22,6 @@ func NewCleanProposal(cleaner eos.AccountName, proposalName eos.Name, maxCount u
 
 // CleanProposal represents the `eosio.forum::clnproposal` action.
 type CleanProposal struct {
-	ProposalName eos.Name `json:"proposal_name"`
+	ProposalName zsw.Name `json:"proposal_name"`
 	MaxCount     uint64   `json:"max_count"`
 }

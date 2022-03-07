@@ -1,19 +1,19 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewRefund returns a `refund` action that lives on the
 // `eosio.system` contract.
-func NewRefund(owner eos.AccountName) *eos.Action {
-	return &eos.Action{
-		Account: AN("eosio"),
+func NewRefund(owner zsw.AccountName) *zsw.Action {
+	return &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("refund"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{Actor: owner, Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(Refund{
+		ActionData: zsw.NewActionData(Refund{
 			Owner: owner,
 		}),
 	}
@@ -21,5 +21,5 @@ func NewRefund(owner eos.AccountName) *eos.Action {
 
 // Refund represents the `eosio.system::refund` action
 type Refund struct {
-	Owner eos.AccountName `json:"owner"`
+	Owner zsw.AccountName `json:"owner"`
 }

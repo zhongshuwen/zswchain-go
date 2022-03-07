@@ -1,22 +1,22 @@
 package rex
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewUpdateREX(owner eos.AccountName) *eos.Action {
-	return &eos.Action{
+func NewUpdateREX(owner zsw.AccountName) *zsw.Action {
+	return &zsw.Action{
 		Account: REXAN,
 		Name:    ActN("updaterex"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: owner, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: owner, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(UpdateREX{
+		ActionData: zsw.NewActionData(UpdateREX{
 			Owner: owner,
 		}),
 	}
 }
 
 type UpdateREX struct {
-	Owner eos.AccountName
+	Owner zsw.AccountName
 }

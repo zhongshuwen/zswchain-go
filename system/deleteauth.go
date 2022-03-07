@@ -8,14 +8,14 @@ import "github.com/zhongshuwen/zswchain-go"
 // You cannot delete the `owner` or `active` permissions.  Also, if a
 // permission is still linked through a previous `updatelink` action,
 // you will need to `unlinkauth` first.
-func NewDeleteAuth(account eos.AccountName, permission eos.PermissionName) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewDeleteAuth(account zsw.AccountName, permission zsw.PermissionName) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("deleteauth"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: account, Permission: eos.PermissionName("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: account, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(DeleteAuth{
+		ActionData: zsw.NewActionData(DeleteAuth{
 			Account:    account,
 			Permission: permission,
 		}),
@@ -27,6 +27,6 @@ func NewDeleteAuth(account eos.AccountName, permission eos.PermissionName) *eos.
 // DeleteAuth represents the native `deleteauth` action, reachable
 // through the `eosio.system` contract.
 type DeleteAuth struct {
-	Account    eos.AccountName    `json:"account"`
-	Permission eos.PermissionName `json:"permission"`
+	Account    zsw.AccountName    `json:"account"`
+	Permission zsw.PermissionName `json:"permission"`
 }

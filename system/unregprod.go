@@ -1,19 +1,19 @@
 package system
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewUnregProducer returns a `unregprod` action that lives on the
 // `eosio.system` contract.
-func NewUnregProducer(producer eos.AccountName) *eos.Action {
-	return &eos.Action{
-		Account: AN("eosio"),
+func NewUnregProducer(producer zsw.AccountName) *zsw.Action {
+	return &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("unregprod"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{Actor: producer, Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(UnregProducer{
+		ActionData: zsw.NewActionData(UnregProducer{
 			Producer: producer,
 		}),
 	}
@@ -21,5 +21,5 @@ func NewUnregProducer(producer eos.AccountName) *eos.Action {
 
 // UnregProducer represents the `eosio.system::unregprod` action
 type UnregProducer struct {
-	Producer eos.AccountName `json:"producer"`
+	Producer zsw.AccountName `json:"producer"`
 }

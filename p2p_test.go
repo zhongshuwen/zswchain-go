@@ -1,4 +1,4 @@
-package eos
+package zsw
 
 import (
 	"bytes"
@@ -259,8 +259,8 @@ func TestBlockState_UnmarshalJSON(t *testing.T) {
 			"eosio 1.x structure",
 			[]string{
 				`"block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"`,
-				`"active_schedule": {"version":1,"producers":[{"producer_name":"eosio","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}`,
-				`"pending_schedule":{"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"eosio","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}}`,
+				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}`,
+				`"pending_schedule":{"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}}`,
 			},
 			func(e *BlockState) {
 				assert.NotNil(t, e.BlockSigningKeyV1)
@@ -278,8 +278,8 @@ func TestBlockState_UnmarshalJSON(t *testing.T) {
 			"eosio v2.x structure",
 			[]string{
 				`"valid_block_signing_authority": ["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]`,
-				`"active_schedule": {"version":1,"producers":[{"producer_name":"eosio","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}`,
-				`"pending_schedule": {"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"eosio","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}}`,
+				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}`,
+				`"pending_schedule": {"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}}`,
 			},
 			func(e *BlockState) {
 				assert.Nil(t, e.BlockSigningKeyV1)
@@ -329,7 +329,7 @@ func TestBlockHeader_UnmarshalJSON(t *testing.T) {
 		{
 			"eosio 1.x structure",
 			[]string{
-				`"new_producers":{"producers":[{"block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","producer_name":"eosio"}],"version":1}`,
+				`"new_producers":{"producers":[{"block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","producer_name":"zswhq"}],"version":1}`,
 			},
 			nil,
 			func(e *BlockHeader) {
@@ -402,7 +402,7 @@ func checkProducerSchedule(t *testing.T, schedule *ProducerSchedule) {
 	assert.NotNil(t, schedule)
 	assert.Equal(t, uint32(1), schedule.Version)
 	assert.Len(t, schedule.Producers, 1)
-	assert.Equal(t, AccountName("eosio"), schedule.Producers[0].AccountName)
+	assert.Equal(t, AccountName("zswhq"), schedule.Producers[0].AccountName)
 	assert.Equal(t, ecc.MustNewPublicKey("PUB_K1_5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"), schedule.Producers[0].BlockSigningKey)
 }
 
@@ -412,7 +412,7 @@ func checkProducerAuthoritySchedule(t *testing.T, schedule *ProducerAuthoritySch
 
 	producers := schedule.Producers
 	assert.Len(t, producers, 1)
-	assert.Equal(t, AccountName("eosio"), producers[0].AccountName)
+	assert.Equal(t, AccountName("zswhq"), producers[0].AccountName)
 
 	checkBlockSigningAuthority(t, producers[0].BlockSigningAuthority)
 }

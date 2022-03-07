@@ -6,14 +6,14 @@ import "github.com/zhongshuwen/zswchain-go"
 // `eosio.bios` contract. It should exist only when booting a new
 // network, as it is replaced using the `eos-bios` boot process by the
 // `eosio.system` contract.
-func NewVoteProducer(voter eos.AccountName, proxy eos.AccountName, producers ...eos.AccountName) *eos.Action {
-	a := &eos.Action{
-		Account: AN("eosio"),
+func NewVoteProducer(voter zsw.AccountName, proxy zsw.AccountName, producers ...zsw.AccountName) *zsw.Action {
+	a := &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("voteproducer"),
-		Authorization: []eos.PermissionLevel{
+		Authorization: []zsw.PermissionLevel{
 			{Actor: voter, Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(
+		ActionData: zsw.NewActionData(
 			VoteProducer{
 				Voter:     voter,
 				Proxy:     proxy,
@@ -26,7 +26,7 @@ func NewVoteProducer(voter eos.AccountName, proxy eos.AccountName, producers ...
 
 // VoteProducer represents the `eosio.system::voteproducer` action
 type VoteProducer struct {
-	Voter     eos.AccountName   `json:"voter"`
-	Proxy     eos.AccountName   `json:"proxy"`
-	Producers []eos.AccountName `json:"producers"`
+	Voter     zsw.AccountName   `json:"voter"`
+	Proxy     zsw.AccountName   `json:"proxy"`
+	Producers []zsw.AccountName `json:"producers"`
 }

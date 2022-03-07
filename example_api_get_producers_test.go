@@ -1,15 +1,15 @@
-package eos_test
+package zsw_test
 
 import (
 	"context"
 	"fmt"
 	"sort"
 
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 func ExampleAPI_GetProducers() {
-	api := eos.New(getAPIURL())
+	api := zsw.New(getAPIURL())
 
 	resp, err := api.GetProducers(context.Background())
 	if err != nil {

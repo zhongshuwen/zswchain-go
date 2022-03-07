@@ -28,12 +28,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 	cli "github.com/streamingfast/cli"
 )
 
 func main() {
-	api := eos.New("https://api.eosn.io")
+	api := zsw.New("https://api.eosn.io")
 	ctx := context.Background()
 
 	infoResp, err := api.GetInfo(ctx)
@@ -41,7 +41,7 @@ func main() {
 
 	fmt.Println("Chain Info", toJson(infoResp))
 
-	accountResp, _ := api.GetAccount(ctx, "eosio")
+	accountResp, _ := api.GetAccount(ctx, "zswhq")
 	fmt.Println("Account Info", toJson(accountResp))
 }
 

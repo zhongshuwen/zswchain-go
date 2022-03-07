@@ -4,14 +4,14 @@ import (
 	"github.com/zhongshuwen/zswchain-go"
 )
 
-func NewActivateFeature(featureDigest eos.Checksum256) *eos.Action {
-	return &eos.Action{
-		Account: AN("eosio"),
+func NewActivateFeature(featureDigest zsw.Checksum256) *zsw.Action {
+	return &zsw.Action{
+		Account: AN("zswhq"),
 		Name:    ActN("activate"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: AN("eosio"), Permission: PN("active")},
+		Authorization: []zsw.PermissionLevel{
+			{Actor: AN("zswhq"), Permission: PN("active")},
 		},
-		ActionData: eos.NewActionData(Activate{
+		ActionData: zsw.NewActionData(Activate{
 			FeatureDigest: featureDigest,
 		}),
 	}
@@ -19,5 +19,5 @@ func NewActivateFeature(featureDigest eos.Checksum256) *eos.Action {
 
 // Activate represents a `activate` action on the `eosio` contract.
 type Activate struct {
-	FeatureDigest eos.Checksum256 `json:"feature_digest"`
+	FeatureDigest zsw.Checksum256 `json:"feature_digest"`
 }

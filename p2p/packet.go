@@ -7,10 +7,10 @@ import (
 type Envelope struct {
 	Sender   *Peer
 	Receiver *Peer
-	Packet   *eos.Packet `json:"envelope"`
+	Packet   *zsw.Packet `json:"envelope"`
 }
 
-func NewEnvelope(sender *Peer, receiver *Peer, packet *eos.Packet) *Envelope {
+func NewEnvelope(sender *Peer, receiver *Peer, packet *zsw.Packet) *Envelope {
 	return &Envelope{
 		Sender:   sender,
 		Receiver: receiver,

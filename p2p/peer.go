@@ -41,12 +41,12 @@ func (p Peer) MarshalLogObject(enc zapcore.ObjectEncoder) error {
 }
 
 type HandshakeInfo struct {
-	ChainID                  eos.Checksum256
+	ChainID                  zsw.Checksum256
 	HeadBlockNum             uint32
-	HeadBlockID              eos.Checksum256
+	HeadBlockID              zsw.Checksum256
 	HeadBlockTime            time.Time
 	LastIrreversibleBlockNum uint32
-	LastIrreversibleBlockID  eos.Checksum256
+	LastIrreversibleBlockID  zsw.Checksum256
 }
 
 func (h *HandshakeInfo) String() string {
@@ -91,8 +91,8 @@ func NewOutgoingPeer(address string, agent string, handshakeInfo *HandshakeInfo)
 	return newPeer(address, agent, false, handshakeInfo)
 }
 
-func (p *Peer) Read() (*eos.Packet, error) {
-	packet, err := eos.ReadPacket(p.reader)
+func (p *Peer) Read() (*zsw.Packet, error) {
+	packet, err := zsw.ReadPacket(p.reader)
 	if p.handshakeTimeout > 0 {
 		p.cancelHandshakeTimeout <- true
 	}
@@ -179,16 +179,16 @@ func (p *Peer) Write(bytes []byte) (int, error) {
 	return p.connection.Write(bytes)
 }
 
-func (p *Peer) WriteP2PMessage(message eos.P2PMessage) (err error) {
+func (p *Peer) WriteP2PMessage(message zsw.P2PMessage) (err error) {
 
-	packet := &eos.Packet{
+	packet := &zsw.Packet{
 		Type:       message.GetType(),
 		P2PMessage: message,
 	}
 
 	buff := bytes.NewBuffer(make([]byte, 0, 512))
 
-	encoder := eos.NewEncoder(buff)
+	encoder := zsw.NewEncoder(buff)
 	err = encoder.Encode(packet)
 	if err != nil {
 		return fmt.Errorf("unable to encode message %s: %w", message, err)
@@ -208,7 +208,7 @@ func (p *Peer) SendSyncRequest(startBlockNum uint32, endBlockNumber uint32) (err
 		zap.Uint32("start", startBlockNum),
 		zap.Uint32("end", endBlockNumber))
 
-	syncRequest := &eos.SyncRequestMessage{
+	syncRequest := &zsw.SyncRequestMessage{
 		StartBlock: startBlockNum,
 		EndBlock:   endBlockNumber,
 	}
@@ -221,12 +221,12 @@ func (p *Peer) SendRequest(startBlockNum uint32, endBlockNumber uint32) (err err
 		zap.Uint32("start", startBlockNum),
 		zap.Uint32("end", endBlockNumber))
 
-	request := &eos.RequestMessage{
-		ReqTrx: eos.OrderedBlockIDs{
+	request := &zsw.RequestMessage{
+		ReqTrx: zsw.OrderedBlockIDs{
 			Mode:    [4]byte{0, 0, 0, 0},
 			Pending: startBlockNum,
 		},
-		ReqBlocks: eos.OrderedBlockIDs{
+		ReqBlocks: zsw.OrderedBlockIDs{
 			Mode:    [4]byte{0, 0, 0, 0},
 			Pending: endBlockNumber,
 		},
@@ -242,12 +242,12 @@ func (p *Peer) SendNotice(headBlockNum uint32, libNum uint32, mode byte) error {
 		zap.Uint32("lib", libNum),
 		zap.Uint8("type", mode))
 
-	notice := &eos.NoticeMessage{
-		KnownTrx: eos.OrderedBlockIDs{
+	notice := &zsw.NoticeMessage{
+		KnownTrx: zsw.OrderedBlockIDs{
 			Mode:    [4]byte{mode, 0, 0, 0},
 			Pending: headBlockNum,
 		},
-		KnownBlocks: eos.OrderedBlockIDs{
+		KnownBlocks: zsw.OrderedBlockIDs{
 			Mode:    [4]byte{mode, 0, 0, 0},
 			Pending: libNum,
 		},
@@ -259,7 +259,7 @@ func (p *Peer) SendNotice(headBlockNum uint32, libNum uint32, mode byte) error {
 func (p *Peer) SendTime() error {
 	zlog.Debug("SendTime", zap.String("peer", p.Address))
 
-	notice := &eos.TimeMessage{}
+	notice := &zsw.TimeMessage{}
 	return errors.WithStack(p.WriteP2PMessage(notice))
 }
 
@@ -271,14 +271,14 @@ func (p *Peer) SendHandshake(info *HandshakeInfo) error {
 
 	zlog.Debug("SendHandshake", zap.String("peer", p.Address), zap.Object("info", info))
 
-	tstamp := eos.Tstamp{Time: info.HeadBlockTime}
+	tstamp := zsw.Tstamp{Time: info.HeadBlockTime}
 
 	signature := ecc.Signature{
 		Curve:   ecc.CurveK1,
 		Content: make([]byte, 65, 65),
 	}
 
-	handshake := &eos.HandshakeMessage{
+	handshake := &zsw.HandshakeMessage{
 		NetworkVersion:           1206,
 		ChainID:                  info.ChainID,
 		NodeID:                   p.NodeID,

@@ -1,22 +1,22 @@
 package sudo
 
 import (
-	eos "github.com/zhongshuwen/zswchain-go"
+	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
 // NewExec creates an `exec` action, found in the `eosio.wrap`
 // contract.
 //
-// Given an `eos.Transaction`, call `eos.MarshalBinary` on it first,
-// pass the resulting bytes as `eos.HexBytes` here.
-func NewExec(executer eos.AccountName, transaction eos.Transaction) *eos.Action {
-	a := &eos.Action{
-		Account: eos.AccountName("eosio.wrap"),
-		Name:    eos.ActionName("exec"),
-		Authorization: []eos.PermissionLevel{
-			{Actor: executer, Permission: eos.PermissionName("active")},
+// Given an `zsw.Transaction`, call `zsw.MarshalBinary` on it first,
+// pass the resulting bytes as `zsw.HexBytes` here.
+func NewExec(executer zsw.AccountName, transaction zsw.Transaction) *zsw.Action {
+	a := &zsw.Action{
+		Account: zsw.AccountName("zswhq.wrap"),
+		Name:    zsw.ActionName("exec"),
+		Authorization: []zsw.PermissionLevel{
+			{Actor: executer, Permission: zsw.PermissionName("active")},
 		},
-		ActionData: eos.NewActionData(Exec{
+		ActionData: zsw.NewActionData(Exec{
 			Executer:    executer,
 			Transaction: transaction,
 		}),
@@ -26,6 +26,6 @@ func NewExec(executer eos.AccountName, transaction eos.Transaction) *eos.Action 
 
 // Exec represents the `eosio.system::exec` action.
 type Exec struct {
-	Executer    eos.AccountName `json:"executer"`
-	Transaction eos.Transaction `json:"trx"`
+	Executer    zsw.AccountName `json:"executer"`
+	Transaction zsw.Transaction `json:"trx"`
 }

@@ -29,7 +29,7 @@ func main() {
 
 	fmt.Println("P2P Client ", *peer, " With Chain ID :", *chainID)
 	client := p2p.NewClient(
-		p2p.NewOutgoingPeer(*peer, "eos-proxy", &p2p.HandshakeInfo{
+		p2p.NewOutgoingPeer(*peer, "zsw-proxy", &p2p.HandshakeInfo{
 			ChainID:      cID,
 			HeadBlockNum: 1,
 		}),

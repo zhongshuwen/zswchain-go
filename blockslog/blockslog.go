@@ -81,8 +81,8 @@ func Process(filename string) error {
 			return err
 		}
 
-		d := eos.NewDecoder(cnt)
-		var block *eos.SignedBlock
+		d := zsw.NewDecoder(cnt)
+		var block *zsw.SignedBlock
 
 		if err := d.Decode(&block); err != nil {
 			return fmt.Errorf("decoding signed block: %w", err)

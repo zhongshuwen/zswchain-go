@@ -1239,7 +1239,7 @@ func (i *Uint128) UnmarshalJSON(data []byte) error {
 }
 
 func (i *Uint128) FromHexString(hexString string) error {
-	if len(hexString) == 32 {
+	if len(hexString) != 32 {
 		return fmt.Errorf("Uint128 hex string must be 32 characters long")
 	}
 

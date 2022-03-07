@@ -6,8 +6,8 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcd/btcec"
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcutil/base58"
+	"github.com/zhongshuwen/zswchain-go/libbsuite/btcd/btcec"
+	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
 )
 
 type innerWASignature struct {

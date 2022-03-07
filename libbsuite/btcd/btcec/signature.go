@@ -351,7 +351,7 @@ func SignCompact(curve *KoblitzCurve, key *PrivateKey, hash []byte, isCompressed
 	// See: https://github.com/cryptonomex/secp256k1-zkp/blob/secp256k1-zkp/src/secp256k1.c#L187
 	// See: https://github.com/EOSIO/eos/blob/master/libraries/fc/src/crypto/elliptic_impl_priv.cpp#L96
 	// See: https://github.com/EOSIO/eosjs-ecc/blob/master/src/signature.js#L178
-	// See: https://github.com/btcsuite/btcd/blob/master/btcec/signature.go#L355
+	// See: https://github.com/libbsuite/btcd/blob/master/btcec/signature.go#L355
 
 	// bitcoind checks the bit length of R and S here. The ecdsa signature
 	// algorithm returns R and S mod N therefore they will be the bitsize of

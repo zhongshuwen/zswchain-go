@@ -9,8 +9,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcd/btcec"
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcutil"
+	"github.com/zhongshuwen/zswchain-go/libbsuite/btcd/btcec"
+	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil"
 )
 
 const PrivateKeyPrefix = "PVT_"

@@ -451,8 +451,8 @@ func FixmeTestPackedTransaction_Unpack(t *testing.T) {
 }
 
 func unifiedDiff(t *testing.T, expectedContent, actualContent []byte) string {
-	file1 := "/tmp/eos-go-tests-expected"
-	file2 := "/tmp/eos-go-tests-actual"
+	file1 := "/tmp/zswchain-go-tests-expected"
+	file2 := "/tmp/zswchain-go-tests-actual"
 	err := ioutil.WriteFile(file1, prettifyJSON(expectedContent), 0600)
 	require.NoError(t, err)
 

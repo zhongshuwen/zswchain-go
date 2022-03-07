@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-var traceEnabled = logging.IsTraceEnabled("eos-go", "github.com/zhongshuwen/zswchain-go")
+var traceEnabled = logging.IsTraceEnabled("zswchain-go", "github.com/zhongshuwen/zswchain-go")
 var zlog = zap.NewNop()
 
 func init() {

@@ -1184,13 +1184,13 @@ func (i Uint128) DecimalString() string {
 	return i.BigInt().String()
 }
 func (i Uint128) GetTypeACode() uint64 {
-	return i.Hi;
-}
-func (i Uint128) GetTypeBCode() uint64 {
 	return i.Lo;
 }
+func (i Uint128) GetTypeBCode() uint64 {
+	return i.Hi;
+}
 func (i Uint128) Get40BitId() uint64 {
-	return i.Hi & 0xffffffffff;
+	return i.Lo & 0xffffffffff;
 }
 
 func (i Uint128) MarshalJSON() (data []byte, err error) {
@@ -1270,8 +1270,8 @@ func (i *Uint128) FromHexStringBigEndian(hexString string) error {
 		return fmt.Errorf("Uint128 hex string must be 32 characters long")
 	}
 
-	loHex := hexString[16:]
-	hiHex := hexString[:16]
+	loHex := hexString[:16]
+	hiHex := hexString[16:]
 
 	lo, err := hex.DecodeString(loHex)
 	if err != nil {
@@ -1286,8 +1286,8 @@ func (i *Uint128) FromHexStringBigEndian(hexString string) error {
 	loUint := binary.BigEndian.Uint64(lo)
 	hiUint := binary.BigEndian.Uint64(hi)
 
-	i.Lo = loUint
-	i.Hi = hiUint
+	i.Lo = hiUint
+	i.Hi = loUint
 
 	return nil
 }

@@ -1,7 +1,7 @@
 
 [ table_id_object:
 00a6823403ea3055  eosio.token (code)
-454f530000000000  "EOS" symbol_code (scope)
+454f530000000000  "ZSWCC" symbol_code (scope)
 0000000000904dc6  stat (table name)
 00a6823403ea3055  eosio.token (payer?)
 01000000          count ?
@@ -12,14 +12,14 @@
 ]
 
 [ key value object:
-454f530000000000  "EOS", primary key?
+454f530000000000  "ZSWCC", primary key?
 00a6823403ea3055  eosio.token, payer ?
 
 28                length=40 ?
 835fd1f546090000   uint64 = 10200376500099, amount 1,020,037,650.0099 ?!
-04454f5300000000  "4,EOS"
+04454f5300000000  "4,ZSWCC"
 00407a10f35a0000   uint64 = 100000000000000, amount 10,000,000,000.0000
-04454f5300000000  "4,EOS"
+04454f5300000000  "4,ZSWCC"
 0000000000ea3055   eosio
    `-> these last few fields seem to correspond to: https://eosq.app/account/eosio.token/tables?lowerBound=&scope=EOS&tableName=stat
 ]
@@ -54,7 +54,7 @@
 000000000000e03f  float64 = 0.50000
 
 1f8274480d000000  uint64 = 57050169887, 5,705,016.9887
-04454f5300000000  "4,EOS"
+04454f5300000000  "4,ZSWCC"
 000000000000e03f  float64 = 0.50000
    `-> looks like: https://eosq.app/account/eosio/tables?lowerBound=&scope=eosio&tableName=rammarket
 ]

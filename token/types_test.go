@@ -19,7 +19,7 @@ import (
 //		Data: Transfer{
 //			From:     AN("abourget"),
 //			To:       AN("zswhq"),
-//			Quantity: zsw.Asset{Amount: 123123, Symbol: zsw.EOSSymbol},
+//			Quantity: zsw.Asset{Amount: 123123, Symbol: zsw.ZSWCCSymbol},
 //		},
 //	}
 //

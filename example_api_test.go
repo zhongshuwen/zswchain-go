@@ -3,7 +3,7 @@ package zsw_test
 import "os"
 
 func getAPIURL() string {
-	apiURL := os.Getenv("EOS_GO_API_URL")
+	apiURL := os.Getenv("ZSW_CHAIN_API_URL")
 	if apiURL != "" {
 		return apiURL
 	}

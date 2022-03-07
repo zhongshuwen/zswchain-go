@@ -2,7 +2,7 @@ package system
 
 import "github.com/zhongshuwen/zswchain-go"
 
-// NewUpdateAuth creates an action from the `eosio.system` contract
+// NewUpdateAuth creates an action from the `zswhq.system` contract
 // called `updateauth`.
 //
 // usingPermission needs to be `owner` if you want to modify the

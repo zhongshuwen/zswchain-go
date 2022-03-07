@@ -4,7 +4,7 @@ import (
 	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-// NewExec creates an `exec` action, found in the `eosio.wrap`
+// NewExec creates an `exec` action, found in the `zswhq.wrap`
 // contract.
 //
 // Given an `zsw.Transaction`, call `zsw.MarshalBinary` on it first,
@@ -24,7 +24,7 @@ func NewExec(executer zsw.AccountName, transaction zsw.Transaction) *zsw.Action 
 	return a
 }
 
-// Exec represents the `eosio.system::exec` action.
+// Exec represents the `zswhq.system::exec` action.
 type Exec struct {
 	Executer    zsw.AccountName `json:"executer"`
 	Transaction zsw.Transaction `json:"trx"`

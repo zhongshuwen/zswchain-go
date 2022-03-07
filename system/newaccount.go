@@ -6,7 +6,7 @@ import (
 )
 
 // NewNewAccount returns a `newaccount` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewNewAccount(creator, newAccount zsw.AccountName, publicKey ecc.PublicKey) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -42,7 +42,7 @@ func NewNewAccount(creator, newAccount zsw.AccountName, publicKey ecc.PublicKey)
 }
 
 // NewDelegatedNewAccount returns a `newaccount` action that lives on the
-// `eosio.system` contract. It is filled with an authority structure that
+// `zswhq.system` contract. It is filled with an authority structure that
 // delegates full control of the new account to an already existing account.
 func NewDelegatedNewAccount(creator, newAccount zsw.AccountName, delegatedTo zsw.AccountName) *zsw.Action {
 	return &zsw.Action{
@@ -85,7 +85,7 @@ func NewDelegatedNewAccount(creator, newAccount zsw.AccountName, delegatedTo zsw
 }
 
 // NewCustomNewAccount returns a `newaccount` action that lives on the
-// `eosio.system` contract. You can specify your own `owner` and
+// `zswhq.system` contract. You can specify your own `owner` and
 // `active` permissions.
 func NewCustomNewAccount(creator, newAccount zsw.AccountName, owner, active zsw.Authority) *zsw.Action {
 	return &zsw.Action{
@@ -103,7 +103,7 @@ func NewCustomNewAccount(creator, newAccount zsw.AccountName, owner, active zsw.
 	}
 }
 
-// NewAccount represents a `newaccount` action on the `eosio.system`
+// NewAccount represents a `newaccount` action on the `zswhq.system`
 // contract. It is one of the rare ones to be hard-coded into the
 // blockchain.
 type NewAccount struct {

@@ -5,7 +5,7 @@ import (
 )
 
 // NewRefund returns a `refund` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewRefund(owner zsw.AccountName) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -19,7 +19,7 @@ func NewRefund(owner zsw.AccountName) *zsw.Action {
 	}
 }
 
-// Refund represents the `eosio.system::refund` action
+// Refund represents the `zswhq.system::refund` action
 type Refund struct {
 	Owner zsw.AccountName `json:"owner"`
 }

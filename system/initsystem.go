@@ -5,7 +5,7 @@ import (
 )
 
 // NewInitSystem returns a `init` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewInitSystem(version zsw.Varuint32, core zsw.Symbol) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -23,7 +23,7 @@ func NewInitSystem(version zsw.Varuint32, core zsw.Symbol) *zsw.Action {
 	}
 }
 
-// Init represents the `eosio.system::init` action
+// Init represents the `zswhq.system::init` action
 type Init struct {
 	Version zsw.Varuint32 `json:"version"`
 	Core    zsw.Symbol    `json:"core"`

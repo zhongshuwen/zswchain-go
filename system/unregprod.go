@@ -5,7 +5,7 @@ import (
 )
 
 // NewUnregProducer returns a `unregprod` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewUnregProducer(producer zsw.AccountName) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -19,7 +19,7 @@ func NewUnregProducer(producer zsw.AccountName) *zsw.Action {
 	}
 }
 
-// UnregProducer represents the `eosio.system::unregprod` action
+// UnregProducer represents the `zswhq.system::unregprod` action
 type UnregProducer struct {
 	Producer zsw.AccountName `json:"producer"`
 }

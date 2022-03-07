@@ -5,7 +5,7 @@ import (
 )
 
 // NewPropose returns a `propose` action that lives on the
-// `eosio.msig` contract.
+// `zswhq.msig` contract.
 func NewPropose(proposer zsw.AccountName, proposalName zsw.Name, requested []zsw.PermissionLevel, transaction *zsw.Transaction) *zsw.Action {
 	return &zsw.Action{
 		Account: zsw.AccountName("zswhq.msig"),

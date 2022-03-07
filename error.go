@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/zhongshuwen/zswchain-go/eoserr"
+	zswerr "github.com/zhongshuwen/zswchain-go/zswerr"
 )
 
 // APIError represents the errors as reported by the server
@@ -19,7 +19,7 @@ type APIError struct {
 	} `json:"error"`
 }
 
-func NewAPIError(httpCode int, msg string, e eoserr.Error) *APIError {
+func NewAPIError(httpCode int, msg string, e zswerr.Error) *APIError {
 	newError := &APIError{
 		Code:    httpCode,
 		Message: msg,

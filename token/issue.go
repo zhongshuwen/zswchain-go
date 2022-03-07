@@ -17,7 +17,7 @@ func NewIssue(to zsw.AccountName, quantity zsw.Asset, memo string) *zsw.Action {
 	}
 }
 
-// Issue represents the `issue` struct on the `eosio.token` contract.
+// Issue represents the `issue` struct on the `zswhq.token` contract.
 type Issue struct {
 	To       zsw.AccountName `json:"to"`
 	Quantity zsw.Asset       `json:"quantity"`

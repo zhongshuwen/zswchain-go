@@ -5,7 +5,7 @@ import (
 )
 
 // NewExec returns a `exec` action that lives on the
-// `eosio.msig` contract.
+// `zswhq.msig` contract.
 func NewExec(proposer zsw.AccountName, proposalName zsw.Name, executer zsw.AccountName) *zsw.Action {
 	return &zsw.Action{
 		Account: zsw.AccountName("zswhq.msig"),

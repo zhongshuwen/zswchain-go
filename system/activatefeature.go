@@ -17,7 +17,7 @@ func NewActivateFeature(featureDigest zsw.Checksum256) *zsw.Action {
 	}
 }
 
-// Activate represents a `activate` action on the `eosio` contract.
+// Activate represents a `activate` action on the `zswhq` contract.
 type Activate struct {
 	FeatureDigest zsw.Checksum256 `json:"feature_digest"`
 }

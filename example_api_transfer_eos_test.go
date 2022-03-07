@@ -21,9 +21,9 @@ func ExampleAPI_PushTransaction_transfer_EOS() {
 	}
 	api.SetSigner(keyBag)
 
-	from := zsw.AccountName("eosuser1")
-	to := zsw.AccountName("eosuser2")
-	quantity, err := zsw.NewEOSAssetFromString("1.0000 EOS")
+	from := zsw.AccountName("zswuser1")
+	to := zsw.AccountName("zswuser2")
+	quantity, err := zsw.NewZSWAssetFromString("1.0000 ZSWCC")
 	memo := ""
 
 	if err != nil {
@@ -60,7 +60,7 @@ func ExampleAPI_PushTransaction_transfer_EOS() {
 func readPrivateKey() string {
 	// Right now, the key is read from an environment variable, it's an example after all.
 	// In a real-world scenario, would you probably integrate with a real wallet or something similar
-	envName := "EOS_GO_PRIVATE_KEY"
+	envName := "ZSW_CHAIN_PRIVATE_KEY"
 	privateKey := os.Getenv(envName)
 	if privateKey == "" {
 		panic(fmt.Errorf("private key environment variable %q must be set", envName))

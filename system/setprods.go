@@ -6,9 +6,9 @@ import (
 )
 
 // NewSetPriv returns a `setpriv` action that lives on the
-// `eosio.bios` contract. It should exist only when booting a new
+// `zswhq.bios` contract. It should exist only when booting a new
 // network, as it is replaced using the `eos-bios` boot process by the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewSetProds(producers []ProducerKey) *zsw.Action {
 	a := &zsw.Action{
 		Account: AN("zswhq"),
@@ -23,7 +23,7 @@ func NewSetProds(producers []ProducerKey) *zsw.Action {
 	return a
 }
 
-// SetProds is present in `eosio.bios` contract. Used only at boot time.
+// SetProds is present in `zswhq.bios` contract. Used only at boot time.
 type SetProds struct {
 	Schedule []ProducerKey `json:"schedule"`
 }

@@ -5,7 +5,7 @@ import (
 )
 
 // NewDelegateBW returns a `delegatebw` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewDelegateBW(from, receiver zsw.AccountName, stakeCPU, stakeNet zsw.Asset, transfer bool) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -23,7 +23,7 @@ func NewDelegateBW(from, receiver zsw.AccountName, stakeCPU, stakeNet zsw.Asset,
 	}
 }
 
-// DelegateBW represents the `eosio.system::delegatebw` action.
+// DelegateBW represents the `zswhq.system::delegatebw` action.
 type DelegateBW struct {
 	From     zsw.AccountName `json:"from"`
 	Receiver zsw.AccountName `json:"receiver"`

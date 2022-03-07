@@ -2,7 +2,7 @@ package system
 
 import "github.com/zhongshuwen/zswchain-go"
 
-// NewCancelDelay creates an action from the `eosio.system` contract
+// NewCancelDelay creates an action from the `zswhq.system` contract
 // called `canceldelay`.
 //
 // `canceldelay` allows you to cancel a deferred transaction,

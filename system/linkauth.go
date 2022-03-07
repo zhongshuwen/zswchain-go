@@ -2,7 +2,7 @@ package system
 
 import "github.com/zhongshuwen/zswchain-go"
 
-// NewLinkAuth creates an action from the `eosio.system` contract
+// NewLinkAuth creates an action from the `zswhq.system` contract
 // called `linkauth`.
 //
 // `linkauth` allows you to attach certain permission to the given

@@ -5,7 +5,7 @@ import (
 )
 
 // NewRemoveProducer returns a `rmvproducer` action that lives on the
-// `eosio.system` contract.  This is to be called by the consortium of
+// `zswhq.system` contract.  This is to be called by the consortium of
 // BPs, to oust a BP from its place.  If you want to unregister
 // yourself as a BP, use `unregprod`.
 func NewRemoveProducer(producer zsw.AccountName) *zsw.Action {
@@ -21,7 +21,7 @@ func NewRemoveProducer(producer zsw.AccountName) *zsw.Action {
 	}
 }
 
-// RemoveProducer represents the `eosio.system::rmvproducer` action
+// RemoveProducer represents the `zswhq.system::rmvproducer` action
 type RemoveProducer struct {
 	Producer zsw.AccountName `json:"producer"`
 }

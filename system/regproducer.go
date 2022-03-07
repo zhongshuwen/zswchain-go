@@ -6,7 +6,7 @@ import (
 )
 
 // NewRegProducer returns a `regproducer` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewRegProducer(producer zsw.AccountName, producerKey ecc.PublicKey, url string, location uint16) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -23,7 +23,7 @@ func NewRegProducer(producer zsw.AccountName, producerKey ecc.PublicKey, url str
 	}
 }
 
-// RegProducer represents the `eosio.system::regproducer` action
+// RegProducer represents the `zswhq.system::regproducer` action
 type RegProducer struct {
 	Producer    zsw.AccountName `json:"producer"`
 	ProducerKey ecc.PublicKey   `json:"producer_key"`

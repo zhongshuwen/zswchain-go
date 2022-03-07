@@ -3,9 +3,9 @@ package system
 import "github.com/zhongshuwen/zswchain-go"
 
 // NewNonce returns a `nonce` action that lives on the
-// `eosio.bios` contract. It should exist only when booting a new
+// `zswhq.bios` contract. It should exist only when booting a new
 // network, as it is replaced using the `eos-bios` boot process by the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewNonce(nonce string) *zsw.Action {
 	a := &zsw.Action{
 		Account:       AN("zswhq"),

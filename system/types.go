@@ -34,7 +34,7 @@ type EOSIOGlobalState struct {
 	PaymentPerBlock           zsw.Uint64 `json:"payment_per_block"`
 }
 
-// Nonce represents the `eosio.system::nonce` action. It is used to
+// Nonce represents the `zswhq.system::nonce` action. It is used to
 // add variability in a transaction, so you can send the same many
 // times in the same block, without it having the same Tx hash.
 type Nonce struct {

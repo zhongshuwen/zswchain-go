@@ -20,7 +20,7 @@ func NewCleanProposal(cleaner zsw.AccountName, proposalName zsw.Name, maxCount u
 	return a
 }
 
-// CleanProposal represents the `eosio.forum::clnproposal` action.
+// CleanProposal represents the `zswhq.forum::clnproposal` action.
 type CleanProposal struct {
 	ProposalName zsw.Name `json:"proposal_name"`
 	MaxCount     uint64   `json:"max_count"`

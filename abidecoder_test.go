@@ -1117,10 +1117,10 @@ func TestABI_Read(t *testing.T) {
 		{name: "public_key_wa", typeName: "public_key", data: ecc.MustNewPublicKey("PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj"), expectedValue: s(`"PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj"`)},
 		{name: "signature", typeName: "signature", data: ecc.MustNewSignatureFromData(signatureBuffer), expectedValue: s(`"SIG_K1_K96L1au4xFJg5edn6qBK6UDbSsC2RKsMs4cXCA2LoCPZxBDMXehdZFWPh1GeRhzGoQjBwNK2eBmUXf4L8SBApL69pGdUJm"`)},
 		{name: "signature_wa", typeName: "signature", data: ecc.MustNewSignature("SIG_WA_28AzYsRYSSA85Q4Jjp4zkiyBA8G85AcPsHU3HUuqLkY3LooYcFiSMGGxhEQcCzAhaZJqdaUXG16p8t63sDhqh9L4xc24CDxbf81D6FW4SXGjxQSM2D7FAJSSQCogjbqJanTP5CbSF8FWyaD4pVVAs4Z9ubqNhHCkiLDesEukwGYu6ujgwQkFqczow5cSwTqTirdgqCBjkGQLMT3KV2JwjN7b2qPAyDa2vvjsGWFP8HVTw2tctD6FBPHU9nFgtfcztkc3eqxVU9UbvUbKayU62dLZBwNCwHxmyPymH5YfoJLhBkS8s"), expectedValue: s(`"SIG_WA_28AzYsRYSSA85Q4Jjp4zkiyBA8G85AcPsHU3HUuqLkY3LooYcFiSMGGxhEQcCzAhaZJqdaUXG16p8t63sDhqh9L4xc24CDxbf81D6FW4SXGjxQSM2D7FAJSSQCogjbqJanTP5CbSF8FWyaD4pVVAs4Z9ubqNhHCkiLDesEukwGYu6ujgwQkFqczow5cSwTqTirdgqCBjkGQLMT3KV2JwjN7b2qPAyDa2vvjsGWFP8HVTw2tctD6FBPHU9nFgtfcztkc3eqxVU9UbvUbKayU62dLZBwNCwHxmyPymH5YfoJLhBkS8s"`)},
-		{name: "symbol", typeName: "symbol", data: EOSSymbol, expectedValue: s(`"4,EOS"`)},
+		{name: "symbol", typeName: "symbol", data: ZSWCCSymbol, expectedValue: s(`"4,ZSWCC"`)},
 		{name: "symbol_code", typeName: "symbol_code", data: SymbolCode(22606239386324546), expectedValue: s(`"BNTDAPP"`)},
-		{name: "asset", typeName: "asset", data: Asset{Amount: 100000, Symbol: EOSSymbol}, expectedValue: s(`"10.0000 EOS"`)},
-		{name: "extended_asset", typeName: "extended_asset", data: ExtendedAsset{Asset: Asset{Amount: 10, Symbol: EOSSymbol}, Contract: "zhongshuwen1"}, expectedValue: s("{\"quantity\":\"0.0010 EOS\",\"contract\":\"zhongshuwen1\"}")},
+		{name: "asset", typeName: "asset", data: Asset{Amount: 100000, Symbol: ZSWCCSymbol}, expectedValue: s(`"10.0000 ZSWCC"`)},
+		{name: "extended_asset", typeName: "extended_asset", data: ExtendedAsset{Asset: Asset{Amount: 10, Symbol: ZSWCCSymbol}, Contract: "zhongshuwen1"}, expectedValue: s("{\"quantity\":\"0.0010 EOS\",\"contract\":\"zhongshuwen1\"}")},
 		{name: "bad type", typeName: "bad.type.1", data: nil, expectedValue: nil, expectError: true},
 		{name: "min float64 fit nodeos", fitNodeos: true, typeName: "float64", data: math.SmallestNonzeroFloat64, expectedValue: s(`"0.00000000000000000"`)},
 		{name: "max float64 fit nodeos", fitNodeos: true, typeName: "float64", data: math.MaxFloat64, expectedValue: s(`"179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00000000000000000"`)},
@@ -1161,7 +1161,7 @@ func TestABI_Read_Symbol(t *testing.T) {
 
 	out, err := abi.read(NewDecoder(data), "symbol")
 	require.NoError(t, err)
-	assert.Equal(t, `"4,EOS"`, toJSON(t, out))
+	assert.Equal(t, `"4,ZSWCC"`, toJSON(t, out))
 }
 
 func TestABI_Read_TimePointSec(t *testing.T) {

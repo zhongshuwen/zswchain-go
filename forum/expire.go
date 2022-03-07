@@ -19,7 +19,7 @@ func NewExpire(proposer zsw.AccountName, proposalName zsw.Name) *zsw.Action {
 	return a
 }
 
-// Expire represents the `eosio.forum::propose` action.
+// Expire represents the `zswhq.forum::propose` action.
 type Expire struct {
 	ProposalName zsw.Name `json:"proposal_name"`
 }

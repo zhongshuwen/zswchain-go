@@ -26,7 +26,7 @@ func NewPost(poster zsw.AccountName, postUUID, content string, replyToPoster zsw
 	return a
 }
 
-// Post represents the `eosio.forum::post` action.
+// Post represents the `zswhq.forum::post` action.
 type Post struct {
 	Poster          zsw.AccountName `json:"poster"`
 	PostUUID        string          `json:"post_uuid"`

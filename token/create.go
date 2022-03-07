@@ -16,7 +16,7 @@ func NewCreate(issuer zsw.AccountName, maxSupply zsw.Asset) *zsw.Action {
 	}
 }
 
-// Create represents the `create` struct on the `eosio.token` contract.
+// Create represents the `create` struct on the `zswhq.token` contract.
 type Create struct {
 	Issuer        zsw.AccountName `json:"issuer"`
 	MaximumSupply zsw.Asset       `json:"maximum_supply"`

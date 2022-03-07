@@ -18,7 +18,7 @@ func NewTransfer(from, to zsw.AccountName, quantity zsw.Asset, memo string) *zsw
 	}
 }
 
-// Transfer represents the `transfer` struct on `eosio.token` contract.
+// Transfer represents the `transfer` struct on `zswhq.token` contract.
 type Transfer struct {
 	From     zsw.AccountName `json:"from"`
 	To       zsw.AccountName `json:"to"`

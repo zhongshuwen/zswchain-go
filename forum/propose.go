@@ -23,7 +23,7 @@ func NewPropose(proposer zsw.AccountName, proposalName zsw.Name, title string, p
 	return a
 }
 
-// Propose represents the `eosio.forum::propose` action.
+// Propose represents the `zswhq.forum::propose` action.
 type Propose struct {
 	Proposer     zsw.AccountName `json:"proposer"`
 	ProposalName zsw.Name        `json:"proposal_name"`

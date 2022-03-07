@@ -21,7 +21,7 @@ func NewSellRAM(account zsw.AccountName, bytes uint64) *zsw.Action {
 	return a
 }
 
-// SellRAM represents the `eosio.system::sellram` action.
+// SellRAM represents the `zswhq.system::sellram` action.
 type SellRAM struct {
 	Account zsw.AccountName `json:"account"`
 	Bytes   uint64          `json:"bytes"`

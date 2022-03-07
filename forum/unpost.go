@@ -20,7 +20,7 @@ func NewUnPost(poster zsw.AccountName, postUUID string) *zsw.Action {
 	return a
 }
 
-// UnPost represents the `eosio.forum::unpost` action.
+// UnPost represents the `zswhq.forum::unpost` action.
 type UnPost struct {
 	Poster   zsw.AccountName `json:"poster"`
 	PostUUID string          `json:"post_uuid"`

@@ -31,6 +31,7 @@ type PermissionName Name
 type ActionName Name
 type TableName Name
 type ScopeName Name
+type ZswItemsMetadata map[string]interface{}
 
 func AN(in string) AccountName    { return AccountName(in) }
 func ActN(in string) ActionName   { return ActionName(in) }
@@ -421,9 +422,9 @@ func (sc SymbolCode) MarshalJSON() (data []byte, err error) {
 	return []byte(`"` + sc.String() + `"`), nil
 }
 
-// EOSSymbol represents the standard EOS symbol on the chain.  It's
+// ZSWCCSymbol represents the standard ZSWCC symbol on the chain.  It's
 // here just to speed up things.
-var EOSSymbol = Symbol{Precision: 4, Symbol: "EOS"}
+var ZSWCCSymbol = Symbol{Precision: 4, Symbol: "ZSWCC"}
 
 // REXSymbol represents the standard REX symbol on the chain.  It's
 // here just to speed up things.
@@ -435,7 +436,7 @@ var REXSymbol = Symbol{Precision: 4, Symbol: "REX"}
 var TNTSymbol = Symbol{Precision: 4, Symbol: "TNT"}
 
 func NewEOSAsset(amount int64) Asset {
-	return Asset{Amount: Int64(amount), Symbol: EOSSymbol}
+	return Asset{Amount: Int64(amount), Symbol: ZSWCCSymbol}
 }
 
 // NewAsset reads from a string an EOS asset.
@@ -462,8 +463,8 @@ func NewAssetFromString(in string) (out Asset, err error) {
 	return
 }
 
-func NewEOSAssetFromString(input string) (Asset, error) {
-	return NewFixedSymbolAssetFromString(EOSSymbol, input)
+func NewZSWAssetFromString(input string) (Asset, error) {
+	return NewFixedSymbolAssetFromString(ZSWCCSymbol, input)
 }
 
 func NewREXAssetFromString(input string) (Asset, error) {

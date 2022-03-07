@@ -5,7 +5,7 @@ import (
 )
 
 // NewUndelegateBW returns a `undelegatebw` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewUndelegateBW(from, receiver zsw.AccountName, unstakeCPU, unstakeNet zsw.Asset) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -22,7 +22,7 @@ func NewUndelegateBW(from, receiver zsw.AccountName, unstakeCPU, unstakeNet zsw.
 	}
 }
 
-// UndelegateBW represents the `eosio.system::undelegatebw` action.
+// UndelegateBW represents the `zswhq.system::undelegatebw` action.
 type UndelegateBW struct {
 	From       zsw.AccountName `json:"from"`
 	Receiver   zsw.AccountName `json:"receiver"`

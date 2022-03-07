@@ -22,7 +22,7 @@ func NewBuyRAMBytes(payer, receiver zsw.AccountName, bytes uint32) *zsw.Action {
 	return a
 }
 
-// BuyRAMBytes represents the `eosio.system::buyrambytes` action.
+// BuyRAMBytes represents the `zswhq.system::buyrambytes` action.
 type BuyRAMBytes struct {
 	Payer    zsw.AccountName `json:"payer"`
 	Receiver zsw.AccountName `json:"receiver"`

@@ -2,7 +2,7 @@ package system
 
 import "github.com/zhongshuwen/zswchain-go"
 
-// NewUnlinkAuth creates an action from the `eosio.system` contract
+// NewUnlinkAuth creates an action from the `zswhq.system` contract
 // called `unlinkauth`.
 //
 // `unlinkauth` detaches a previously set permission from a

@@ -20,7 +20,7 @@ func NewClaimRewards(owner zsw.AccountName) *zsw.Action {
 	return a
 }
 
-// ClaimRewards represents the `eosio.system::claimrewards` action.
+// ClaimRewards represents the `zswhq.system::claimrewards` action.
 type ClaimRewards struct {
 	Owner zsw.AccountName `json:"owner"`
 }

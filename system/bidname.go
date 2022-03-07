@@ -20,7 +20,7 @@ func NewBidname(bidder, newname zsw.AccountName, bid zsw.Asset) *zsw.Action {
 	return a
 }
 
-// Bidname represents the `eosio.system_contract::bidname` action.
+// Bidname represents the `zswhq.system_contract::bidname` action.
 type Bidname struct {
 	Bidder  zsw.AccountName `json:"bidder"`
 	Newname zsw.AccountName `json:"newname"`

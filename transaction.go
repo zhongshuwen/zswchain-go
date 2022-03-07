@@ -57,8 +57,8 @@ func (tx *Transaction) SetExpiration(in time.Duration) {
 }
 
 const (
-	EOS_ProtocolFeatureActivation BlockHeaderExtensionType = iota
-	EOS_ProducerScheduleChangeExtension
+	ZSW_ProtocolFeatureActivation BlockHeaderExtensionType = iota
+	ZSW_ProducerScheduleChangeExtension
 )
 
 type BlockHeaderExtension interface {
@@ -71,9 +71,9 @@ type blockHeaderExtensionMap = map[BlockHeaderExtensionType]newBlockHeaderExtens
 type newBlockHeaderExtension func() BlockHeaderExtension
 
 var blockHeaderExtensions = map[string]blockHeaderExtensionMap{
-	"EOS": {
-		EOS_ProtocolFeatureActivation:       func() BlockHeaderExtension { return new(ProtocolFeatureActivationExtension) },
-		EOS_ProducerScheduleChangeExtension: func() BlockHeaderExtension { return new(ProducerScheduleChangeExtension) },
+	"ZSWCC": {
+		ZSW_ProtocolFeatureActivation:       func() BlockHeaderExtension { return new(ProtocolFeatureActivationExtension) },
+		ZSW_ProducerScheduleChangeExtension: func() BlockHeaderExtension { return new(ProducerScheduleChangeExtension) },
 	},
 }
 
@@ -167,7 +167,7 @@ type ProtocolFeatureActivationExtension struct {
 }
 
 func (e *ProtocolFeatureActivationExtension) TypeID() BlockHeaderExtensionType {
-	return EOS_ProtocolFeatureActivation
+	return ZSW_ProtocolFeatureActivation
 }
 
 // ProducerScheduleChangeExtension is a block header extension present in the signed
@@ -177,7 +177,7 @@ type ProducerScheduleChangeExtension struct {
 }
 
 func (e *ProducerScheduleChangeExtension) TypeID() BlockHeaderExtensionType {
-	return EOS_ProducerScheduleChangeExtension
+	return ZSW_ProducerScheduleChangeExtension
 }
 
 func unmarshalTypeError(value interface{}, reflectTypeHost interface{}, target interface{}, field string) *json.UnmarshalTypeError {

@@ -5,7 +5,7 @@ import (
 )
 
 // NewUnapprove returns a `unapprove` action that lives on the
-// `eosio.msig` contract.
+// `zswhq.msig` contract.
 func NewUnapprove(proposer zsw.AccountName, proposalName zsw.Name, level zsw.PermissionLevel) *zsw.Action {
 	return &zsw.Action{
 		Account:       zsw.AccountName("zswhq.msig"),

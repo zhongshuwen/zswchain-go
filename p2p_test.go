@@ -348,7 +348,7 @@ func TestBlockHeader_UnmarshalJSON(t *testing.T) {
 				assert.Nil(t, e.NewProducersV1)
 				assert.Len(t, e.HeaderExtensions, 1)
 
-				extension, err := e.HeaderExtensions[0].AsBlockHeaderExtension("EOS")
+				extension, err := e.HeaderExtensions[0].AsBlockHeaderExtension("ZSWCC")
 				require.NoError(t, err)
 				assert.NotNil(t, extension)
 				assert.IsType(t, &ProducerScheduleChangeExtension{}, extension)

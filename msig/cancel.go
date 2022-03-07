@@ -5,7 +5,7 @@ import (
 )
 
 // NewCancel returns a `cancel` action that lives on the
-// `eosio.msig` contract.
+// `zswhq.msig` contract.
 func NewCancel(proposer zsw.AccountName, proposalName zsw.Name, canceler zsw.AccountName) *zsw.Action {
 	return &zsw.Action{
 		Account: zsw.AccountName("zswhq.msig"),

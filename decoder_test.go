@@ -595,7 +595,7 @@ func TestDecoder_Encode(t *testing.T) {
 	assert.Equal(t, true, s.F17)
 	assert.Equal(t, Int64(100000), s.F18.Amount)
 	assert.Equal(t, uint8(4), s.F18.Precision)
-	assert.Equal(t, "EOS", s.F18.Symbol.Symbol)
+	assert.Equal(t, "ZSWCC", s.F18.Symbol.Symbol)
 
 }
 

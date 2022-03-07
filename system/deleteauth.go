@@ -2,7 +2,7 @@ package system
 
 import "github.com/zhongshuwen/zswchain-go"
 
-// NewDeleteAuth creates an action from the `eosio.system` contract
+// NewDeleteAuth creates an action from the `zswhq.system` contract
 // called `deleteauth`.
 //
 // You cannot delete the `owner` or `active` permissions.  Also, if a
@@ -25,7 +25,7 @@ func NewDeleteAuth(account zsw.AccountName, permission zsw.PermissionName) *zsw.
 }
 
 // DeleteAuth represents the native `deleteauth` action, reachable
-// through the `eosio.system` contract.
+// through the `zswhq.system` contract.
 type DeleteAuth struct {
 	Account    zsw.AccountName    `json:"account"`
 	Permission zsw.PermissionName `json:"permission"`

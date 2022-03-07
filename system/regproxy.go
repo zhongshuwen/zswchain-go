@@ -5,7 +5,7 @@ import (
 )
 
 // NewRegProxy returns a `regproxy` action that lives on the
-// `eosio.system` contract.
+// `zswhq.system` contract.
 func NewRegProxy(proxy zsw.AccountName, isProxy bool) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zswhq"),
@@ -20,7 +20,7 @@ func NewRegProxy(proxy zsw.AccountName, isProxy bool) *zsw.Action {
 	}
 }
 
-// RegProxy represents the `eosio.system::regproxy` action
+// RegProxy represents the `zswhq.system::regproxy` action
 type RegProxy struct {
 	Proxy   zsw.AccountName `json:"proxy"`
 	IsProxy bool            `json:"isproxy"`

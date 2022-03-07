@@ -22,7 +22,7 @@ func NewSetalimits(account zsw.AccountName, ramBytes, netWeight, cpuWeight int64
 	return a
 }
 
-// Setalimits represents the `eosio.system::setalimit` action.
+// Setalimits represents the `zswhq.system::setalimit` action.
 type Setalimits struct {
 	Account   zsw.AccountName `json:"account"`
 	RAMBytes  int64           `json:"ram_bytes"`

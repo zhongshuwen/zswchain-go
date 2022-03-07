@@ -23,7 +23,7 @@ func NewVote(voter zsw.AccountName, proposalName zsw.Name, voteValue uint8, vote
 	return a
 }
 
-// Vote represents the `eosio.forum::vote` action.
+// Vote represents the `zswhq.forum::vote` action.
 type Vote struct {
 	Voter        zsw.AccountName `json:"voter"`
 	ProposalName zsw.Name        `json:"proposal_name"`

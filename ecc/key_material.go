@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcutil/base58"
+	"github.com/zhongshuwen/zswchain-go/bsuite/btcutil/base58"
 )
 
 type keyMaterialDecoder func(input string) []byte

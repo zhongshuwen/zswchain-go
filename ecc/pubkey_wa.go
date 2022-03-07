@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcd/btcec"
+	"github.com/zhongshuwen/zswchain-go/bsuite/btcd/btcec"
 )
 
 type innerWAPublicKey struct {

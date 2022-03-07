@@ -1,8 +1,8 @@
 package ecc
 
 import (
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcd/btcec"
-	"github.com/zhongshuwen/zswchain-go/btcsuite/btcutil/base58"
+	"github.com/eoscanada/eos-go/btcsuite/btcd/btcec"
+	"github.com/eoscanada/eos-go/btcsuite/btcutil/base58"
 )
 
 type innerK1Signature struct {
@@ -47,7 +47,7 @@ func (s *innerK1Signature) publicKey(content []byte, hash []byte) (out PublicKey
 func (s innerK1Signature) string(content []byte) string {
 	checksum := ripemd160checksumHashCurve(content, CurveK1)
 	buf := append(content[:], checksum...)
-	return "SIG_K1_" + base58.Encode(buf)
+	return PublicKeyPrefixCompat + base58.Encode(buf)
 }
 
 func (s innerK1Signature) signatureMaterialSize() *int {

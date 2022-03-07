@@ -1296,8 +1296,8 @@ func (i *Uint128) FromUuidString(uuidString string) error {
 }
 func NewUint128FromUint64(i uint64) Uint128 {
 	return Uint128{
-		Hi: i,
-		Lo: 0,
+		Hi: 0,
+		Lo: i,
 	}
 }
 

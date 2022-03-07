@@ -10,7 +10,7 @@ import (
 func NewItemMint(minter, to, toCustodian zsw.AccountName, freezeTime uint32, itemIds []uint64, amounts []uint64, memo string) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
-		Name:    ActN("transfer"),
+		Name:    ActN("mint"),
 		Authorization: []zsw.PermissionLevel{
 			{Actor: minter, Permission: PN("active")},
 		},

@@ -23,7 +23,6 @@ var symbolRegex = regexp.MustCompile("^[0-9]{1,2},[A-Z]{1,7}$")
 var symbolCodeRegex = regexp.MustCompile("^[A-Z]{1,7}$")
 
 // For reference:
-// https://github.com/mithrilcoin-io/EosCommander/blob/master/app/src/main/java/io/mithrilcoin/eoscommander/data/remote/model/types/EosByteWriter.java
 
 type Name string
 type AccountName Name
@@ -31,7 +30,9 @@ type PermissionName Name
 type ActionName Name
 type TableName Name
 type ScopeName Name
+
 type ZswItemsMetadata map[string]interface{}
+
 
 func AN(in string) AccountName    { return AccountName(in) }
 func ActN(in string) ActionName   { return ActionName(in) }
@@ -43,6 +44,72 @@ func (n PermissionName) String() string { return string(n) }
 func (n ActionName) String() string     { return string(n) }
 func (n TableName) String() string      { return string(n) }
 func (n ScopeName) String() string      { return string(n) }
+
+// start core permissions flags
+type ZswCorePermissions uint64
+const (
+	ZSW_CORE_PERMS_ADMIN ZswCorePermissions = 1 << iota
+	ZSW_CORE_PERMS_SETCODE
+	ZSW_CORE_PERMS_SETABI
+	ZSW_CORE_PERMS_TRANSFER_TOKEN_TO_ANYONE
+	ZSW_CORE_PERMS_RECEIVE_TOKEN_FROM_ANYONE
+	ZSW_CORE_PERMS_TRANSFER_TOKEN_TO_CORE_CONTRACTS
+	ZSW_CORE_PERMS_RECEIVE_TOKEN_AS_CORE_CONTRACTS
+	ZSW_CORE_PERMS_CREATE_USER
+	ZSW_CORE_PERMS_UPDATE_AUTH
+	ZSW_CORE_PERMS_DELETE_AUTH
+	ZSW_CORE_PERMS_LINK_AUTH
+	ZSW_CORE_PERMS_UNLINK_AUTH
+	ZSW_CORE_PERMS_CANCEL_DELAY
+	ZSW_CORE_PERMS_CONFIRM_AUTHORIZE_USER_TX
+	ZSW_CORE_PERMS_CONFIRM_AUTHORIZE_USER_TRANSFER_ITEM
+	ZSW_CORE_PERMS_GENERAL_RESOURCES
+	ZSW_CORE_PERMS_REGISTER_PRODUCER
+	ZSW_CORE_PERMS_VOTE_PRODUCER
+	ZSW_CORE_PERMS_MISC_FUNCTIONS
+)
+// end core permission flags
+
+
+
+// start items permissions flags
+type ZswItemsPermissions uint64
+const (
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_COLLECTION ZswItemsPermissions = 1 << iota
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_COLLECTION
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_ITEM
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ITEM
+	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_ITEM
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_ISSUER
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ISSUER
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_ROYALTY_USER
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ROYALTY_USER
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_SCHEMA
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_SCHEMA
+	ZSW_ITEMS_PERMS_ADMIN
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_CUSTODIAN
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_CUSTODIAN
+	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_TO_OTHER_CUSTODIANS
+	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_TO_NULL_CUSTODIAN
+)
+// end items permission flags
+
+
+// start items custodian permissions flags
+type ZswItemsCustodianPermissions uint64
+const (
+	CUSTODIAN_PERMS_ENABLED ZswItemsCustodianPermissions = 1 << iota
+	CUSTODIAN_PERMS_TX_TO_SELF_CUSTODIAN
+	CUSTODIAN_PERMS_RECEIVE_FROM_NULL_CUSTODIAN
+	CUSTODIAN_PERMS_RECEIVE_FROM_ANY_CUSTODIAN
+	CUSTODIAN_PERMS_RECEIVE_FROM_ZSW_CUSTODIAN
+	CUSTODIAN_PERMS_SEND_TO_NULL_CUSTODIAN
+	CUSTODIAN_PERMS_SEND_TO_ANY_CUSTODIAN
+	CUSTODIAN_PERMS_SEND_TO_ZSW_CUSTODIAN
+)
+// end items permission flags
+
+
 
 type SafeString string
 
@@ -1116,6 +1183,15 @@ func (i Uint128) String() string {
 func (i Uint128) DecimalString() string {
 	return i.BigInt().String()
 }
+func (i Uint128) GetTypeACode() uint64 {
+	return i.Hi;
+}
+func (i Uint128) GetTypeBCode() uint64 {
+	return i.Lo;
+}
+func (i Uint128) Get40BitId() uint64 {
+	return i.Hi & 0xffffffffff;
+}
 
 func (i Uint128) MarshalJSON() (data []byte, err error) {
 	return []byte(`"` + i.String() + `"`), nil
@@ -1160,6 +1236,42 @@ func (i *Uint128) UnmarshalJSON(data []byte) error {
 	i.Hi = hiUint
 
 	return nil
+}
+
+func (i *Uint128) FromHexString(hexString string) error {
+	if len(hexString) == 32 {
+		return fmt.Errorf("Uint128 hex string must be 32 characters long")
+	}
+
+	loHex := hexString[:16]
+	hiHex := hexString[16:]
+
+	lo, err := hex.DecodeString(loHex)
+	if err != nil {
+		return err
+	}
+
+	hi, err := hex.DecodeString(hiHex)
+	if err != nil {
+		return err
+	}
+
+	loUint := binary.LittleEndian.Uint64(lo)
+	hiUint := binary.LittleEndian.Uint64(hi)
+
+	i.Lo = loUint
+	i.Hi = hiUint
+
+	return nil
+}
+func (i *Uint128) FromUuidString(uuidString string) error {
+	return i.FromHexString(strings.Replace(uuidString, "-", "", -1));
+}
+func NewUint128FromUint64(i uint64) Uint128 {
+	return Uint128{
+		Hi: i,
+		Lo: 0,
+	}
 }
 
 // Int128
@@ -1727,3 +1839,5 @@ func (o *fcVariantBlob) UnmarshalBinary(decoder *Decoder) error {
 	*o = fcVariantBlob(blob)
 	return nil
 }
+
+

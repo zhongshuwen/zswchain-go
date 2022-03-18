@@ -72,8 +72,12 @@ func NewPrivateKey(wif string) (*PrivateKey, error) {
 			if errWif != nil {
 				return nil, errWif
 			}
+			sm2PrivKey, err := ReadSM2PrivateKeyFromBytes(wifDecoded.data)
+			if err != nil {
+				return nil, err
+			}
 
-			inner := &innerGMPrivateKey{privKey: ReadSM2PrivateKeyFromBytes(wifDecoded.data)}
+			inner := &innerGMPrivateKey{privKey: sm2PrivKey}
 			return &PrivateKey{Curve: CurveGM, inner: inner}, nil
 
 		default:

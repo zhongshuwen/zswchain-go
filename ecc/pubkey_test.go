@@ -34,6 +34,11 @@ func Test_PublicKeyMarshalUnmarshal(t *testing.T) {
 			key:         "PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj",
 			expectedKey: "PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj",
 		},
+		{
+			name:        "GM",
+			key:         "PUB_GM_7gyUV7Q8YF59EAsWgoQcYKdrYy5NEGFhCzx5pdJFtd7rURgaic",
+			expectedKey: "PUB_GM_7gyUV7Q8YF59EAsWgoQcYKdrYy5NEGFhCzx5pdJFtd7rURgaic",
+		},
 	}
 
 	for _, c := range cases {
@@ -70,6 +75,11 @@ func TestPublicKey_MarshalJSON(t *testing.T) {
 			name:         "WA",
 			key:          "PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj",
 			expectedJSON: `"PUB_WA_5hyixc7vkMbKiThWi1TnFtXw7HTDcHfjREj2SzxCtgw3jQGepa5T9VHEy1Tunjzzj"`,
+		},
+		{
+			name:         "GM",
+			key:          "PUB_GM_7gyUV7Q8YF59EAsWgoQcYKdrYy5NEGFhCzx5pdJFtd7rURgaic",
+			expectedJSON: `"PUB_GM_7gyUV7Q8YF59EAsWgoQcYKdrYy5NEGFhCzx5pdJFtd7rURgaic"`,
 		},
 	}
 

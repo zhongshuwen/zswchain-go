@@ -2,6 +2,7 @@ package ecc
 
 import (
 	"bytes"
+	"encoding/hex"
 	"fmt"
 
 	"crypto/rand"
@@ -13,8 +14,20 @@ type innerGMPrivateKey struct {
 	privKey *sm2.PrivateKey
 }
 
+func CompressReal(a *sm2.PublicKey) []byte {
+	data := sm2.Compress(a)
+	if data[0] == 1 {
+		data[0] = 3
+	} else {
+		data[0] = 2
+	}
+	return data
+}
+
 func (k *innerGMPrivateKey) publicKey() PublicKey {
-	return PublicKey{Curve: CurveGM, Content: sm2.Compress(&k.privKey.PublicKey), inner: &innerGMPublicKey{}}
+	println("pubkeyhex ", hex.EncodeToString(CompressReal(&k.privKey.PublicKey)))
+
+	return PublicKey{Curve: CurveGM, Content: CompressReal(&k.privKey.PublicKey), inner: &innerGMPublicKey{}}
 }
 
 func (k *innerGMPrivateKey) sign(hash []byte) (out Signature, err error) {
@@ -22,10 +35,11 @@ func (k *innerGMPrivateKey) sign(hash []byte) (out Signature, err error) {
 		return out, fmt.Errorf("hash should be 32 bytes")
 	} // 从文件读取数据
 	signedBytes, err := k.privKey.SignDigest(rand.Reader, hash, nil) // 签名
+	println("Signed bytes %s", hex.EncodeToString(signedBytes))
 	if err != nil {
 		return out, err
 	}
-	outBytes := sm2.Compress(&k.privKey.PublicKey)
+	outBytes := CompressReal(&k.privKey.PublicKey)
 	outBytes = append(outBytes, signedBytes...)
 	if len(outBytes) < 105 {
 		outBytes = append(outBytes, bytes.Repeat([]byte{0}, 105-len(outBytes))...)

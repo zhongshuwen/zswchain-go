@@ -3,11 +3,13 @@ package ecc
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/hex"
 	"errors"
 	"math/big"
 
 	"github.com/zhongshuwen/gmsm/sm2"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
+	"golang.org/x/crypto/ripemd160"
 )
 
 type DecodedWIF struct {
@@ -52,43 +54,36 @@ func DoubleHashWIF(b []byte) []byte {
 	return second[:]
 }
 
-func DecodeWIFBytes(wif string) (*DecodedWIF, error) {
+func DoubleHashWIFSuffix(b []byte, suffix string) []byte {
+	first := sha256.Sum256(append(b, []byte(suffix)...))
+	second := sha256.Sum256(first[:])
+	return second[:]
+}
+func Ripe160SuffixStringChecksum(b []byte, suffix string) []byte {
+	h := ripemd160.New()
+	_, _ = h.Write(b) // this implementation has no error path
+
+	// FIXME: this seems to be only rolled out to the `SIG_` things..
+	// proper support for importing `EOS` keys isn't rolled out into `dawn4`.
+	_, _ = h.Write([]byte(suffix)) // conditionally ?
+	sum := h.Sum(nil)
+	return sum[:4]
+}
+
+func DecodeWIFBytes(wif string, suffix string) ([]byte, error) {
 	decoded := base58.Decode(wif)
 	decodedLen := len(decoded)
-	var compress bool
-
-	// Length of base58 decoded WIF must be 32 bytes + an optional 1 byte
-	// (0x01) if compressed, plus 1 byte for netID + 4 bytes of checksum.
-	switch decodedLen {
-	case 1 + PrivKeyBytesLen + 1 + 4:
-		if decoded[33] != compressMagic {
-			return nil, ErrMalformedPrivateKey
-		}
-		compress = true
-	case 1 + PrivKeyBytesLen + 4:
-		compress = false
-	default:
+	println("decodedLength=%d, hex=%s", decodedLen, hex.EncodeToString(decoded))
+	if decodedLen != 36 {
 		return nil, ErrMalformedPrivateKey
 	}
+	cksum := Ripe160SuffixStringChecksum(decoded[:PrivKeyBytesLen], suffix)
 
-	// Checksum is first four bytes of double SHA256 of the identifier byte
-	// and privKey.  Verify this matches the final 4 bytes of the decoded
-	// private key.
-	var tosum []byte
-	if compress {
-		tosum = decoded[:1+PrivKeyBytesLen+1]
-	} else {
-		tosum = decoded[:1+PrivKeyBytesLen]
-	}
-	cksum := DoubleHashWIF(tosum)[:4]
 	if !bytes.Equal(cksum, decoded[decodedLen-4:]) {
 		return nil, ErrChecksumMismatch
 	}
 
-	netId := decoded[0]
-	privKeyBytes := decoded[1 : 1+PrivKeyBytesLen]
-
-	return &DecodedWIF{privKeyBytes, compress, netId}, nil
+	return decoded[:PrivKeyBytesLen], nil
 }
 func paddedAppend(size uint, dst, src []byte) []byte {
 	for i := 0; i < int(size)-len(src); i++ {
@@ -117,20 +112,10 @@ func EncodeWifSM2PrivateKey(netID byte, wifBytes []byte, compressed bool) string
 	// is one byte for the network, 32 bytes of private key, possibly one
 	// extra byte if the pubkey is to be compressed, and finally four
 	// bytes of checksum.
-	encodeLen := 1 + PrivKeyBytesLen + 4
-	if compressed {
-		encodeLen++
-	}
-
+	cksum := Ripe160SuffixStringChecksum(wifBytes, "GM")
+	encodeLen := PrivKeyBytesLen + 4
 	a := make([]byte, 0, encodeLen)
-	a = append(a, netID)
-	// Pad and append bytes manually, instead of using Serialize, to
-	// avoid another call to make.
-	a = paddedAppend(PrivKeyBytesLen, a, wifBytes)
-	if compressed {
-		a = append(a, compressMagic)
-	}
-	cksum := DoubleHashWIF(a)[:4]
+	a = append(a, wifBytes...)
 	a = append(a, cksum...)
 	return base58.Encode(a)
 }

@@ -43,6 +43,29 @@ func TestR1PrivateToPublic(t *testing.T) {
 	//assert.Equal(t, "PUB_R1_0000000000000000000000000000000000000000000000", pubKeyString)
 }
 
+func TestGMPrivateToPublic(t *testing.T) {
+	encodedPrivKey := "PVT_GM_98aQksvjx9xpD2xtSECphUA3NykuZxmX89ZL45byCbJLFwmcH"
+	privKey, err := NewPrivateKey(encodedPrivKey)
+	require.NoError(t, err)
+
+	// FIXME: Actual retrieval of publicKey from privateKey for R1 is not done yet, disable this check
+	pubKey := privKey.PublicKey()
+
+	pubKeyString := pubKey.String()
+	assert.Equal(t, "PUB_GM_7gyUV7Q8YF59EAsWgoQcYKdrYy5NEGFhCzx5pdJFtd7rURgaic", pubKeyString)
+}
+
+func TestGMPrivateToPrivate(t *testing.T) {
+	encodedPrivKey := "PVT_GM_98aQksvjx9xpD2xtSECphUA3NykuZxmX89ZL45byCbJLFwmcH"
+	privKey, err := NewPrivateKey(encodedPrivKey)
+	require.NoError(t, err)
+
+	// FIXME: Actual retrieval of publicKey from privateKey for R1 is not done yet, disable this check
+	privKeyStringAfter := privKey.String()
+
+	assert.Equal(t, encodedPrivKey, privKeyStringAfter)
+}
+
 func TestNewPublicKeyAndSerializeCompress(t *testing.T) {
 	// Copied test from eosjs(-.*)?
 	key, err := NewPublicKey(PublicKeyPrefixCompat + "6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV")
@@ -83,7 +106,7 @@ func TestPublicKeyValidity(t *testing.T) {
 		err error
 	}{
 		{PublicKeyPrefixCompat + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", nil},
-		{"MMM859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", fmt.Errorf(`public key should start with "PUB_K1_", "PUB_R1_", "PUB_WA_" or the old "` + PublicKeyPrefixCompat + `"`)},
+		{"MMM859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", fmt.Errorf(`public key should start with "PUB_K1_", "PUB_R1_", "PUB_WA_", "PUB_GM_" or the old "` + PublicKeyPrefixCompat + `"`)},
 		{PublicKeyPrefixCompat + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhTo", fmt.Errorf("public key checksum failed, found 0e2e1094 but expected 169c2652")},
 	}
 
@@ -100,6 +123,19 @@ func TestPublicKeyValidity(t *testing.T) {
 
 func TestK1Signature(t *testing.T) {
 	wif := "5KYZdUEo39z3FPrtuX2QbbwGnNP5zTd7yyr2SC1j299sBCnWjss"
+	privKey, err := NewPrivateKey(wif)
+	require.NoError(t, err)
+
+	cnt := []byte("hi")
+	digest := sigDigest([]byte{}, cnt, nil)
+	signature, err := privKey.Sign(digest)
+	require.NoError(t, err)
+
+	assert.True(t, signature.Verify(digest, privKey.PublicKey()))
+}
+
+func TestGMSignature(t *testing.T) {
+	wif := "PVT_GM_98aQksvjx9xpD2xtSECphUA3NykuZxmX89ZL45byCbJLFwmcH"
 	privKey, err := NewPrivateKey(wif)
 	require.NoError(t, err)
 

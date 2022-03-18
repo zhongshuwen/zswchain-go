@@ -4,6 +4,7 @@ import (
 	"bytes"
 	cryptorand "crypto/rand"
 	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -68,11 +69,12 @@ func NewPrivateKey(wif string) (*PrivateKey, error) {
 			return &PrivateKey{Curve: CurveWA, inner: inner}, nil
 		case "GM_":
 
-			wifDecoded, errWif := DecodeWIFBytes(privKeyMaterial)
+			wifDecoded, errWif := DecodeWIFBytes(privKeyMaterial, "GM")
 			if errWif != nil {
 				return nil, errWif
 			}
-			sm2PrivKey, err := ReadSM2PrivateKeyFromBytes(wifDecoded.data)
+			println("Bytes wifDecoded ", hex.EncodeToString((wifDecoded)))
+			sm2PrivKey, err := ReadSM2PrivateKeyFromBytes(wifDecoded)
 			if err != nil {
 				return nil, err
 			}

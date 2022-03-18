@@ -113,7 +113,7 @@ func NewPublicKey(pubKey string) (out PublicKey, err error) {
 		return newPublicKey(CurveGM, pubKey[len(PublicKeyGMPrefix):], newInnerGMPublicKey)
 	}
 
-	return out, fmt.Errorf("public key should start with %q, %q, %q,  or the old %q", PublicKeyK1Prefix, PublicKeyR1Prefix, PublicKeyWAPrefix, PublicKeyGMPrefix, PublicKeyPrefixCompat)
+	return out, fmt.Errorf("public key should start with %q, %q, %q, %q, or the old %q", PublicKeyK1Prefix, PublicKeyR1Prefix, PublicKeyWAPrefix, PublicKeyGMPrefix, PublicKeyPrefixCompat)
 }
 
 func newPublicKey(curveID CurveID, keyMaterial string, innerFactory func() innerPublicKey) (out PublicKey, err error) {

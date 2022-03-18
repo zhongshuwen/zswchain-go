@@ -14,6 +14,7 @@ var PublicKeyPrefix = "PUB_"
 var PublicKeyK1Prefix = "PUB_K1_"
 var PublicKeyR1Prefix = "PUB_R1_"
 var PublicKeyWAPrefix = "PUB_WA_"
+var PublicKeyGMPrefix = "PUB_GM_"
 var PublicKeyPrefixCompat = "EOS"
 
 var publicKeyDataSize = new(int)
@@ -62,6 +63,8 @@ func NewPublicKeyFromData(data []byte) (out PublicKey, err error) {
 		out.inner = &innerR1PublicKey{}
 	case CurveWA:
 		out.inner = &innerWAPublicKey{}
+	case CurveGM:
+		out.inner = &innerGMPublicKey{}
 	default:
 		return out, fmt.Errorf("unsupported curve prefix %q", out.Curve)
 	}
@@ -106,7 +109,11 @@ func NewPublicKey(pubKey string) (out PublicKey, err error) {
 		return newPublicKey(CurveWA, pubKey[len(PublicKeyWAPrefix):], newInnerWAPublicKey)
 	}
 
-	return out, fmt.Errorf("public key should start with %q, %q, %q or the old %q", PublicKeyK1Prefix, PublicKeyR1Prefix, PublicKeyWAPrefix, PublicKeyPrefixCompat)
+	if strings.HasPrefix(pubKey, PublicKeyGMPrefix) {
+		return newPublicKey(CurveGM, pubKey[len(PublicKeyGMPrefix):], newInnerGMPublicKey)
+	}
+
+	return out, fmt.Errorf("public key should start with %q, %q, %q,  or the old %q", PublicKeyK1Prefix, PublicKeyR1Prefix, PublicKeyWAPrefix, PublicKeyGMPrefix, PublicKeyPrefixCompat)
 }
 
 func newPublicKey(curveID CurveID, keyMaterial string, innerFactory func() innerPublicKey) (out PublicKey, err error) {
@@ -123,10 +130,10 @@ func (p PublicKey) Validate() error {
 		return fmt.Errorf("the inner public key structure must be present, was nil")
 	}
 
-	if p.Curve == CurveK1 || p.Curve == CurveR1 {
+	if p.Curve == CurveK1 || p.Curve == CurveR1 || p.Curve == CurveGM {
 		size := p.inner.keyMaterialSize()
 		if size == nil {
-			return fmt.Errorf("R1 & K1 public keys must have a fixed key material size")
+			return fmt.Errorf("R1, K1, GM public keys must have a fixed key material size")
 		}
 
 		if len(p.Content) != *size {

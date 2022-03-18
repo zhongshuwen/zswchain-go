@@ -6,6 +6,7 @@ const (
 	CurveK1 = CurveID(iota)
 	CurveR1
 	CurveWA
+	CurveGM
 )
 
 func (c CurveID) String() string {
@@ -16,6 +17,8 @@ func (c CurveID) String() string {
 		return "R1"
 	case CurveWA:
 		return "WA"
+	case CurveGM:
+		return "GM"
 	default:
 		return "UN" // unknown
 	}

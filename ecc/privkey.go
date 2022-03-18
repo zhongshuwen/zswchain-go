@@ -66,6 +66,15 @@ func NewPrivateKey(wif string) (*PrivateKey, error) {
 
 			inner := &innerWAPrivateKey{}
 			return &PrivateKey{Curve: CurveWA, inner: inner}, nil
+		case "GM_":
+
+			wifDecoded, errWif := DecodeWIFBytes(privKeyMaterial)
+			if errWif != nil {
+				return nil, errWif
+			}
+
+			inner := &innerGMPrivateKey{privKey: ReadSM2PrivateKeyFromBytes(wifDecoded.data)}
+			return &PrivateKey{Curve: CurveGM, inner: inner}, nil
 
 		default:
 			return nil, fmt.Errorf("unsupported curve prefix %q", curvePrefix)

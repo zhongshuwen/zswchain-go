@@ -12,6 +12,7 @@ type keyMaterialDecoder func(input string) []byte
 var keyMaterialDecoders = map[CurveID]keyMaterialDecoder{
 	CurveR1: base58.Decode,
 	CurveK1: base58.Decode,
+	CurveGM: base58.Decode,
 	CurveWA: base58.DecodeVarSize,
 }
 

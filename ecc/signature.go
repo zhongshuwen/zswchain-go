@@ -8,6 +8,7 @@ import (
 const SignatureK1Prefix = "SIG_K1_"
 const SignatureR1Prefix = "SIG_R1_"
 const SignatureWAPrefix = "SIG_WA_"
+const SignatureGMPrefix = "SIG_GM_"
 
 var signatureDataSize = new(int)
 
@@ -44,8 +45,17 @@ func (s Signature) Validate() error {
 	if s.inner == nil {
 		return fmt.Errorf("the inner signature structure must be present, was nil")
 	}
+	if s.Curve == CurveGM {
+		size := s.inner.signatureMaterialSize()
+		if size == nil {
+			return fmt.Errorf("GM signatures must have a fixed key material size")
+		}
 
-	if s.Curve == CurveK1 || s.Curve == CurveR1 {
+		if len(s.Content) != *size {
+			return fmt.Errorf("signature data must have a length of %d, got %d", *size, len(s.Content))
+		}
+
+	} else if s.Curve == CurveK1 || s.Curve == CurveR1 {
 		size := s.inner.signatureMaterialSize()
 		if size == nil {
 			return fmt.Errorf("R1 & K1 signatures must have a fixed key material size")
@@ -72,6 +82,8 @@ func NewSignatureFromData(data []byte) (Signature, error) {
 		signature.inner = &innerR1Signature{}
 	case CurveWA:
 		signature.inner = &innerWASignature{}
+	case CurveGM:
+		signature.inner = &innerGMSignature{}
 	default:
 		return Signature{}, fmt.Errorf("invalid curve  %q", signature.Curve)
 	}
@@ -120,6 +132,10 @@ func NewSignature(signature string) (out Signature, err error) {
 
 	if prefix == SignatureWAPrefix {
 		return newSignature(CurveWA, signature[7:], newInnerWASignature)
+	}
+
+	if prefix == SignatureGMPrefix {
+		return newSignature(CurveGM, signature[7:], newInnerGMSignature)
 	}
 
 	return out, fmt.Errorf("unknown prefix %q", prefix)

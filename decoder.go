@@ -907,7 +907,7 @@ func (d *Decoder) ReadPublicKey() (out ecc.PublicKey, err error) {
 	curveID := ecc.CurveID(typeID)
 	var keyMaterial []byte
 
-	if curveID == ecc.CurveK1 || curveID == ecc.CurveR1 {
+	if curveID == ecc.CurveK1 || curveID == ecc.CurveR1 || curveID == ecc.CurveGM {
 		// Minus 1 because we already read the curveID which is 1 out of the 34 bytes of a full "legacy" PublicKey
 		keyMaterial, err = d.readPublicKeyMaterial(curveID, TypeSize.PublicKey-1)
 	} else if curveID == ecc.CurveWA {

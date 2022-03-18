@@ -999,6 +999,20 @@ func (d *Decoder) ReadSignature() (out ecc.Signature, err error) {
 		}
 
 		d.pos += TypeSize.Signature - 1
+	} else if curveID == ecc.CurveGM {
+		// Minus 1 because we already read the curveID which is 1 out of the 34 bytes of a full "legacy" PublicKey
+		if d.remaining() < 105 {
+			return out, fmt.Errorf("signature required [%d] bytes, remaining [%d]", 105, d.remaining())
+		}
+
+		data = make([]byte, 106)
+		data[0] = byte(curveID)
+		copy(data[1:], d.data[d.pos:d.pos+105])
+		if traceEnabled {
+			zlog.Debug("read signature data", zap.Stringer("data", HexBytes(data)))
+		}
+
+		d.pos += 105
 	} else if curveID == ecc.CurveWA {
 		data, err = d.readWASignatureData()
 		if err != nil {

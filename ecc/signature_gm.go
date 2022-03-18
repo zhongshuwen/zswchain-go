@@ -1,6 +1,8 @@
 package ecc
 
 import (
+	"fmt"
+
 	"github.com/zhongshuwen/gmsm/sm2"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
 )
@@ -20,16 +22,16 @@ func (s *innerGMSignature) verify(content []byte, hash []byte, pubKey PublicKey)
 }
 
 func (s *innerGMSignature) publicKey(content []byte, hash []byte) (out PublicKey, err error) {
-
-	if err != nil {
-		return out, err
+	pubKeyInst := sm2.Decompress(content[0:33])
+	if pubKeyInst.VerifyDigest(hash, content[33:]) {
+		return PublicKey{
+			Curve:   CurveGM,
+			Content: content[0:33],
+			inner:   &innerGMPublicKey{},
+		}, nil
+	} else {
+		return out, fmt.Errorf("invalid signature in recovery")
 	}
-
-	return PublicKey{
-		Curve:   CurveGM,
-		Content: content[0:33],
-		inner:   &innerGMPublicKey{},
-	}, nil
 }
 
 func (s innerGMSignature) string(content []byte) string {

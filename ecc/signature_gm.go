@@ -50,5 +50,5 @@ func (s innerGMSignature) string(content []byte) string {
 }
 
 func (s innerGMSignature) signatureMaterialSize() *int {
-	return signatureDataSize
+	return gmSignatureDataSize
 }

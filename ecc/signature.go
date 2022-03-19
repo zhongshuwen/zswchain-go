@@ -11,8 +11,12 @@ const SignatureWAPrefix = "SIG_WA_"
 const SignatureGMPrefix = "SIG_GM_"
 
 var signatureDataSize = new(int)
+var gmSignatureDataSize = new(int)
 
-func init() { *signatureDataSize = 65 }
+func init() { 
+	*signatureDataSize = 65
+	*gmSignatureDataSize = 105
+}
 
 type innerSignature interface {
 	verify(content []byte, hash []byte, pubKey PublicKey) bool

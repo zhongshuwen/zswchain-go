@@ -2,7 +2,6 @@ package ecc
 
 import (
 	"bytes"
-	"encoding/hex"
 	"fmt"
 
 	"crypto/rand"
@@ -25,8 +24,6 @@ func CompressReal(a *sm2.PublicKey) []byte {
 }
 
 func (k *innerGMPrivateKey) publicKey() PublicKey {
-	println("pubkeyhex ", hex.EncodeToString(CompressReal(&k.privKey.PublicKey)))
-
 	return PublicKey{Curve: CurveGM, Content: CompressReal(&k.privKey.PublicKey), inner: &innerGMPublicKey{}}
 }
 
@@ -35,7 +32,6 @@ func (k *innerGMPrivateKey) sign(hash []byte) (out Signature, err error) {
 		return out, fmt.Errorf("hash should be 32 bytes")
 	} // 从文件读取数据
 	signedBytes, err := k.privKey.SignDigest(rand.Reader, hash, nil) // 签名
-	println("Signed bytes %s", hex.EncodeToString(signedBytes))
 	if err != nil {
 		return out, err
 	}

@@ -3,7 +3,6 @@ package ecc
 import (
 	"bytes"
 	"crypto/sha256"
-	"encoding/hex"
 	"errors"
 	"math/big"
 
@@ -73,7 +72,6 @@ func Ripe160SuffixStringChecksum(b []byte, suffix string) []byte {
 func DecodeWIFBytes(wif string, suffix string) ([]byte, error) {
 	decoded := base58.Decode(wif)
 	decodedLen := len(decoded)
-	println("decodedLength=%d, hex=%s", decodedLen, hex.EncodeToString(decoded))
 	if decodedLen != 36 {
 		return nil, ErrMalformedPrivateKey
 	}

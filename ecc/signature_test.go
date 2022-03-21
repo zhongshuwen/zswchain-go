@@ -207,6 +207,28 @@ func TestSignatureUnmarshalChecksum(t *testing.T) {
 	require.Equal(t, "signature checksum failed, found a9c72981 but expected a9c72982", err.Error())
 }
 
+func TestSignatureVerify_RandomGM(t *testing.T) {
+	privKey, err := NewRandomPrivateKey()
+	require.NoError(t, err)
+
+	pubKey1 := privKey.PublicKey()
+
+	chainID, err := hex.DecodeString("0000000000000000000000000000000000000000000000000000000000000000")
+	require.NoError(t, err)
+
+	payload, err := hex.DecodeString("88e4b25a00006c08ac5b595b000000000000") // without signed transaction bytes
+	require.NoError(t, err)
+
+	digest := sigDigest(chainID, payload, nil)
+	sig, err := privKey.Sign(digest)
+	require.NoError(t, err)
+
+	pubKey2, err := sig.PublicKey(digest)
+	require.NoError(t, err)
+
+	assert.Equal(t, pubKey1.String(), pubKey2.String())
+}
+
 func TestSignatureVerify_WA(t *testing.T) {
 	t.Skip(
 		"Debugging this should probably work, however, it fails. I think I might have the wrong",

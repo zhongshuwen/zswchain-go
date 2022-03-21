@@ -4,7 +4,7 @@ import (
 	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewMakeSchema(authorizer zsw.AccountName, creator zsw.AccountName, schemaName zsw.AccountName, schemaFormat []zsw.ZswItemsFormat) *zsw.Action {
+func NewMakeSchema(authorizer zsw.AccountName, creator zsw.AccountName, schemaName zsw.Name, schemaFormat []zsw.ZswItemsFormat) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
 		Name:    ActN("mkschema"),
@@ -24,6 +24,6 @@ func NewMakeSchema(authorizer zsw.AccountName, creator zsw.AccountName, schemaNa
 type MakeSchema struct {
 	Authorizer   zsw.AccountName      `json:"authorizer"`
 	Creator      zsw.AccountName      `json:"creator"`
-	SchemaName   zsw.AccountName      `json:"schema_name"`
+	SchemaName   zsw.Name             `json:"schema_name"`
 	SchemaFormat []zsw.ZswItemsFormat `json:"schema_format"`
 }

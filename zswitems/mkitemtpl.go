@@ -7,7 +7,7 @@ import (
 func NewMakeItemTemplate(authorizer zsw.AccountName, creator zsw.AccountName, zswId zsw.Uint128, itemTemplateId uint64, collectionId uint64, itemType uint32, schemaName zsw.AccountName, immutableMetadata zsw.ZswItemsMetadata, itemExternalMetadataUrlTemplate string) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
-		Name:    ActN("action_name"),
+		Name:    ActN("mkitemtpl"),
 		Authorization: []zsw.PermissionLevel{
 			{Actor: authorizer, Permission: PN("active")},
 			{Actor: creator, Permission: PN("active")},

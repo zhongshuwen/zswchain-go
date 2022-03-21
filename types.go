@@ -15,8 +15,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/tidwall/gjson"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 var symbolRegex = regexp.MustCompile("^[0-9]{1,2},[A-Z]{1,7}$")
@@ -32,7 +32,11 @@ type TableName Name
 type ScopeName Name
 
 type ZswItemsMetadata map[string]interface{}
-
+type ZswItemsFormatType string
+type ZswItemsFormat struct {
+	Name string             `json:"name"`
+	Type ZswItemsFormatType `json:"type"`
+}
 
 func AN(in string) AccountName    { return AccountName(in) }
 func ActN(in string) ActionName   { return ActionName(in) }
@@ -47,6 +51,7 @@ func (n ScopeName) String() string      { return string(n) }
 
 // start core permissions flags
 type ZswCorePermissions uint64
+
 const (
 	ZSW_CORE_PERMS_ADMIN ZswCorePermissions = 1 << iota
 	ZSW_CORE_PERMS_SETCODE
@@ -68,12 +73,12 @@ const (
 	ZSW_CORE_PERMS_VOTE_PRODUCER
 	ZSW_CORE_PERMS_MISC_FUNCTIONS
 )
+
 // end core permission flags
-
-
 
 // start items permissions flags
 type ZswItemsPermissions uint64
+
 const (
 	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_COLLECTION ZswItemsPermissions = 1 << iota
 	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_COLLECTION
@@ -91,12 +96,15 @@ const (
 	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_CUSTODIAN
 	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_TO_OTHER_CUSTODIANS
 	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_TO_NULL_CUSTODIAN
+	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_ITEM_TEMPLATE
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ITEM_TEMPLATE
 )
-// end items permission flags
 
+// end items permission flags
 
 // start items custodian permissions flags
 type ZswItemsCustodianPermissions uint64
+
 const (
 	CUSTODIAN_PERMS_ENABLED ZswItemsCustodianPermissions = 1 << iota
 	CUSTODIAN_PERMS_TX_TO_SELF_CUSTODIAN
@@ -107,9 +115,8 @@ const (
 	CUSTODIAN_PERMS_SEND_TO_ANY_CUSTODIAN
 	CUSTODIAN_PERMS_SEND_TO_ZSW_CUSTODIAN
 )
+
 // end items permission flags
-
-
 
 type SafeString string
 
@@ -1184,13 +1191,13 @@ func (i Uint128) DecimalString() string {
 	return i.BigInt().String()
 }
 func (i Uint128) GetTypeACode() uint64 {
-	return i.Lo;
+	return i.Lo
 }
 func (i Uint128) GetTypeBCode() uint64 {
-	return i.Hi;
+	return i.Hi
 }
 func (i Uint128) Get40BitId() uint64 {
-	return i.Lo & 0xffffffffff;
+	return i.Lo & 0xffffffffff
 }
 
 func (i Uint128) MarshalJSON() (data []byte, err error) {
@@ -1292,7 +1299,7 @@ func (i *Uint128) FromHexStringBigEndian(hexString string) error {
 	return nil
 }
 func (i *Uint128) FromUuidString(uuidString string) error {
-	return i.FromHexStringBigEndian(strings.Replace(uuidString, "-", "", -1));
+	return i.FromHexStringBigEndian(strings.Replace(uuidString, "-", "", -1))
 }
 func NewUint128FromUint64(i uint64) Uint128 {
 	return Uint128{
@@ -1866,5 +1873,3 @@ func (o *fcVariantBlob) UnmarshalBinary(decoder *Decoder) error {
 	*o = fcVariantBlob(blob)
 	return nil
 }
-
-

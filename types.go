@@ -32,10 +32,9 @@ type TableName Name
 type ScopeName Name
 
 type ZswItemsMetadata map[string]interface{}
-type ZswItemsFormatType string
 type ZswItemsFormat struct {
-	Name string             `json:"name"`
-	Type ZswItemsFormatType `json:"type"`
+	Name string `json:"name"`
+	Type string `json:"type"`
 }
 
 type ZswItemsMetadataKV struct {

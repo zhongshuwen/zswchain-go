@@ -16,11 +16,11 @@ import (
 const PrivateKeyPrefix = "PVT_"
 
 func NewRandomPrivateKey() (*PrivateKey, error) {
-	return newRandomPrivateKey(cryptorand.Reader)
+	return newRandomPrivateKeyGM(cryptorand.Reader)
 }
 
 func NewDeterministicPrivateKey(randSource io.Reader) (*PrivateKey, error) {
-	return newRandomPrivateKey(randSource)
+	return newRandomPrivateKeyGM(randSource)
 }
 
 func newRandomPrivateKey(randSource io.Reader) (*PrivateKey, error) {
@@ -37,6 +37,24 @@ func newRandomPrivateKey(randSource io.Reader) (*PrivateKey, error) {
 
 	inner := &innerK1PrivateKey{privKey: privKey}
 	return &PrivateKey{Curve: CurveK1, inner: inner}, nil
+}
+func newRandomPrivateKeyGM(randSource io.Reader) (*PrivateKey, error) {
+	rawPrivKey := make([]byte, 32)
+	written, err := io.ReadFull(randSource, rawPrivKey)
+	if err != nil {
+		return nil, fmt.Errorf("error feeding crypto-rand numbers to seed ephemeral private key: %w", err)
+	}
+	if written != 32 {
+		return nil, fmt.Errorf("couldn't write 32 bytes of randomness to seed ephemeral private key")
+	}
+
+	sm2PrivKey, err := ReadSM2PrivateKeyFromBytes(rawPrivKey)
+	if err != nil {
+		return nil, err
+	}
+
+	inner := &innerGMPrivateKey{privKey: sm2PrivKey}
+	return &PrivateKey{Curve: CurveGM, inner: inner}, nil
 }
 
 func NewPrivateKey(wif string) (*PrivateKey, error) {

@@ -16,6 +16,7 @@ func init() {
 	zsw.RegisterAction(ZswItemsAN, ActN("setcustperms"), SetCustodianPermissions{})
 	zsw.RegisterAction(ZswItemsAN, ActN("setuserperms"), SetUserPermissions{})
 	zsw.RegisterAction(ZswItemsAN, ActN("transfer"), ItemTransfer{})
+	zsw.RegisterAction(ZswItemsAN, ActN("setitemdata"), SetItemData{})
 }
 
 var AN = zsw.AN

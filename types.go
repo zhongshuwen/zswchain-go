@@ -31,17 +31,6 @@ type ActionName Name
 type TableName Name
 type ScopeName Name
 
-type ZswItemsMetadata map[string]interface{}
-type ZswItemsFormat struct {
-	Name string `json:"name"`
-	Type string `json:"type"`
-}
-
-type ZswItemsMetadataKV struct {
-	Key   string   `json:"key"`
-	Value []string `json:"value"`
-}
-
 func AN(in string) AccountName    { return AccountName(in) }
 func ActN(in string) ActionName   { return ActionName(in) }
 func PN(in string) PermissionName { return PermissionName(in) }

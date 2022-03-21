@@ -4,10 +4,10 @@ import (
 	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewMakeZswSchema(authorizer zsw.AccountName, creator zsw.AccountName, schemaName zsw.AccountName, schemaFormat []zsw.ZswItemsFormat) *zsw.Action {
+func NewMakeSchema(authorizer zsw.AccountName, creator zsw.AccountName, schemaName zsw.AccountName, schemaFormat []zsw.ZswItemsFormat) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
-		Name:    ActN("action_name"),
+		Name:    ActN("mkschema"),
 		Authorization: []zsw.PermissionLevel{
 			{Actor: authorizer, Permission: PN("active")},
 			{Actor: creator, Permission: PN("active")},

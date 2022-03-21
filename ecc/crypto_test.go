@@ -147,6 +147,21 @@ func TestGMSignature(t *testing.T) {
 	assert.True(t, signature.Verify(digest, privKey.PublicKey()))
 }
 
+func TestGMSignature2(t *testing.T) {
+	wif := "PVT_GM_98aQksvjx9xpD2xtSECphUA3NykuZxmX89ZL45byCbJLFwmcH"
+	privKey, err := NewPrivateKey(wif)
+	require.NoError(t, err)
+
+	//cnt := []byte("hi")
+	//digest := sigDigest([]byte{}, cnt, nil)
+	digest, err := hex.DecodeString("19c020ada6b096cb2510be0ee88b82c0b56ce94eb7e12e1d6b545dfe96f0a903")
+
+	signature, err := privKey.Sign(digest)
+	require.NoError(t, err)
+
+	assert.True(t, signature.Verify(digest, privKey.PublicKey()))
+	//assert.Equal(t, "blah", signature.String())
+}
 func TestR1Signature(t *testing.T) {
 	encodedPrivKey := "PVT_R1_2o5WfMRU4dTp23pbcbP2yn5MumQzSMy3ayNQ31qi5nUfa2jdWC"
 	privKey, err := NewPrivateKey(encodedPrivKey)

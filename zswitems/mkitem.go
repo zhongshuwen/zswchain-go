@@ -4,7 +4,7 @@ import (
 	zsw "github.com/zhongshuwen/zswchain-go"
 )
 
-func NewMakeItem(authorizer zsw.AccountName, authorizedMinter zsw.AccountName, itemId uint64, zswId zsw.Uint128, itemConfig uint32, itemTemplateId uint64, maxSupply uint64, schemaName zsw.AccountName, immutableMetadata zsw.ZswItemsMetadata, mutableMetadata zsw.ZswItemsMetadata) *zsw.Action {
+func NewMakeItem(authorizer zsw.AccountName, authorizedMinter zsw.AccountName, itemId uint64, zswId zsw.Uint128, itemConfig uint32, itemTemplateId uint64, maxSupply uint64, schemaName zsw.Name, immutableMetadata zsw.ZswItemsMetadata, mutableMetadata zsw.ZswItemsMetadata) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
 		Name:    ActN("mkitem"),
@@ -35,7 +35,7 @@ type MakeItem struct {
 	ItemConfig        uint32               `json:"item_config"`
 	ItemTemplateId    uint64               `json:"item_template_id"`
 	MaxSupply         uint64               `json:"max_supply"`
-	SchemaName        zsw.AccountName      `json:"schema_name"`
+	SchemaName        zsw.Name             `json:"schema_name"`
 	ImmutableMetadata zsw.ZswItemsMetadata `json:"immutable_metadata"`
 	MutableMetadata   zsw.ZswItemsMetadata `json:"mutable_metadata"`
 }

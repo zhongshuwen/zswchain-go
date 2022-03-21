@@ -91,6 +91,7 @@ const (
 	ZSW_ITEMS_PERMS_AUTHORIZE_MINT_TO_NULL_CUSTODIAN
 	ZSW_ITEMS_PERMS_AUTHORIZE_CREATE_ITEM_TEMPLATE
 	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ITEM_TEMPLATE
+	ZSW_ITEMS_PERMS_AUTHORIZE_MODIFY_ITEM_METADATA
 )
 
 // end items permission flags
@@ -109,8 +110,19 @@ const (
 	CUSTODIAN_PERMS_SEND_TO_ZSW_CUSTODIAN
 )
 
-// end items permission flags
+// end items custodian permission flags
+// start items config
+type ZswItemConfigFlags uint64
 
+const (
+	ITEM_CONFIG_TRANSFERABLE ZswItemConfigFlags = 1 << iota
+	ITEM_CONFIG_BURNABLE
+	ITEM_CONFIG_FROZEN
+	ITEM_CONFIG_ALLOW_NOTIFY
+	ITEM_CONFIG_ALLOW_MUTABLE_DATA
+)
+
+//end items config
 type SafeString string
 
 func (ss *SafeString) UnmarshalBinary(d *Decoder) error {

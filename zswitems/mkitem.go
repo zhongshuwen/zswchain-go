@@ -2,10 +2,10 @@ package zswitems
 
 import (
 	zsw "github.com/zhongshuwen/zswchain-go"
-	"github.com/zhongshuwen/zswchain-go/zswattributes"
+	"github.com/zhongshuwen/zswchain-go/zswattr"
 )
 
-func NewMakeItem(authorizer zsw.AccountName, authorizedMinter zsw.AccountName, itemId uint64, zswId zsw.Uint128, itemConfig uint32, itemTemplateId uint64, maxSupply uint64, schemaName zsw.Name, immutableMetadata zswattributes.AttributeMap, mutableMetadata zswattributes.AttributeMap) *zsw.Action {
+func NewMakeItem(authorizer zsw.AccountName, authorizedMinter zsw.AccountName, itemId uint64, zswId zsw.Uint128, itemConfig uint32, itemTemplateId uint64, maxSupply uint64, schemaName zsw.Name, immutableMetadata zswattr.AttributeMap, mutableMetadata zswattr.AttributeMap) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
 		Name:    ActN("mkitem"),
@@ -29,14 +29,14 @@ func NewMakeItem(authorizer zsw.AccountName, authorizedMinter zsw.AccountName, i
 }
 
 type MakeItem struct {
-	Authorizer        zsw.AccountName            `json:"authorizer"`
-	AuthorizedMinter  zsw.AccountName            `json:"authorized_minter"`
-	ItemId            uint64                     `json:"item_id"`
-	ZswId             zsw.Uint128                `json:"zsw_id"`
-	ItemConfig        uint32                     `json:"item_config"`
-	ItemTemplateId    uint64                     `json:"item_template_id"`
-	MaxSupply         uint64                     `json:"max_supply"`
-	SchemaName        zsw.Name                   `json:"schema_name"`
-	ImmutableMetadata zswattributes.AttributeMap `json:"immutable_metadata"`
-	MutableMetadata   zswattributes.AttributeMap `json:"mutable_metadata"`
+	Authorizer        zsw.AccountName      `json:"authorizer"`
+	AuthorizedMinter  zsw.AccountName      `json:"authorized_minter"`
+	ItemId            uint64               `json:"item_id"`
+	ZswId             zsw.Uint128          `json:"zsw_id"`
+	ItemConfig        uint32               `json:"item_config"`
+	ItemTemplateId    uint64               `json:"item_template_id"`
+	MaxSupply         uint64               `json:"max_supply"`
+	SchemaName        zsw.Name             `json:"schema_name"`
+	ImmutableMetadata zswattr.AttributeMap `json:"immutable_metadata"`
+	MutableMetadata   zswattr.AttributeMap `json:"mutable_metadata"`
 }

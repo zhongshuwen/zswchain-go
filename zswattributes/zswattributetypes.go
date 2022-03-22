@@ -1,4 +1,4 @@
-package zswattributes
+package zswattr
 
 import (
 	"encoding/base64"
@@ -2192,7 +2192,7 @@ func (m *ZSWAttribute) StringSlice() ([]string, error) {
 	}
 }
 
-// IsEqual evaluates if the two ZSWAttributes have the same types and values (deep compare)
+// IsEqual evaluates if the two zswattr have the same types and values (deep compare)
 func (m *ZSWAttribute) IsEqual(m2 *ZSWAttribute) bool {
 
 	if m.TypeID != m2.TypeID {

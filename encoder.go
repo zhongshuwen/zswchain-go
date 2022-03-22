@@ -9,6 +9,7 @@ import (
 	"io"
 	"math"
 	"reflect"
+	"sort"
 	"time"
 
 	"github.com/zhongshuwen/zswchain-go/ecc"
@@ -255,7 +256,8 @@ func (e *Encoder) Encode(v interface{}) (err error) {
 			}
 
 		case reflect.Map:
-			mapKeys := ByMapKey(rv.MapKeys())
+			mapKeys := rv.MapKeys()
+			sort.Sort(ByMapKey(mapKeys)) // fix different cosigners having different transaction payloads to sign due to the random ordering of map keys
 			keyCount := len(mapKeys)
 
 			if traceEnabled {

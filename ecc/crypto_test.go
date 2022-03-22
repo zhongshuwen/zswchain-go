@@ -200,8 +200,13 @@ LDrwFWSWWbiOlacoZI9DzcEj8//lPbhy0AGb50F2u9ZO8LSxk8QNPEffXg==
 	if len(sigData) < 106 {
 		sigData = append(sigData, bytes.Repeat([]byte{0}, 106-len(sigData))...)
 	}
-	assert.Equal(len(sigData), 106, "invalid size for sig data must be 106 bytes include the front type byte")
-	signatureInstance, err = NewSignatureFromData(sigData)
+	assert.Equal(t, len(sigData), 106, "invalid size for sig data must be 106 bytes include the front type byte")
+	signatureInstance, err := NewSignatureFromData(sigData)
 	assert.NoError(t, err, "unable to create signature from data %w", err)
+	assert.Equal(t, signatureInstance.String(), "SIG_GM_J75M5JQwBaAdfUjzkoTnSz3eL7xrw4wzcAy4pC93okraWfZuZLSzsFBYN9Jz5vhxEPjRcJfdDhYyDLT6gUDjyuSRkkiEB9ucS2rtJWmjpKrtaJNnKMRzCo8ZUUD9HMAaVmxcbdcgoLyhvfi5UXCb")
+	assert.Equal(t, true, signatureInstance.Verify(digest, realPublicKey), "verification of the signature failed for this public key and digest")
+	recoveredPubKey, err := signatureInstance.PublicKey(digest)
+	assert.NoError(t, err, "error recovering public key from signature instance")
+	assert.Equal(t, realPublicKey.String(), recoveredPubKey.String(), "public key recovered from the signature does not match our original public key")
 
 }

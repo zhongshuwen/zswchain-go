@@ -1,6 +1,7 @@
 package ecc
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -164,12 +165,21 @@ func (p PublicKey) Key() (*btcec.PublicKey, error) {
 }
 
 var emptyKeyMaterial = make([]byte, 33)
-func (p PublicKey) GetCompoundPublicKeyASN1SignatureData([]byte asn1SignatureData) (*zsw.Signature, error){
+
+func (p PublicKey) GetCompoundPublicKeyASN1SignatureData(asn1SignatureData []byte) (*Signature, error) {
 	if p.Curve != CurveGM {
 		return nil, fmt.Errorf("GetCompoundPublicKeyASN1SignatureData: currenly only supported for SM2 (GM)")
 	}
-
-
+	sigData := []byte{byte(CurveGM)}
+	sigData = append(sigData, p.Content[0:33]...)
+	sigData = append(sigData, asn1SignatureData...)
+	if len(sigData) > 106 {
+		return nil, fmt.Errorf("signature too long, total size of the signature including the curve byte and 33 byte compressed public key should be 106 bytes or less")
+	} else if len(sigData) < 106 {
+		sigData = append(sigData, bytes.Repeat([]byte{0}, 106-len(sigData))...)
+	}
+	signatureInstance, err := NewSignatureFromData(sigData)
+	return &signatureInstance, err
 }
 func (p PublicKey) String() string {
 	if p.IsEmpty() {

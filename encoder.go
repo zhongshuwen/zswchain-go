@@ -251,7 +251,7 @@ func (e *Encoder) Encode(v interface{}) (err error) {
 			keyCount := len(rv.MapKeys())
 
 			if traceEnabled {
-				zlog.Debug("encode: map", zap.Int("key_count", keyCount), typeField("key_type", t.Key()), typeField("value_type", rv.Elem()))
+				//zlog.Debug("encode: map", zap.Int("key_count", keyCount), typeField("key_type", t.Key()), typeField("value_type", rv.Elem()))
 				defer func(prev *zap.Logger) { zlog = prev }(zlog)
 				zlog = zlog.Named("struct")
 			}

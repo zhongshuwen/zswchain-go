@@ -1,11 +1,13 @@
 package ecc
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
 
+	"github.com/zhongshuwen/gmsm/x509"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcd/btcec"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
 )
@@ -143,13 +145,42 @@ func (p PublicKey) Validate() error {
 
 	return nil
 }
+func SM2PemToZSWPublicKeyString(sm2PublicKeyPemData []byte) (string, error) {
+	pem, err := x509.ReadPublicKeyFromPem(sm2PublicKeyPemData)
+	if err != nil {
+		return "", err
+	}
 
+	baseBytes := []byte{byte(CurveGM)}
+	baseBytes = append(baseBytes, CompressReal(pem)...)
+	pubKey, err := NewPublicKeyFromData(baseBytes)
+	if err != nil {
+		return "", err
+	}
+	return pubKey.String(), nil
+
+}
 func (p PublicKey) Key() (*btcec.PublicKey, error) {
 	return p.inner.key(p.Content)
 }
 
 var emptyKeyMaterial = make([]byte, 33)
 
+func (p PublicKey) GetCompoundPublicKeyASN1SignatureData(asn1SignatureData []byte) (*Signature, error) {
+	if p.Curve != CurveGM {
+		return nil, fmt.Errorf("GetCompoundPublicKeyASN1SignatureData: currenly only supported for SM2 (GM)")
+	}
+	sigData := []byte{byte(CurveGM)}
+	sigData = append(sigData, p.Content[0:33]...)
+	sigData = append(sigData, asn1SignatureData...)
+	if len(sigData) > 106 {
+		return nil, fmt.Errorf("signature too long, total size of the signature including the curve byte and 33 byte compressed public key should be 106 bytes or less")
+	} else if len(sigData) < 106 {
+		sigData = append(sigData, bytes.Repeat([]byte{0}, 106-len(sigData))...)
+	}
+	signatureInstance, err := NewSignatureFromData(sigData)
+	return &signatureInstance, err
+}
 func (p PublicKey) String() string {
 	if p.IsEmpty() {
 		return ""

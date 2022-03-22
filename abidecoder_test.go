@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/tidwall/gjson"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 func TestABI_DecodeAction(t *testing.T) {

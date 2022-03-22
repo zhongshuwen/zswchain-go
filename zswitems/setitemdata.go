@@ -2,9 +2,10 @@ package zswitems
 
 import (
 	zsw "github.com/zhongshuwen/zswchain-go"
+	"github.com/zhongshuwen/zswchain-go/zswattributes"
 )
 
-func NewSetItemData(authorizedEditor zsw.AccountName, itemId uint64, newMutableData zsw.AttributeMap) *zsw.Action {
+func NewSetItemData(authorizedEditor zsw.AccountName, itemId uint64, newMutableData zswattributes.AttributeMap) *zsw.Action {
 	return &zsw.Action{
 		Account: AN("zsw.items"),
 		Name:    ActN("setitemdata"),
@@ -20,7 +21,7 @@ func NewSetItemData(authorizedEditor zsw.AccountName, itemId uint64, newMutableD
 }
 
 type SetItemData struct {
-	AuthorizedEditor zsw.AccountName  `json:"authorized_editor"`
-	ItemId           uint64           `json:"item_id"`
-	NewMutableData   zsw.AttributeMap `json:"new_mutable_data"`
+	AuthorizedEditor zsw.AccountName            `json:"authorized_editor"`
+	ItemId           uint64                     `json:"item_id"`
+	NewMutableData   zswattributes.AttributeMap `json:"new_mutable_data"`
 }

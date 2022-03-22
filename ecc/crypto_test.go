@@ -1,6 +1,8 @@
 package ecc
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/hex"
 	"fmt"
 	"testing"
@@ -172,4 +174,34 @@ func TestR1Signature(t *testing.T) {
 	_, err = privKey.Sign(digest)
 	assert.Error(t, err)
 	assert.Equal(t, "R1 not supported", err.Error())
+}
+
+func TestDecodeSM2PEMPublicKey(t *testing.T) {
+	encodedSm2PemPublicKey := `
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEVCZLZTdGzfogF3RKdz/8SXSNU3Zq
+LDrwFWSWWbiOlacoZI9DzcEj8//lPbhy0AGb50F2u9ZO8LSxk8QNPEffXg==
+-----END PUBLIC KEY-----
+	`
+	zswPublicKeyString, err := SM2PemToZSWPublicKeyString([]byte(encodedSm2PemPublicKey))
+	assert.NoError(t, err, "unexpected error decoding SM2 public key pem")
+	assert.Equal(t, "PUB_GM_5XYqnUzbW8MXx5gJbY7vcs6tZixXFp9HV3LgQNgwqx5bGduFHc", zswPublicKeyString)
+	realPublicKey, err := NewPublicKey(zswPublicKeyString)
+	assert.NoError(t, err, "unexpected error decoding SM2 public key string")
+
+	digest, err := base64.StdEncoding.DecodeString("Av0fkx5xAjZE2X2iVfhGmdB0BmcptRrT72QOGurJzx4=")
+	assert.NoError(t, err, "error decoding base64 digest")
+	signatureSimple, err := base64.StdEncoding.DecodeString("MEQCIFwpeQpe1H4jfKwJoqE3SmfBzlPRx+dsKzHY85BUYjEZAiBpxpMyYpztygFDcVe8H1SDpVUkMWZHsrK2I3hO1rsmNQ==")
+	assert.NoError(t, err, "error decoding simple pm2 base64 signature")
+	sigData := []byte{byte(CurveGM)}
+	sigData = append(sigData, realPublicKey.Content[0:33]...)
+	sigData = append(sigData, signatureSimple...)
+	assert.LessOrEqual(t, len(sigData), 106, "signature too large!")
+	if len(sigData) < 106 {
+		sigData = append(sigData, bytes.Repeat([]byte{0}, 106-len(sigData))...)
+	}
+	assert.Equal(len(sigData), 106, "invalid size for sig data must be 106 bytes include the front type byte")
+	signatureInstance, err = NewSignatureFromData(sigData)
+	assert.NoError(t, err, "unable to create signature from data %w", err)
+
 }

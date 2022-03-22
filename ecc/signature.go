@@ -13,7 +13,7 @@ const SignatureGMPrefix = "SIG_GM_"
 var signatureDataSize = new(int)
 var gmSignatureDataSize = new(int)
 
-func init() { 
+func init() {
 	*signatureDataSize = 65
 	*gmSignatureDataSize = 105
 }
@@ -144,7 +144,6 @@ func NewSignature(signature string) (out Signature, err error) {
 
 	return out, fmt.Errorf("unknown prefix %q", prefix)
 }
-
 func newSignature(curveID CurveID, in string, innerFactory func() innerSignature) (out Signature, err error) {
 	payload, err := decodeSignatureMaterial(in, curveID)
 	if err != nil {

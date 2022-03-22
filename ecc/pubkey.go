@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/zhongshuwen/gmsm/x509"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcd/btcec"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
 )
@@ -143,13 +144,33 @@ func (p PublicKey) Validate() error {
 
 	return nil
 }
+func SM2PemToZSWPublicKeyString(sm2PublicKeyPemData []byte) (string, error) {
+	pem, err := x509.ReadPublicKeyFromPem(sm2PublicKeyPemData)
+	if err != nil {
+		return "", err
+	}
 
+	baseBytes := []byte{byte(CurveGM)}
+	baseBytes = append(baseBytes, CompressReal(pem)...)
+	pubKey, err := NewPublicKeyFromData(baseBytes)
+	if err != nil {
+		return "", err
+	}
+	return pubKey.String(), nil
+
+}
 func (p PublicKey) Key() (*btcec.PublicKey, error) {
 	return p.inner.key(p.Content)
 }
 
 var emptyKeyMaterial = make([]byte, 33)
+func (p PublicKey) GetCompoundPublicKeyASN1SignatureData([]byte asn1SignatureData) (*zsw.Signature, error){
+	if p.Curve != CurveGM {
+		return nil, fmt.Errorf("GetCompoundPublicKeyASN1SignatureData: currenly only supported for SM2 (GM)")
+	}
 
+
+}
 func (p PublicKey) String() string {
 	if p.IsEmpty() {
 		return ""

@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/tidwall/gjson"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 var abiString = `
@@ -81,6 +81,1234 @@ var abiData = []byte(`{
 	//"struct_1_field_4": "struct_1_field_4_value",
 	"struct_1_field_5": ["struct_1_field_5_value_1","struct_1_field_5_value_2"],
 }`)
+var cangPinAbi = (`{
+	"version": "eosio::abi/1.2",
+	"types": [
+		 {
+				"new_type_name": "ATTRIBUTE_MAP",
+				"type": "pair_string_SERDATA_ATTRIBUTE[]"
+		 },
+		 {
+				"new_type_name": "DOUBLE_VEC",
+				"type": "float64[]"
+		 },
+		 {
+				"new_type_name": "FLOAT_VEC",
+				"type": "float32[]"
+		 },
+		 {
+				"new_type_name": "INT16_VEC",
+				"type": "int16[]"
+		 },
+		 {
+				"new_type_name": "INT32_VEC",
+				"type": "int32[]"
+		 },
+		 {
+				"new_type_name": "INT64_VEC",
+				"type": "int64[]"
+		 },
+		 {
+				"new_type_name": "INT8_VEC",
+				"type": "bytes"
+		 },
+		 {
+				"new_type_name": "SERDATA_ATTRIBUTE",
+				"type": "variant_int8_int16_int32_int64_uint8_uint16_uint32_uint64_float32_float64_string_INT8_VEC_INT16_VEC_INT32_VEC_INT64_VEC_UINT8_VEC_UINT16_VEC_UINT32_VEC_UINT64_VEC_FLOAT_VEC_DOUBLE_VEC_STRING_VEC"
+		 },
+		 {
+				"new_type_name": "STRING_VEC",
+				"type": "string[]"
+		 },
+		 {
+				"new_type_name": "UINT16_VEC",
+				"type": "uint16[]"
+		 },
+		 {
+				"new_type_name": "UINT32_VEC",
+				"type": "uint32[]"
+		 },
+		 {
+				"new_type_name": "UINT64_VEC",
+				"type": "uint64[]"
+		 },
+		 {
+				"new_type_name": "UINT8_VEC",
+				"type": "bytes"
+		 }
+	],
+	"structs": [
+		 {
+				"name": "FORMAT",
+				"base": "",
+				"fields": [
+					 {
+							"name": "name",
+							"type": "string"
+					 },
+					 {
+							"name": "type",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "init",
+				"base": "",
+				"fields": [
+					 {
+							"name": "initializer",
+							"type": "name"
+					 }
+				]
+		 },
+		 {
+				"name": "logmint",
+				"base": "",
+				"fields": [
+					 {
+							"name": "minter",
+							"type": "name"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "to",
+							"type": "name"
+					 },
+					 {
+							"name": "to_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "item_ids",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "amounts",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "memo",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "logmkitem",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "authorized_minter",
+							"type": "name"
+					 },
+					 {
+							"name": "item_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "item_config",
+							"type": "uint32"
+					 },
+					 {
+							"name": "item_template_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "immutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "mutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "immutable_template_data",
+							"type": "ATTRIBUTE_MAP"
+					 }
+				]
+		 },
+		 {
+				"name": "logmkitemtpl",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "item_template_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "item_type",
+							"type": "uint32"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "immutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "item_external_metadata_url_template",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "logsetdata",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorized_editor",
+							"type": "name"
+					 },
+					 {
+							"name": "item_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "old_data",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "new_data",
+							"type": "ATTRIBUTE_MAP"
+					 }
+				]
+		 },
+		 {
+				"name": "logtransfer",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "from",
+							"type": "name"
+					 },
+					 {
+							"name": "to",
+							"type": "name"
+					 },
+					 {
+							"name": "from_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "to_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "item_ids",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "amounts",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "memo",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "mint",
+				"base": "",
+				"fields": [
+					 {
+							"name": "minter",
+							"type": "name"
+					 },
+					 {
+							"name": "to",
+							"type": "name"
+					 },
+					 {
+							"name": "to_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "item_ids",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "amounts",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "memo",
+							"type": "string"
+					 },
+					 {
+							"name": "freeze_time",
+							"type": "uint32"
+					 }
+				]
+		 },
+		 {
+				"name": "mkcollection",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "collection_type",
+							"type": "uint32"
+					 },
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "issuing_platform",
+							"type": "name"
+					 },
+					 {
+							"name": "item_config",
+							"type": "uint32"
+					 },
+					 {
+							"name": "secondary_market_fee",
+							"type": "uint16"
+					 },
+					 {
+							"name": "primary_market_fee",
+							"type": "uint16"
+					 },
+					 {
+							"name": "royalty_fee_collector",
+							"type": "name"
+					 },
+					 {
+							"name": "max_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_items",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply_per_item",
+							"type": "uint64"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "authorized_minters",
+							"type": "name[]"
+					 },
+					 {
+							"name": "notify_accounts",
+							"type": "name[]"
+					 },
+					 {
+							"name": "authorized_mutable_data_editors",
+							"type": "name[]"
+					 },
+					 {
+							"name": "metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "external_metadata_url",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "mkcustodian",
+				"base": "",
+				"fields": [
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "custodian_name",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 },
+					 {
+							"name": "incoming_freeze_period",
+							"type": "uint32"
+					 },
+					 {
+							"name": "notify_accounts",
+							"type": "name[]"
+					 }
+				]
+		 },
+		 {
+				"name": "mkissuer",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "issuer_name",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 }
+				]
+		 },
+		 {
+				"name": "mkitem",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "authorized_minter",
+							"type": "name"
+					 },
+					 {
+							"name": "item_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "item_config",
+							"type": "uint32"
+					 },
+					 {
+							"name": "item_template_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "immutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "mutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 }
+				]
+		 },
+		 {
+				"name": "mkitemtpl",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "item_template_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "item_type",
+							"type": "uint32"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "immutable_metadata",
+							"type": "ATTRIBUTE_MAP"
+					 },
+					 {
+							"name": "item_external_metadata_url_template",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "mkroyaltyusr",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "newroyaltyusr",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 }
+				]
+		 },
+		 {
+				"name": "mkschema",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "schema_format",
+							"type": "FORMAT[]"
+					 }
+				]
+		 },
+		 {
+				"name": "pair_string_SERDATA_ATTRIBUTE",
+				"base": "",
+				"fields": [
+					 {
+							"name": "key",
+							"type": "string"
+					 },
+					 {
+							"name": "value",
+							"type": "SERDATA_ATTRIBUTE"
+					 }
+				]
+		 },
+		 {
+				"name": "s_collections",
+				"base": "",
+				"fields": [
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "collection_type",
+							"type": "uint32"
+					 },
+					 {
+							"name": "creator",
+							"type": "name"
+					 },
+					 {
+							"name": "issuing_platform",
+							"type": "name"
+					 },
+					 {
+							"name": "item_config",
+							"type": "uint32"
+					 },
+					 {
+							"name": "secondary_market_fee",
+							"type": "uint16"
+					 },
+					 {
+							"name": "primary_market_fee",
+							"type": "uint16"
+					 },
+					 {
+							"name": "royalty_fee_collector",
+							"type": "name"
+					 },
+					 {
+							"name": "issued_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "items_count",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_items",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply_per_item",
+							"type": "uint64"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "authorized_minters",
+							"type": "name[]"
+					 },
+					 {
+							"name": "notify_accounts",
+							"type": "name[]"
+					 },
+					 {
+							"name": "authorized_mutable_data_editors",
+							"type": "name[]"
+					 },
+					 {
+							"name": "serialized_metadata",
+							"type": "bytes"
+					 },
+					 {
+							"name": "external_metadata_url",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "s_custodian_user_pairs",
+				"base": "",
+				"fields": [
+					 {
+							"name": "custodian_user_pair_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "user",
+							"type": "name"
+					 },
+					 {
+							"name": "custodian",
+							"type": "name"
+					 }
+				]
+		 },
+		 {
+				"name": "s_custodians",
+				"base": "",
+				"fields": [
+					 {
+							"name": "custodian_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "custodian_name",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 },
+					 {
+							"name": "incoming_freeze_period",
+							"type": "uint32"
+					 },
+					 {
+							"name": "notify_accounts",
+							"type": "name[]"
+					 }
+				]
+		 },
+		 {
+				"name": "s_frozen_balances",
+				"base": "",
+				"fields": [
+					 {
+							"name": "frozen_balance_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "balance",
+							"type": "uint64"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 }
+				]
+		 },
+		 {
+				"name": "s_issuerstatus",
+				"base": "",
+				"fields": [
+					 {
+							"name": "issuer_name",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 }
+				]
+		 },
+		 {
+				"name": "s_item_templates",
+				"base": "",
+				"fields": [
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "item_type",
+							"type": "uint32"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "serialized_immutable_metadata",
+							"type": "bytes"
+					 },
+					 {
+							"name": "item_external_metadata_url_template",
+							"type": "string"
+					 }
+				]
+		 },
+		 {
+				"name": "s_itembalances",
+				"base": "",
+				"fields": [
+					 {
+							"name": "item_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 },
+					 {
+							"name": "balance_normal_liquid",
+							"type": "uint64"
+					 },
+					 {
+							"name": "balance_frozen",
+							"type": "uint64"
+					 },
+					 {
+							"name": "balance_in_custody_liquid",
+							"type": "uint64"
+					 },
+					 {
+							"name": "active_custodian_pairs",
+							"type": "uint64[]"
+					 }
+				]
+		 },
+		 {
+				"name": "s_items",
+				"base": "",
+				"fields": [
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "item_config",
+							"type": "uint32"
+					 },
+					 {
+							"name": "item_template_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "collection_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "issued_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "max_supply",
+							"type": "uint64"
+					 },
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "serialized_immutable_metadata",
+							"type": "bytes"
+					 },
+					 {
+							"name": "serialized_mutable_metadata",
+							"type": "bytes"
+					 }
+				]
+		 },
+		 {
+				"name": "s_royaltyusers",
+				"base": "",
+				"fields": [
+					 {
+							"name": "user_name",
+							"type": "name"
+					 },
+					 {
+							"name": "zsw_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "alt_id",
+							"type": "uint128"
+					 },
+					 {
+							"name": "status",
+							"type": "uint32"
+					 },
+					 {
+							"name": "reported_fees_3rd",
+							"type": "uint64"
+					 },
+					 {
+							"name": "reported_fees_zsw",
+							"type": "uint64"
+					 },
+					 {
+							"name": "uncollected_fees_3rd",
+							"type": "uint64"
+					 },
+					 {
+							"name": "uncollected_fees_zsw",
+							"type": "uint64"
+					 }
+				]
+		 },
+		 {
+				"name": "s_schemas",
+				"base": "",
+				"fields": [
+					 {
+							"name": "schema_name",
+							"type": "name"
+					 },
+					 {
+							"name": "format",
+							"type": "FORMAT[]"
+					 }
+				]
+		 },
+		 {
+				"name": "setcustperms",
+				"base": "",
+				"fields": [
+					 {
+							"name": "sender",
+							"type": "name"
+					 },
+					 {
+							"name": "custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 }
+				]
+		 },
+		 {
+				"name": "setitemdata",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorized_editor",
+							"type": "name"
+					 },
+					 {
+							"name": "item_id",
+							"type": "uint64"
+					 },
+					 {
+							"name": "new_mutable_data",
+							"type": "ATTRIBUTE_MAP"
+					 }
+				]
+		 },
+		 {
+				"name": "setuserperms",
+				"base": "",
+				"fields": [
+					 {
+							"name": "sender",
+							"type": "name"
+					 },
+					 {
+							"name": "user",
+							"type": "name"
+					 },
+					 {
+							"name": "permissions",
+							"type": "uint128"
+					 }
+				]
+		 },
+		 {
+				"name": "transfer",
+				"base": "",
+				"fields": [
+					 {
+							"name": "authorizer",
+							"type": "name"
+					 },
+					 {
+							"name": "from",
+							"type": "name"
+					 },
+					 {
+							"name": "to",
+							"type": "name"
+					 },
+					 {
+							"name": "from_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "to_custodian",
+							"type": "name"
+					 },
+					 {
+							"name": "freeze_time",
+							"type": "uint32"
+					 },
+					 {
+							"name": "use_liquid_backup",
+							"type": "bool"
+					 },
+					 {
+							"name": "max_unfreeze_iterations",
+							"type": "uint32"
+					 },
+					 {
+							"name": "item_ids",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "amounts",
+							"type": "uint64[]"
+					 },
+					 {
+							"name": "memo",
+							"type": "string"
+					 }
+				]
+		 }
+	],
+	"actions": [
+		 {
+				"name": "init",
+				"type": "init",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "logmint",
+				"type": "logmint",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "logmkitem",
+				"type": "logmkitem",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "logmkitemtpl",
+				"type": "logmkitemtpl",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "logsetdata",
+				"type": "logsetdata",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "logtransfer",
+				"type": "logtransfer",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mint",
+				"type": "mint",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkcollection",
+				"type": "mkcollection",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkcustodian",
+				"type": "mkcustodian",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkissuer",
+				"type": "mkissuer",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkitem",
+				"type": "mkitem",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkitemtpl",
+				"type": "mkitemtpl",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkroyaltyusr",
+				"type": "mkroyaltyusr",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "mkschema",
+				"type": "mkschema",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "setcustperms",
+				"type": "setcustperms",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "setitemdata",
+				"type": "setitemdata",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "setuserperms",
+				"type": "setuserperms",
+				"ricardian_contract": ""
+		 },
+		 {
+				"name": "transfer",
+				"type": "transfer",
+				"ricardian_contract": ""
+		 }
+	],
+	"tables": [
+		 {
+				"name": "collections",
+				"index_type": "i64",
+				"type": "s_collections"
+		 },
+		 {
+				"name": "custodians",
+				"index_type": "i64",
+				"type": "s_custodians"
+		 },
+		 {
+				"name": "custodianups",
+				"index_type": "i64",
+				"type": "s_custodian_user_pairs"
+		 },
+		 {
+				"name": "frozenbals",
+				"index_type": "i64",
+				"type": "s_frozen_balances"
+		 },
+		 {
+				"name": "issuerstatus",
+				"index_type": "i64",
+				"type": "s_issuerstatus"
+		 },
+		 {
+				"name": "itembalances",
+				"index_type": "i64",
+				"type": "s_itembalances"
+		 },
+		 {
+				"name": "items",
+				"index_type": "i64",
+				"type": "s_items"
+		 },
+		 {
+				"name": "itemtemplate",
+				"index_type": "i64",
+				"type": "s_item_templates"
+		 },
+		 {
+				"name": "royaltyusers",
+				"index_type": "i64",
+				"type": "s_royaltyusers"
+		 },
+		 {
+				"name": "schemas",
+				"index_type": "i64",
+				"type": "s_schemas"
+		 }
+	],
+	"variants": [
+		 {
+				"name": "variant_int8_int16_int32_int64_uint8_uint16_uint32_uint64_float32_float64_string_INT8_VEC_INT16_VEC_INT32_VEC_INT64_VEC_UINT8_VEC_UINT16_VEC_UINT32_VEC_UINT64_VEC_FLOAT_VEC_DOUBLE_VEC_STRING_VEC",
+				"types": [
+					 "int8",
+					 "int16",
+					 "int32",
+					 "int64",
+					 "uint8",
+					 "uint16",
+					 "uint32",
+					 "uint64",
+					 "float32",
+					 "float64",
+					 "string",
+					 "INT8_VEC",
+					 "INT16_VEC",
+					 "INT32_VEC",
+					 "INT64_VEC",
+					 "UINT8_VEC",
+					 "UINT16_VEC",
+					 "UINT32_VEC",
+					 "UINT64_VEC",
+					 "FLOAT_VEC",
+					 "DOUBLE_VEC",
+					 "STRING_VEC"
+				]
+		 }
+	]
+}`)
 
 func TestABIEncoder_Encode(t *testing.T) {
 
@@ -140,6 +1368,38 @@ func TestABIEncoder_encodeMissingActionStruct(t *testing.T) {
 	assert.Equal(t, "encode action: encode struct [struct.name.1] not found in abi", err.Error())
 }
 
+/*
+func TestABIEncoder_encodeMissingActionStructCangPin(t *testing.T) {
+
+	actionData := `{
+		"authorizer": "zsw.admin",
+		"authorized_minter": "kxjdtestnew1",
+		"item_id": 55,
+		"zsw_id": "0x00000055",
+		"item_config": 11,
+		"item_template_id": 33,
+		"max_supply": 9000000,
+		"schema_name": "coolnametest",
+		"immutable_metadata": [
+			{"key": "name", "value": ["string", "My first item"]},
+			{"key": "image_url", "value": ["string", "https://cangpin.test.chao7.cn/f/images/shanghai.png"]},
+			{"key": "rarity", "value": ["uint32", 10]}
+		],
+		"mutable_metadata": []
+	}`
+
+	abi, err := NewABI(strings.NewReader(cangPinAbi))
+	require.NoError(t, err)
+
+	action, err := abi.EncodeAction(ActionName("mkitem"), []byte(actionData))
+
+	assert.NoError(t, err, "error encoding action")
+	decoded, err := abi.DecodeAction(action, ActionName("mkitem"))
+
+	assert.NoError(t, err, "error encoding action")
+	fmt.Println(string(decoded))
+}
+*/
 func TestABIEncoder_encodeErrorInBase(t *testing.T) {
 
 	abiString := `

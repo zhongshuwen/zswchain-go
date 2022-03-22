@@ -404,6 +404,14 @@ func (e *Encoder) writeUint64(i uint64) (err error) {
 	binary.LittleEndian.PutUint64(buf, i)
 	return e.toWriter(buf)
 }
+func (e Encoder) writeUint64N(i uint64) (err error) {
+	if traceEnabled {
+		zlog.Debug("write uint64", zap.Uint64("val", i))
+	}
+	buf := make([]byte, TypeSize.Uint64)
+	binary.LittleEndian.PutUint64(buf, i)
+	return e.toWriter(buf)
+}
 
 func (e *Encoder) writeUint128(i Uint128) (err error) {
 	if traceEnabled {

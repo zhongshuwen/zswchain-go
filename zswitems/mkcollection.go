@@ -51,7 +51,7 @@ type MakeCollection struct {
 	MaxSupply                    uint64                     `json:"max_supply"`
 	MaxItems                     uint64                     `json:"max_items"`
 	MaxSupplyPerItem             uint64                     `json:"max_supply_per_item"`
-	SchemaName                   zsw.AccountName            `json:"schema_name"`
+	SchemaName                   zsw.Name                   `json:"schema_name"`
 	AuthorizedMinters            []zsw.AccountName          `json:"authorized_minters"`
 	NotifyAccounts               []zsw.AccountName          `json:"notify_accounts"`
 	AuthorizedMutableDataEditors []zsw.AccountName          `json:"authorized_mutable_data_editors"`

@@ -139,7 +139,6 @@ func (b *KeyBag) ImportPrivateKeyFromEnv(ctx context.Context, envVarName string)
 	return err
 }
 
-
 func (b *KeyBag) SignDigest(digest []byte, requiredKey ecc.PublicKey) (ecc.Signature, error) {
 
 	privateKey := b.keyMap()[requiredKey.String()]

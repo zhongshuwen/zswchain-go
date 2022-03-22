@@ -43,14 +43,6 @@ func (k *innerGMPrivateKey) sign(hash []byte) (out Signature, err error) {
 
 	return Signature{Curve: CurveGM, Content: outBytes, inner: &innerGMSignature{}}, nil
 
-	/*	compactSig, err := k.privKey.SignCanonical(btcec.S256(), hash)
-
-		if err != nil {
-			return out, fmt.Errorf("canonical, %s", err)
-		}
-
-		return Signature{Curve: CurveGM, Content: compactSig, inner: &innerGMSignature{}}, nil
-	*/
 }
 func (k *innerGMPrivateKey) string() string {
 	return "PVT_GM_" + EncodeWifSM2PrivateKey(0x80, k.privKey.D.Bytes(), true)

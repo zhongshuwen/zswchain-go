@@ -30,6 +30,13 @@ func MarshalBinary(v interface{}) ([]byte, error) {
 	return buf.Bytes(), err
 }
 
+// map key sorters for stable maps for multisig
+type ByMapKey []reflect.Value
+
+func (a ByMapKey) Len() int           { return len(a) }
+func (a ByMapKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByMapKey) Less(i, j int) bool { return a[i].String() < a[j].String() }
+
 // --------------------------------------------------------------
 // Encoder implements the EOS packing, similar to FC_BUFFER
 // --------------------------------------------------------------
@@ -248,7 +255,8 @@ func (e *Encoder) Encode(v interface{}) (err error) {
 			}
 
 		case reflect.Map:
-			keyCount := len(rv.MapKeys())
+			mapKeys := ByMapKey(rv.MapKeys())
+			keyCount := len(mapKeys)
 
 			if traceEnabled {
 				//zlog.Debug("encode: map", zap.Int("key_count", keyCount), typeField("key_type", t.Key()), typeField("value_type", rv.Elem()))
@@ -260,7 +268,7 @@ func (e *Encoder) Encode(v interface{}) (err error) {
 				return
 			}
 
-			for _, mapKey := range rv.MapKeys() {
+			for _, mapKey := range mapKeys {
 				if err = e.Encode(mapKey.Interface()); err != nil {
 					return
 				}

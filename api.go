@@ -629,6 +629,11 @@ func (api *API) GetRequiredKeys(ctx context.Context, tx *Transaction) (out *GetR
 	return
 }
 
+func (api *API) GetRequiredKeysAvailable(ctx context.Context, tx *Transaction, keys []ecc.PublicKey) (out *GetRequiredKeysResp, err error) {
+	err = api.call(ctx, "chain", "get_required_keys", M{"transaction": tx, "available_keys": keys}, &out)
+	return
+}
+
 func (api *API) GetAccountsByAuthorizers(ctx context.Context, authorizations []PermissionLevel, keys []ecc.PublicKey) (out *GetAccountsByAuthorizersResp, err error) {
 	err = api.call(ctx, "chain", "get_accounts_by_authorizers", M{"accounts": authorizations, "keys": keys}, &out)
 	return

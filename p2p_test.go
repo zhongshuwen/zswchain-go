@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 func TestP2PMessage_UnmarshalBinaryRead(t *testing.T) {
@@ -247,7 +247,7 @@ func TestEncode_P2PMessageEnvelope_Error(t *testing.T) {
 }
 
 func TestBlockState_UnmarshalJSON(t *testing.T) {
-	testKeyRaw := ecc.MustNewPublicKey(ecc.PublicKeyPrefixCompat + "5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP")
+	testKeyRaw := ecc.MustNewPublicKey(ecc.PublicKeyPrefixK1Output + "5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP")
 	testKey := &testKeyRaw
 
 	tests := []struct {
@@ -258,9 +258,9 @@ func TestBlockState_UnmarshalJSON(t *testing.T) {
 		{
 			"eosio 1.x structure",
 			[]string{
-				`"block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"`,
-				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}`,
-				`"pending_schedule":{"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}}`,
+				`"block_signing_key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"`,
+				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}`,
+				`"pending_schedule":{"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","block_signing_key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP"}]}}`,
 			},
 			func(e *BlockState) {
 				assert.NotNil(t, e.BlockSigningKeyV1)
@@ -277,9 +277,9 @@ func TestBlockState_UnmarshalJSON(t *testing.T) {
 		{
 			"eosio v2.x structure",
 			[]string{
-				`"valid_block_signing_authority": ["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]`,
-				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}`,
-				`"pending_schedule": {"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}}`,
+				`"valid_block_signing_authority": ["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]`,
+				`"active_schedule": {"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}`,
+				`"pending_schedule": {"schedule_lib_num":0,"schedule_hash":"","schedule":{"version":1,"producers":[{"producer_name":"zswhq","authority":["block_signing_authority_v0",{"threshold":2,"keys":[{"key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","weight":3}]}]}]}}`,
 			},
 			func(e *BlockState) {
 				assert.Nil(t, e.BlockSigningKeyV1)
@@ -329,7 +329,7 @@ func TestBlockHeader_UnmarshalJSON(t *testing.T) {
 		{
 			"eosio 1.x structure",
 			[]string{
-				`"new_producers":{"producers":[{"block_signing_key":"` + ecc.PublicKeyPrefixCompat + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","producer_name":"zswhq"}],"version":1}`,
+				`"new_producers":{"producers":[{"block_signing_key":"` + ecc.PublicKeyPrefixK1Output + `5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP","producer_name":"zswhq"}],"version":1}`,
 			},
 			nil,
 			func(e *BlockHeader) {
@@ -424,7 +424,7 @@ func checkBlockSigningAuthority(t *testing.T, authority *BlockSigningAuthority) 
 	case *BlockSigningAuthorityV0:
 		assert.Equal(t, uint32(2), v0.Threshold)
 		assert.Len(t, v0.Keys, 1)
-		assert.Equal(t, ecc.PublicKeyPrefixCompat+"5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP", v0.Keys[0].PublicKey.String())
+		assert.Equal(t, ecc.PublicKeyPrefixK1Output+"5MHPYyhjBjnQZejzZHqHewPWhGTfQWSVTWYEhDmJu4SXkzgweP", v0.Keys[0].PublicKey.String())
 		assert.Equal(t, uint16(3), v0.Keys[0].Weight)
 
 	default:

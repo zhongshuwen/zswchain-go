@@ -21,7 +21,7 @@ func TestSignatureSerialization(t *testing.T) {
 	require.NoError(t, err)
 	pubKey, err := sig.PublicKey(digest)
 	require.NoError(t, err)
-	assert.Equal(t, PublicKeyPrefixCompat+`5jSQLpKBHLaMtuzkftnYE6bCMA5Jxso8f22uZyKj6cDEp32eSj`, pubKey.String()) // not checked after..
+	assert.Equal(t, PublicKeyPrefixK1Output+`5jSQLpKBHLaMtuzkftnYE6bCMA5Jxso8f22uZyKj6cDEp32eSj`, pubKey.String()) // not checked after..
 	assert.True(t, isCanonical([]byte(sig.Content)))
 }
 
@@ -179,7 +179,7 @@ func TestEOSIOCSigningComparison(t *testing.T) {
 	pubKey, err := sig.PublicKey(digest)
 	require.NoError(t, err)
 
-	assert.Equal(t, PublicKeyPrefixCompat+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", pubKey.String())
+	assert.Equal(t, PublicKeyPrefixK1Output+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", pubKey.String())
 }
 
 func TestNodeosSignatureComparison(t *testing.T) {
@@ -198,7 +198,7 @@ func TestNodeosSignatureComparison(t *testing.T) {
 
 	pubKey, err := sig.PublicKey(digest)
 
-	assert.Equal(t, PublicKeyPrefixCompat+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", pubKey.String())
+	assert.Equal(t, PublicKeyPrefixK1Output+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", pubKey.String())
 }
 
 func TestSignatureUnmarshalChecksum(t *testing.T) {

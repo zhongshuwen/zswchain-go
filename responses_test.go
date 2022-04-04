@@ -8,9 +8,9 @@ import (
 
 	"encoding/json"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 func TestUnmarshalAuthSequenceString(t *testing.T) {
@@ -215,7 +215,7 @@ var accountResponseJSONData = fmt.Sprintf(`{
 		"proxied_vote_weight": "0.00000000000000000",
 		"is_proxy": 0
 	}
-}`, ecc.PublicKeyPrefixCompat)
+}`, ecc.PublicKeyPrefixK1Output)
 
 type Transfer struct {
 	From     AccountName `json:"from"`

@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"testing"
 
-	zsw "github.com/zhongshuwen/zswchain-go"
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	zsw "github.com/zhongshuwen/zswchain-go"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 // TODO: Move this test to the `system` contract.. and take out
@@ -66,7 +66,7 @@ func TestActionNewAccount(t *testing.T) {
 	buf, err = json.Marshal(a.ActionData.Data)
 	assert.NoError(t, err)
 
-	assert.Equal(t, "{\"creator\":\"zswhq\",\"name\":\"abourget\",\"owner\":{\"threshold\":1,\"keys\":[{\"key\":\""+ecc.PublicKeyPrefixCompat+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\",\"weight\":1}]},\"active\":{\"threshold\":1,\"keys\":[{\"key\":\""+ecc.PublicKeyPrefixCompat+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\",\"weight\":1}]}}", string(buf))
+	assert.Equal(t, "{\"creator\":\"zswhq\",\"name\":\"abourget\",\"owner\":{\"threshold\":1,\"keys\":[{\"key\":\""+ecc.PublicKeyPrefixK1Output+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\",\"weight\":1}]},\"active\":{\"threshold\":1,\"keys\":[{\"key\":\""+ecc.PublicKeyPrefixK1Output+"6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV\",\"weight\":1}]}}", string(buf))
 	// 00096e88 0000 0000 00000000 00 00 00 00 01 0000000000ea3055
 
 	// WUTz that ?

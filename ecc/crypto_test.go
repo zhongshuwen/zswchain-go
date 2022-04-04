@@ -19,7 +19,7 @@ func TestK1PrivateToPublic(t *testing.T) {
 	pubKey := privKey.PublicKey()
 
 	pubKeyString := pubKey.String()
-	assert.Equal(t, PublicKeyPrefixCompat+"859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", pubKeyString)
+	assert.Equal(t, PublicKeyPrefixK1Output+"859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", pubKeyString)
 }
 
 func TestPrefixedK1PrivateToPublic(t *testing.T) {
@@ -30,7 +30,7 @@ func TestPrefixedK1PrivateToPublic(t *testing.T) {
 	pubKey := privKey.PublicKey()
 
 	pubKeyString := pubKey.String()
-	assert.Equal(t, PublicKeyPrefixCompat+"859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", pubKeyString)
+	assert.Equal(t, PublicKeyPrefixK1Output+"859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", pubKeyString)
 }
 
 func TestR1PrivateToPublic(t *testing.T) {
@@ -70,7 +70,7 @@ func TestGMPrivateToPrivate(t *testing.T) {
 
 func TestNewPublicKeyAndSerializeCompress(t *testing.T) {
 	// Copied test from eosjs(-.*)?
-	key, err := NewPublicKey(PublicKeyPrefixCompat + "6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV")
+	key, err := NewPublicKey(PublicKeyPrefixK1Output + "6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV")
 	require.NoError(t, err)
 	assert.Equal(t, "02c0ded2bc1f1305fb0faac5e6c03ee3a1924234985427b6167ca569d13df435cf", hex.EncodeToString(key.Content))
 }
@@ -107,9 +107,9 @@ func TestPublicKeyValidity(t *testing.T) {
 		in  string
 		err error
 	}{
-		{PublicKeyPrefixCompat + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", nil},
+		{PublicKeyPrefixK1Output + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", nil},
 		{"MMM859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM", fmt.Errorf(`public key should start with "PUB_K1_", "PUB_R1_", "PUB_WA_", "PUB_GM_" or the old "` + PublicKeyPrefixCompat + `"`)},
-		{PublicKeyPrefixCompat + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhTo", fmt.Errorf("public key checksum failed, found 0e2e1094 but expected 169c2652")},
+		{PublicKeyPrefixK1Output + "859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhTo", fmt.Errorf("public key checksum failed, found 0e2e1094 but expected 169c2652")},
 	}
 
 	for idx, test := range tests {

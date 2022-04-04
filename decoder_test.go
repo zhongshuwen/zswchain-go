@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 func TestDecoder_Remaining(t *testing.T) {
@@ -283,7 +283,7 @@ func TestDecoder_Empty_Checksum256(t *testing.T) {
 
 func TestDecoder_PublicKey(t *testing.T) {
 
-	pk := ecc.MustNewPublicKey(ecc.PublicKeyPrefixCompat + "1111111111111111111111111111111114T1Anm")
+	pk := ecc.MustNewPublicKey(ecc.PublicKeyPrefixK1Output + "1111111111111111111111111111111114T1Anm")
 
 	buf := new(bytes.Buffer)
 	enc := NewEncoder(buf)
@@ -431,7 +431,7 @@ func TestDecoder_BlockState(t *testing.T) {
 			expectedFileContent, err := ioutil.ReadFile(test.expectedJSONFile)
 			require.NoError(t, err)
 
-			expected := strings.ReplaceAll(string(expectedFileContent), `"EOS`, `"`+ecc.PublicKeyPrefixCompat)
+			expected := strings.ReplaceAll(string(expectedFileContent), `"EOS`, `"`+ecc.PublicKeyPrefixK1Output)
 
 			assert.JSONEq(t, expected, string(json), unifiedDiff(t, []byte(expected), json))
 		})

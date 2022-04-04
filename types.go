@@ -15,6 +15,8 @@ import (
 	"strings"
 	"time"
 
+	UUID "github.com/google/uuid"
+
 	"github.com/tidwall/gjson"
 	"github.com/zhongshuwen/zswchain-go/ecc"
 )
@@ -1305,6 +1307,17 @@ func (i *Uint128) FromHexStringBigEndian(hexString string) error {
 }
 func (i *Uint128) FromUuidString(uuidString string) error {
 	return i.FromHexStringBigEndian(strings.Replace(uuidString, "-", "", -1))
+}
+
+func (i *Uint128) ToUuidString() (string, error) {
+	number := make([]byte, 16)
+	binary.BigEndian.PutUint64(number[:], i.Hi)
+	binary.BigEndian.PutUint64(number[8:], i.Lo)
+	uuid, err := UUID.FromBytes(number)
+	if err != nil {
+		return "", err
+	}
+	return uuid.String(), nil
 }
 func NewUint128FromUint64(i uint64) Uint128 {
 	return Uint128{

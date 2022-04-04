@@ -15,7 +15,7 @@ func newInnerGMPublicKey() innerPublicKey {
 
 func (p *innerGMPublicKey) key(content []byte) (*btcec.PublicKey, error) {
 
-	return nil, fmt.Errorf("sm2 does not suport")
+	return nil, fmt.Errorf("sm2 does not support")
 }
 
 func (p *innerGMPublicKey) prefix() string {

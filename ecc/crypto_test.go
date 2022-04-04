@@ -79,7 +79,7 @@ func TestNewRandomPrivateKey(t *testing.T) {
 	key, err := NewRandomPrivateKey()
 	require.NoError(t, err)
 	// taken from eosiojs-ecc:common.test.js:12
-	assert.Regexp(t, "^5[HJK].*", key.String())
+	assert.Regexp(t, "PVT_GM_.*", key.String())
 }
 
 func TestPrivateKeyValidity(t *testing.T) {

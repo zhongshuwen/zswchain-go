@@ -208,25 +208,28 @@ func TestSignatureUnmarshalChecksum(t *testing.T) {
 }
 
 func TestSignatureVerify_RandomGM(t *testing.T) {
-	privKey, err := NewRandomPrivateKey()
-	require.NoError(t, err)
+	for i := 0; i < 100; i++ {
 
-	pubKey1 := privKey.PublicKey()
+		privKey, err := NewRandomPrivateKey()
+		require.NoError(t, err)
 
-	chainID, err := hex.DecodeString("0000000000000000000000000000000000000000000000000000000000000000")
-	require.NoError(t, err)
+		pubKey1 := privKey.PublicKey()
 
-	payload, err := hex.DecodeString("88e4b25a00006c08ac5b595b000000000000") // without signed transaction bytes
-	require.NoError(t, err)
+		chainID, err := hex.DecodeString("0000000000000000000000000000000000000000000000000000000000000000")
+		require.NoError(t, err)
 
-	digest := sigDigest(chainID, payload, nil)
-	sig, err := privKey.Sign(digest)
-	require.NoError(t, err)
+		payload, err := hex.DecodeString("88e4b25a00006c08ac5b595b000000000000") // without signed transaction bytes
+		require.NoError(t, err)
 
-	pubKey2, err := sig.PublicKey(digest)
-	require.NoError(t, err)
+		digest := sigDigest(chainID, payload, nil)
+		sig, err := privKey.Sign(digest)
+		require.NoError(t, err)
 
-	assert.Equal(t, pubKey1.String(), pubKey2.String())
+		pubKey2, err := sig.PublicKey(digest)
+		require.NoError(t, err)
+
+		assert.Equal(t, pubKey1.String(), pubKey2.String())
+	}
 }
 
 func TestSignatureVerify_WA(t *testing.T) {

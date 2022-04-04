@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/zhongshuwen/zswchain-go/ecc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/zhongshuwen/zswchain-go/ecc"
 )
 
 func TestChecksum256String(t *testing.T) {
@@ -921,3 +921,26 @@ func TestBlob(t *testing.T) {
 		assert.Empty(tt, data)
 	})
 }
+
+func TestUuidUint128Basic(t *testing.T) {
+	var x Uint128
+	assert.NoError(t, x.FromUuidString("146c6129-c69b-4788-a0db-2b422f4a8e7e"))
+	uuidString, err := x.ToUuidString()
+	assert.NoError(t, err)
+
+	assert.Equal(t, "146c6129-c69b-4788-a0db-2b422f4a8e7e", uuidString)
+
+}
+func TestUuidUint128Item(t *testing.T) {
+	var x Uint128
+	assert.NoError(t, x.FromUuidString("0344e995-dbeb-4d36-ba7b-1f02f86035f5"))
+	assert.Equal(t, uint64(12756989429), x.Get40BitId())
+	assert.Equal(t, uint64(13437368010807457269), x.GetTypeACode())
+	uuidString, err := x.ToUuidString()
+	assert.NoError(t, err)
+
+	assert.Equal(t, "0344e995-dbeb-4d36-ba7b-1f02f86035f5", uuidString)
+
+}
+
+//13437368010807457269L

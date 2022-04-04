@@ -3,7 +3,6 @@ package ecc
 import (
 	"fmt"
 
-	"github.com/zhongshuwen/gmsm/sm2"
 	"github.com/zhongshuwen/zswchain-go/libbsuite/btcutil/base58"
 )
 
@@ -21,17 +20,17 @@ func (s *innerGMSignature) verify(content []byte, hash []byte, pubKey PublicKey)
 	if (len(content) - 33) < sigLength {
 		return false
 	}
-	pubKeyInst := sm2.Decompress(pubKey.Content)
+	pubKeyInst := DecompressReal(pubKey.Content)
 	return pubKeyInst.VerifyDigest(hash, content[33:(sigLength+33)])
 }
 
 func (s *innerGMSignature) publicKey(content []byte, hash []byte) (out PublicKey, err error) {
-
 	sigLength := int(content[33+1]) + 2
 	if (len(content) - 33) < sigLength {
 		return out, fmt.Errorf("invalid signature length")
 	}
-	pubKeyInst := sm2.Decompress(content[0:33])
+
+	pubKeyInst := DecompressReal(content[0:33])
 	if pubKeyInst.VerifyDigest(hash, content[33:(sigLength+33)]) {
 		return PublicKey{
 			Curve:   CurveGM,

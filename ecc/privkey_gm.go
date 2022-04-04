@@ -23,6 +23,18 @@ func CompressReal(a *sm2.PublicKey) []byte {
 	return data
 }
 
+func DecompressReal(a []byte) *sm2.PublicKey {
+	aCopy := make([]byte, len(a))
+	copy(aCopy, a)
+	if aCopy[0] == 3 {
+		aCopy[0] = 1
+	} else {
+		aCopy[0] = 0
+	}
+
+	return sm2.Decompress(aCopy)
+}
+
 func (k *innerGMPrivateKey) publicKey() PublicKey {
 	return PublicKey{Curve: CurveGM, Content: CompressReal(&k.privKey.PublicKey), inner: &innerGMPublicKey{}}
 }

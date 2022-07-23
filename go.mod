@@ -3,7 +3,7 @@ module github.com/zhongshuwen/zswchain-go
 go 1.13
 
 require (
-	github.com/google/uuid v1.3.0 // indirect
+	github.com/google/uuid v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/streamingfast/logging v0.0.0-20210811175431-f3b44b61606a
 	github.com/stretchr/testify v1.5.1

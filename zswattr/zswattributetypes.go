@@ -2220,5 +2220,8 @@ func (m *ZSWAttribute) UnmarshalJSON(data []byte) error {
 
 // UnmarshalBinary ...
 func (m *ZSWAttribute) UnmarshalBinary(decoder *zsw.Decoder) error {
+	if m.BaseVariant == nil {
+		m.BaseVariant = &BaseVariant{}
+	}
 	return m.BaseVariant.UnmarshalBinaryVariant(decoder, ZSWAttributeVariant)
 }
